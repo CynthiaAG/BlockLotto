@@ -1,5 +1,5 @@
 # App BlockLotto
----
+
 #### ¿Qué es BlockLotto?
 BlockLotto es un proyecto de final de título (TFT) del Grado en Ingeniería Informática de la Universidad de Las Palmas de Gran Canaria. 
 
