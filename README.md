@@ -1,6 +1,6 @@
 # App BlockLotto
 
-#### ¿Qué es BlockLotto?
+## ¿Qué es BlockLotto?
 BlockLotto es un proyecto de final de título (TFT) del Grado en Ingeniería Informática de la Universidad de Las Palmas de Gran Canaria. 
 
 El objetivo principal de este proyecto es el desarrollo de una app wallet para realizar
@@ -27,14 +27,14 @@ LottoWallet.
 
 Asimismo, la app notificará al usuario si ha ganado en las loterías que ha jugado.
 
-#### Tecnología utilizada
+## Tecnología utilizada
 * Android Studio 
 * Versión de Android utilizada:
   + **Versión:** 6.0
   + **CodeName:** Marshmallow
   + **API:** 23
 
-#### Equipo
+## Equipo
 
 * **Tutorizado por:** José Juan Hernández Cabrera
 * **Desarrollado por:** Cynthia Judith Afonso García
