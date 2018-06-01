@@ -4,70 +4,108 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cynthia.blocklotto.recuperarWallet">
+    tools:context="cynthia.blocklotto.recuperarWallet"
+    android:focusedByDefault="true">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/Establish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="45dp"
-            android:layout_marginTop="54dp"
-            android:text="Recuperar Wallet"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="24dp"
+            android:layout_weight=".02"
+            android:focusedByDefault="true"
+            android:text="Establecer PIN"
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/pin_pass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/Establish"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="182dp"
-            android:ems="10"
-            android:inputType="numberPassword" />
-
         <TextView
             android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/Establish"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
             android:layout_below="@+id/Establish"
-            android:layout_marginTop="31dp"
-            android:text="Introduce la clave para la cartera que deseas recuperar."
+            android:layout_centerHorizontal="true"
+
+            android:layout_marginLeft="30dp"
+            android:layout_weight=".02"
+            android:text="Tu PIN se usará para desbloquear y enviar dinero."
             android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/claveTittle"
-            android:layout_width="wrap_content"
+        <TableLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/pin_pass"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="60dp"
-            android:text="Clave: "
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_weight=".02"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp">
 
-        <Button
-            android:id="@+id/recuperate"
-            android:layout_width="500dp"
+        <TableRow
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="70dp"
-            android:layout_marginLeft="60dp"
-            android:layout_marginRight="60dp"
-            android:background="@drawable/ic_circle_buton"
-            android:backgroundTint="@color/colorAccent"
-            android:text="Recuperar"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            >
 
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/claveTittle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="3dp"
+                    android:text="Introduzca la clave para la cartera que desea recuperar:"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+        </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".0001"
+                >
+
+                <EditText
+                    android:id="@+id/pin_pass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:ems="10"
+                    android:inputType="numberPassword"
+                    android:textAlignment="center" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+                <Button
+                    android:id="@+id/recuperate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/ic_circle_buton"
+                    android:backgroundTint="@color/colorAccent"
+                    android:text="Recuperar"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
