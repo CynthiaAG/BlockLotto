@@ -6,6 +6,8 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/my_lotteries"
+            android:checkable="true"
+            android:checked="true"
             android:icon="@drawable/ic_sorteos_pendientes"
             android:title="Mis sorteos pendientes" />
         <item

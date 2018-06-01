@@ -12,15 +12,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sorteos celebrados"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
         <ListView
             android:id="@+id/history_lotteries_list"
             android:layout_width="match_parent"

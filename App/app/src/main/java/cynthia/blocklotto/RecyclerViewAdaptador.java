@@ -35,7 +35,7 @@ public class RecyclerViewAdaptador extends RecyclerView.Adapter<RecyclerViewAdap
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sorteo, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_lottery, parent, false);
         ViewHolder viewHolder= new ViewHolder(view);
 
         return viewHolder;

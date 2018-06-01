@@ -21,21 +21,27 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.notify);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_my_lotteries()).commit();
+
+      /*  FloatingActionButton fab = findViewById(R.id.notify);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                        // .setAction("Action", null).show();
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.lotteries, new Fragment_notification()).commit();
-                fragmentManager.beginTransaction().replace(R.id.lottoWallet, new Fragment_notification()).commit();
+                fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_notification()).commit();
+                //fragmentManager.beginTransaction().replace(R.id.lottoWallet, new Fragment_notification()).commit();
             }
-        });
+        });*/
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -43,6 +49,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        getSupportActionBar().setTitle("Mis sorteos pendientes");
     }
 
     @Override
@@ -80,53 +89,50 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         if (id == R.id.my_lotteries) {
-            View sorteos = findViewById(R.id.lotteries);
-            sorteos.setVisibility(View.VISIBLE);
-            View lotto= findViewById(R.id.lottoWallet);
-            lotto.setVisibility(View.INVISIBLE);
+            getSupportActionBar().setTitle("Mis sorteos pendientes");
 
-            fragmentManager.beginTransaction().replace(R.id.lotteries, new Fragment_my_lotteries()).commit();
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_my_lotteries()).commit();
 
         } else if (id == R.id.future_lottery) {
-            View sorteos = findViewById(R.id.lotteries);
-            sorteos.setVisibility(View.VISIBLE);
-            View lotto= findViewById(R.id.lottoWallet);
-            lotto.setVisibility(View.INVISIBLE);
+            getSupportActionBar().setTitle("Próximos sorteos");
 
-            fragmentManager.beginTransaction().replace(R.id.lotteries, new Fragment_next_lotteries()).commit();
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_next_lotteries()).commit();
 
         } else if (id == R.id.history_lottery) {
-            View sorteos = findViewById(R.id.lotteries);
-            sorteos.setVisibility(View.VISIBLE);
-            View lotto= findViewById(R.id.lottoWallet);
-            lotto.setVisibility(View.INVISIBLE);
+            getSupportActionBar().setTitle("Sorteos celebrados");
 
-            fragmentManager.beginTransaction().replace(R.id.lotteries, new Fragment_history_lotteries()).commit();
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_history_lotteries()).commit();
 
         } else if (id == R.id.my_wallet) {
-            View sorteos = findViewById(R.id.lotteries);
+            getSupportActionBar().setTitle("Mi Wallet");
+            /*View sorteos = findViewById(R.id.lotteries);
             sorteos.setVisibility(View.INVISIBLE);
             View lotto= findViewById(R.id.lottoWallet);
-            lotto.setVisibility(View.VISIBLE);
+            lotto.setVisibility(View.VISIBLE);*/
 
-            fragmentManager.beginTransaction().replace(R.id.lottoWallet, new Fragment_my_wallet()).commit();
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_my_wallet()).commit();
 
         } else if (id == R.id.my_notifications) {
-            View sorteos = findViewById(R.id.lotteries);
-            sorteos.setVisibility(View.INVISIBLE);
-            View lotto= findViewById(R.id.lottoWallet);
-            lotto.setVisibility(View.VISIBLE);
+            getSupportActionBar().setTitle("Notificaciones");
 
-            fragmentManager.beginTransaction().replace(R.id.lottoWallet, new Fragment_notification()).commit();
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_notification()).commit();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

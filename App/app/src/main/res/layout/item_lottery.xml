@@ -19,8 +19,8 @@
 
             <ImageView
                 android:id="@+id/imgSorteo"
-                android:layout_width="175dp"
-                android:layout_height="175dp"
+                android:layout_width="140dp"
+                android:layout_height="120dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
