@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class recuperarWallet extends AppCompatActivity {
+public class recuperateWallet extends AppCompatActivity {
 
     Button recuperate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recuperar_wallet);
+        setContentView(R.layout.activity_recuperate_wallet);
 
         recuperate= findViewById(R.id.recuperate);
 

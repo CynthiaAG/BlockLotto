@@ -6,14 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class inicio extends AppCompatActivity{
+public class start extends AppCompatActivity{
     Button createWallet;
     Button recuperarWallet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inicio);
+        setContentView(R.layout.activity_start);
 
         createWallet = findViewById(R.id.crear_wallet);
         recuperarWallet= findViewById(R.id.recuperar_wallet);
@@ -29,7 +29,7 @@ public class inicio extends AppCompatActivity{
         recuperarWallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),recuperarWallet.class);
+                Intent intent = new Intent(v.getContext(),recuperateWallet.class);
                 startActivity(intent);
             }
         });

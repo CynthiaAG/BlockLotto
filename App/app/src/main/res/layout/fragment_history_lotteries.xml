@@ -1,8 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cynthia.blocklotto.Fragment02">
+    tools:context="cynthia.blocklotto.Fragment_history_lotteries">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -12,18 +13,18 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Próximos sorteos"
+            android:text="Sorteos celebrados"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/contenedorRecycle"
+        <ListView
+            android:id="@+id/history_lotteries_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="match_parent" />
     </LinearLayout>
+
 </FrameLayout>

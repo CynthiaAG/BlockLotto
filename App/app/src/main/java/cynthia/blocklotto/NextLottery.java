@@ -4,16 +4,16 @@ package cynthia.blocklotto;
  * Created by Cynthia on 31/05/2018.
  */
 
-public class sorteo {
+public class NextLottery {
     private int foto;
     private String name;
     private String date;
 
-    public sorteo() {
+    public NextLottery() {
 
     }
 
-    public sorteo(int foto, String name, String date) {
+    public NextLottery(int foto, String name, String date) {
         this.foto = foto;
         this.name = name;
         this.date = date;

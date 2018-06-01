@@ -1,13 +1,8 @@
 package cynthia.blocklotto;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -35,8 +30,8 @@ public class MainActivity extends AppCompatActivity
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                        // .setAction("Action", null).show();
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.lotteries, new Fragment05()).commit();
-                fragmentManager.beginTransaction().replace(R.id.lottoWallet, new Fragment05()).commit();
+                fragmentManager.beginTransaction().replace(R.id.lotteries, new Fragment_notification()).commit();
+                fragmentManager.beginTransaction().replace(R.id.lottoWallet, new Fragment_notification()).commit();
             }
         });
 
@@ -96,7 +91,7 @@ public class MainActivity extends AppCompatActivity
             View lotto= findViewById(R.id.lottoWallet);
             lotto.setVisibility(View.INVISIBLE);
 
-            fragmentManager.beginTransaction().replace(R.id.lotteries, new Fragment01()).commit();
+            fragmentManager.beginTransaction().replace(R.id.lotteries, new Fragment_my_lotteries()).commit();
 
         } else if (id == R.id.future_lottery) {
             View sorteos = findViewById(R.id.lotteries);
@@ -104,7 +99,7 @@ public class MainActivity extends AppCompatActivity
             View lotto= findViewById(R.id.lottoWallet);
             lotto.setVisibility(View.INVISIBLE);
 
-            fragmentManager.beginTransaction().replace(R.id.lotteries, new Fragment02()).commit();
+            fragmentManager.beginTransaction().replace(R.id.lotteries, new Fragment_next_lotteries()).commit();
 
         } else if (id == R.id.history_lottery) {
             View sorteos = findViewById(R.id.lotteries);
@@ -112,7 +107,7 @@ public class MainActivity extends AppCompatActivity
             View lotto= findViewById(R.id.lottoWallet);
             lotto.setVisibility(View.INVISIBLE);
 
-            fragmentManager.beginTransaction().replace(R.id.lotteries, new Fragment03()).commit();
+            fragmentManager.beginTransaction().replace(R.id.lotteries, new Fragment_history_lotteries()).commit();
 
         } else if (id == R.id.my_wallet) {
             View sorteos = findViewById(R.id.lotteries);
@@ -120,7 +115,7 @@ public class MainActivity extends AppCompatActivity
             View lotto= findViewById(R.id.lottoWallet);
             lotto.setVisibility(View.VISIBLE);
 
-            fragmentManager.beginTransaction().replace(R.id.lottoWallet, new Fragment04()).commit();
+            fragmentManager.beginTransaction().replace(R.id.lottoWallet, new Fragment_my_wallet()).commit();
 
         } else if (id == R.id.my_notifications) {
             View sorteos = findViewById(R.id.lotteries);
@@ -128,7 +123,7 @@ public class MainActivity extends AppCompatActivity
             View lotto= findViewById(R.id.lottoWallet);
             lotto.setVisibility(View.VISIBLE);
 
-            fragmentManager.beginTransaction().replace(R.id.lottoWallet, new Fragment05()).commit();
+            fragmentManager.beginTransaction().replace(R.id.lottoWallet, new Fragment_notification()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

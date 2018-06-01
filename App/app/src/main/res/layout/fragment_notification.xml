@@ -1,9 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frame1"
+    android:id="@+id/frame5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cynthia.blocklotto.Fragment01">
+    tools:context="cynthia.blocklotto.Fragment_notification">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -17,15 +17,11 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mis sorteos pendientes"
+            android:text="Notificaciones"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <ListView
-            android:id="@+id/my_lottery_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
     </LinearLayout>
 
 </FrameLayout>

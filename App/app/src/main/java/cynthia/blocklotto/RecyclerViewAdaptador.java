@@ -16,21 +16,21 @@ import java.util.List;
 public class RecyclerViewAdaptador extends RecyclerView.Adapter<RecyclerViewAdaptador.ViewHolder>{
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView nombre, date;
+        private TextView name, date;
         ImageView foto;
 
         public ViewHolder(View iterView){
             super(iterView);
-            nombre=iterView.findViewById(R.id.nameSorteo);
+            name=iterView.findViewById(R.id.nameSorteo);
             date=iterView.findViewById(R.id.dateSorteo);
             foto= iterView.findViewById(R.id.imgSorteo);
         }
     }
 
-    public List<sorteo> listaSorteo;
+    public List<NextLottery> listNextLottery;
 
-    public RecyclerViewAdaptador(List<sorteo>listaSorteo){
-        this.listaSorteo=listaSorteo;
+    public RecyclerViewAdaptador(List<NextLottery> listNextLottery){
+        this.listNextLottery = listNextLottery;
     }
 
     @Override
@@ -44,13 +44,13 @@ public class RecyclerViewAdaptador extends RecyclerView.Adapter<RecyclerViewAdap
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.nombre.setText(listaSorteo.get(position).getName());
-        holder.date.setText(listaSorteo.get(position).getDate());
-        holder.foto.setImageResource(listaSorteo.get(position).getFoto());
+        holder.name.setText(listNextLottery.get(position).getName());
+        holder.date.setText(listNextLottery.get(position).getDate());
+        holder.foto.setImageResource(listNextLottery.get(position).getFoto());
     }
 
     @Override
     public int getItemCount() {
-        return listaSorteo.size();
+        return listNextLottery.size();
     }
 }
