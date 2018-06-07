@@ -17,13 +17,13 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="7dp"
+        android:layout_weight=".50"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        android:layout_weight=".50"
-        app:srcCompat="@drawable/start" />
+        app:srcCompat="@drawable/logobl" />
 
         <Button
                 android:id="@+id/crear_wallet"
