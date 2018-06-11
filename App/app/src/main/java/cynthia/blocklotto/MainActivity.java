@@ -23,8 +23,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_my_lotteries()).commit();
+
 
       /*  FloatingActionButton fab = findViewById(R.id.notify);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -50,9 +49,24 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        if(savedInstanceState==null){
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_my_lotteries()).commit();
+            getSupportActionBar().setTitle("Mis sorteos pendientes");
+        }else{
+            String p = savedInstanceState.getString("TITLE");
+            getSupportActionBar().setTitle(p);
+        }
 
-        getSupportActionBar().setTitle("Mis sorteos pendientes");
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putString("TITLE", (String) getSupportActionBar().getTitle());
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -103,10 +117,15 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
         if (id == R.id.my_lotteries) {
             getSupportActionBar().setTitle("Mis sorteos pendientes");
-
             fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_my_lotteries()).commit();
+
+        } else if (id == R.id.my_lotteries_filed) {
+            getSupportActionBar().setTitle("Sorteos archivados");
+
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_archived_lottery()).commit();
 
         } else if (id == R.id.future_lottery) {
             getSupportActionBar().setTitle("Próximos sorteos");

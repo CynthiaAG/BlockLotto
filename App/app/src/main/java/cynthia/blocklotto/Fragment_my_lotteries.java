@@ -2,31 +2,39 @@ package cynthia.blocklotto;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toolbar;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Fragment_my_lotteries extends Fragment {
 
-    private Toolbar myToolbar;
-
+    private RecyclerView recyclerViewSorteo;
+    private Adaptor_my_lottery adapterLottery;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_my_lotteries, container, false) ;
 
-
-        String [] values = new String[]{"La CriptoLucky: 2boletos, 3días restantes", "FatBitcoin: 1boleto, 15días restantes" };
-        ListView mylotteries = (ListView) view.findViewById(R.id.my_lottery_list);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, values);
-
-        mylotteries.setAdapter(adapter);
+        recyclerViewSorteo = view.findViewById(R.id.contenedorMyLottery);
+        recyclerViewSorteo.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapterLottery = new Adaptor_my_lottery((getSorteos()));
+        recyclerViewSorteo.setAdapter(adapterLottery);
         return view;
+    }
+
+    public List<MyLottery> getSorteos(){
+        List<MyLottery> MyLotteries = new ArrayList<>();
+
+        MyLotteries.add( new MyLottery( R.drawable.start2, "El Gordo Digital", "22/05/2020", "Archivar"));
+        MyLotteries.add( new MyLottery( R.drawable.buddha_moneda, "FatBitoin", "9/8/2025","Archivar"));
+        MyLotteries.add( new MyLottery( R.drawable.flor, "CryptoLucky", "05/05/2080", "Archivar"));
+        MyLotteries.add( new MyLottery( R.drawable.gato, "Extracoin", "14/7/2060", "Archivar"));
+        return MyLotteries;
     }
 
 }

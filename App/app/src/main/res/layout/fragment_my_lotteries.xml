@@ -12,10 +12,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ListView
-            android:id="@+id/my_lottery_list"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/contenedorMyLottery"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            android:layout_height="wrap_content" />
 
+    </LinearLayout>
 </FrameLayout>

@@ -4,36 +4,21 @@ package cynthia.blocklotto;
  * Created by Cynthia on 31/05/2018.
  */
 
-public class NextLottery {
+public class ArchivedLottery {
     private int foto;
     private String name;
-    private String price;
     private String date;
     private String button;
 
 
-    public NextLottery() {
+    public ArchivedLottery() {
 
     }
 
-    public NextLottery(int foto, String name, String date, String price, String button) {
+    public ArchivedLottery(int foto, String name, String date) {
         this.foto = foto;
         this.name = name;
         this.date = date;
-        this.price=price;
-        this.button=button;
-    }
-
-    public String getPrice(){ return price; }
-
-    public void setPrice(String price){
-        this.price=price;
-    }
-
-    public String getButton(){ return button; }
-
-    public void setButton(String button){
-        this.button=button;
     }
 
     public int getFoto() {
