@@ -61,7 +61,7 @@
                     android:textSize="20sp" />
 
                 <Button
-                    android:id="@+id/buyMyLottery"
+                    android:id="@+id/archived"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp"

@@ -1,5 +1,7 @@
 package cynthia.blocklotto;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,8 @@ public class Adaptor_next_lottery extends RecyclerView.Adapter<Adaptor_next_lott
             foto= iterView.findViewById(R.id.imgSorteo);
             buy= iterView.findViewById(R.id.buy);
         }
+
+        public Button getButton(){ return buy; }
     }
 
     public List<NextLottery> listNextLottery;
@@ -40,8 +44,17 @@ public class Adaptor_next_lottery extends RecyclerView.Adapter<Adaptor_next_lott
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_next_lottery, parent, false);
-        ViewHolder viewHolder= new ViewHolder(view);
+        final ViewHolder viewHolder= new ViewHolder(view);
 
+        Button buy = viewHolder.getButton();
+
+        buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context c = view.getContext();
+                c.startActivity(new Intent(c , BuyLottery.class));
+            }
+        });
         return viewHolder;
     }
 

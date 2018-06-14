@@ -28,6 +28,7 @@ public class MyLottery {
         this.button=button;
     }
 
+
     public int getFoto() {
         return foto;
     }

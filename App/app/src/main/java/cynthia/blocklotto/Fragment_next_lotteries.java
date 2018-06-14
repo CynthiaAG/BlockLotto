@@ -1,5 +1,6 @@
 package cynthia.blocklotto;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ public class Fragment_next_lotteries extends Fragment {
 
     private RecyclerView recyclerViewSorteo;
     private Adaptor_next_lottery adapterLottery;
+    private Button button;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -24,6 +27,7 @@ public class Fragment_next_lotteries extends Fragment {
        recyclerViewSorteo.setLayoutManager(new LinearLayoutManager(getActivity()));
        adapterLottery = new Adaptor_next_lottery((getSorteos()));
        recyclerViewSorteo.setAdapter(adapterLottery);
+
         return view;
     }
 

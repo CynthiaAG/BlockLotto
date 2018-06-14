@@ -15,6 +15,8 @@ public class createWallet extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_wallet);
 
+        getSupportActionBar().setTitle("Crear Wallet");
+
         create= findViewById(R.id.create);
 
         create.setOnClickListener(new View.OnClickListener() {

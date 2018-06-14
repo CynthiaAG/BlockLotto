@@ -43,8 +43,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".createWallet" />
         <activity android:name=".recuperateWallet"></activity>
+
+        <activity android:name=".BuyLottery"
+            android:theme="@style/AppTheme.CustomTheme" >
+        </activity>
     </application>
 
 </manifest>

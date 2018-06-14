@@ -1,9 +1,14 @@
 package cynthia.blocklotto;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +35,10 @@ public class Fragment_my_lotteries extends Fragment {
     public List<MyLottery> getSorteos(){
         List<MyLottery> MyLotteries = new ArrayList<>();
 
-        MyLotteries.add( new MyLottery( R.drawable.start2, "El Gordo Digital", "22/05/2020", "Archivar"));
-        MyLotteries.add( new MyLottery( R.drawable.buddha_moneda, "FatBitoin", "9/8/2025","Archivar"));
+        MyLotteries.add( new MyLottery( R.drawable.flor, "El Gordo Digital", "22/05/2020", "Archivar"));
+        MyLotteries.add( new MyLottery( R.drawable.flor, "FatBitoin", "9/8/2025","Archivar"));
         MyLotteries.add( new MyLottery( R.drawable.flor, "CryptoLucky", "05/05/2080", "Archivar"));
-        MyLotteries.add( new MyLottery( R.drawable.gato, "Extracoin", "14/7/2060", "Archivar"));
+        MyLotteries.add( new MyLottery( R.drawable.flor, "Extracoin", "14/7/2060", "Archivar"));
         return MyLotteries;
     }
 
