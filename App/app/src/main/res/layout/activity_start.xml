@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/gradient"
-    tools:context="cynthia.blocklotto.start">
+    tools:context="cynthia.blocklotto.Start">
 
 
     <ImageView
@@ -35,7 +35,7 @@
                 android:layout_marginBottom="6dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:background="@drawable/ic_circle_buton"
+                android:background="@drawable/shape_circle_buton"
                 android:backgroundTint="@color/colorAccent"
                 android:fontFamily="sans-serif"
                 android:text="Crear nuevo wallet"
@@ -60,7 +60,7 @@
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="6dp"
-                android:background="@drawable/ic_circle_buton"
+                android:background="@drawable/shape_circle_buton"
                 android:backgroundTint="@color/colorAccent"
                 android:text="Recuperar wallet"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"

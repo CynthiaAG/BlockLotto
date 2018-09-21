@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cynthia.blocklotto.recuperateWallet"
+    tools:context="cynthia.blocklotto.action.RecuperateWallet"
     android:focusedByDefault="true">
 
     <LinearLayout
@@ -99,7 +99,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/ic_circle_buton"
+                    android:background="@drawable/shape_circle_buton"
                     android:backgroundTint="@color/colorAccent"
                     android:text="Recuperar"
                     android:textColor="@color/white"

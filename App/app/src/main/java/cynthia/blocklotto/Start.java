@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class start extends AppCompatActivity{
+import cynthia.blocklotto.action.CreateWallet;
+import cynthia.blocklotto.action.RecuperateWallet;
+
+public class Start extends AppCompatActivity{
     Button createWallet;
     Button recuperarWallet;
 
@@ -21,7 +24,7 @@ public class start extends AppCompatActivity{
         createWallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),createWallet.class);
+                Intent intent = new Intent(v.getContext(), CreateWallet.class);
                 startActivity(intent);
             }
         });
@@ -29,7 +32,7 @@ public class start extends AppCompatActivity{
         recuperarWallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),recuperateWallet.class);
+                Intent intent = new Intent(v.getContext(),RecuperateWallet.class);
                 startActivity(intent);
             }
         });

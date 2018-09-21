@@ -19,7 +19,6 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                <!-- <action android:name="android.intent.action.MAIN" /> -->
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -34,21 +33,23 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".start"
+            android:name=".Start"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".createWallet" />
-        <activity android:name=".recuperateWallet"></activity>
+        <activity android:name=".action.CreateWallet" />
+        <activity android:name=".action.RecuperateWallet" />
 
-        <activity android:name=".BuyLottery"
+        <activity android:name=".action.BuyLottery"
             android:theme="@style/AppTheme.CustomTheme" >
+        </activity>
+
+        <activity android:name=".action.SearchLottery">
         </activity>
     </application>
 

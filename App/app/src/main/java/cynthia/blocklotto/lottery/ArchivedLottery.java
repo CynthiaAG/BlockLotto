@@ -1,31 +1,29 @@
-package cynthia.blocklotto;
+package cynthia.blocklotto.lottery;
 
 /**
  * Created by Cynthia on 31/05/2018.
  */
 
-public class CelebratedLottery {
-    private int foto;
+public class ArchivedLottery {
+
+    private int photo;
     private String name;
     private String date;
 
+    public ArchivedLottery() { }
 
-    public CelebratedLottery() {
-
-    }
-
-    public CelebratedLottery(int foto, String name, String date) {
-        this.foto = foto;
+    public ArchivedLottery(int photo, String name, String date) {
+        this.photo = photo;
         this.name = name;
         this.date = date;
     }
 
-    public int getFoto() {
-        return foto;
+    public int getPhoto() {
+        return photo;
     }
 
-    public void setFoto(int foto) {
-        this.foto = foto;
+    public void setPhoto(int photo) {
+        this.photo = photo;
     }
 
     public String getName() {

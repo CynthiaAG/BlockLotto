@@ -1,25 +1,29 @@
-package cynthia.blocklotto;
+package cynthia.blocklotto.action;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
-public class createWallet extends AppCompatActivity {
+import cynthia.blocklotto.MainActivity;
+import cynthia.blocklotto.R;
 
-    Button create;
+public class RecuperateWallet extends AppCompatActivity {
+
+    Button recuperate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_wallet);
+        setContentView(R.layout.activity_recuperate_wallet);
 
-        getSupportActionBar().setTitle("Crear Wallet");
+        getSupportActionBar().setTitle("Recuperar Wallet");
 
-        create= findViewById(R.id.create);
+        recuperate= findViewById(R.id.recuperate);
 
-        create.setOnClickListener(new View.OnClickListener() {
+        recuperate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),MainActivity.class);

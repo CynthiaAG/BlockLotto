@@ -1,9 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frame5"
+    android:id="@+id/frame_MyWallet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cynthia.blocklotto.Fragment_my_wallet">
+    tools:context="cynthia.blocklotto.fragment.Fragment_my_wallet">
 
     <!-- TODO: Update blank fragment layout -->
 

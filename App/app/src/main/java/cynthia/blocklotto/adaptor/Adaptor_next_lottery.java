@@ -1,4 +1,4 @@
-package cynthia.blocklotto;
+package cynthia.blocklotto.adaptor;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,34 +12,23 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import cynthia.blocklotto.action.BuyLottery;
+import cynthia.blocklotto.lottery.NextLottery;
+import cynthia.blocklotto.R;
+
 /**
  * Created by Cynthia on 31/05/2018.
  */
 
 public class Adaptor_next_lottery extends RecyclerView.Adapter<Adaptor_next_lottery.ViewHolder>{
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView name, date, price;
-        ImageView foto;
-        Button buy;
-
-        public ViewHolder(View iterView){
-            super(iterView);
-            name=iterView.findViewById(R.id.nameLottery);
-            date=iterView.findViewById(R.id.dateLottery);
-            price=iterView.findViewById(R.id.priceLottery);
-            foto= iterView.findViewById(R.id.imgSorteo);
-            buy= iterView.findViewById(R.id.buy);
-        }
-
-        public Button getButton(){ return buy; }
-    }
-
-    public List<NextLottery> listNextLottery;
+    private List<NextLottery> listNextLottery;
 
     public Adaptor_next_lottery(List<NextLottery> listNextLottery){
         this.listNextLottery = listNextLottery;
     }
+
+    public List<NextLottery> getListNextLottery(){return listNextLottery;}
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -64,12 +53,29 @@ public class Adaptor_next_lottery extends RecyclerView.Adapter<Adaptor_next_lott
         holder.name.setText(listNextLottery.get(position).getName());
         holder.date.setText(listNextLottery.get(position).getDate());
         holder.price.setText(listNextLottery.get(position).getPrice());
-        holder.buy.setText(listNextLottery.get(position).getButton());
-        holder.foto.setImageResource(listNextLottery.get(position).getFoto());
+        holder.buyButton.setText(listNextLottery.get(position).getButton());
+        holder.foto.setImageResource(listNextLottery.get(position).getPhoto());
     }
 
     @Override
     public int getItemCount() {
         return listNextLottery.size();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder{
+        private TextView name, date, price;
+        private ImageView foto;
+        private Button buyButton;
+
+        public ViewHolder(View iterView){
+            super(iterView);
+            name=iterView.findViewById(R.id.nameNextLottery);
+            date=iterView.findViewById(R.id.dateNextLottery);
+            price=iterView.findViewById(R.id.priceNextLottery);
+            foto= iterView.findViewById(R.id.imgNextLottery);
+            buyButton= iterView.findViewById(R.id.buyButton);
+        }
+
+        public Button getButton(){ return buyButton; }
     }
 }

@@ -1,9 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frame1"
+    android:id="@+id/frame_PendingLottery"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cynthia.blocklotto.Fragment_my_lotteries">
+    tools:context="cynthia.blocklotto.fragment.Fragment_pending_lottery">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/contenedorMyLottery"
+            android:id="@+id/container_PendingLottery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

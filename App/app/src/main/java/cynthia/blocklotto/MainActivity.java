@@ -1,7 +1,8 @@
 package cynthia.blocklotto;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +13,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import cynthia.blocklotto.action.SearchLottery;
+import cynthia.blocklotto.fragment.Fragment_archived_lottery;
+import cynthia.blocklotto.fragment.Fragment_celebrated_lottery;
+import cynthia.blocklotto.fragment.Fragment_pending_lottery;
+import cynthia.blocklotto.fragment.Fragment_my_wallet;
+import cynthia.blocklotto.fragment.Fragment_next_lottery;
+import cynthia.blocklotto.fragment.Fragment_notification;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -20,21 +29,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-
-      /*  FloatingActionButton fab = findViewById(R.id.notify);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                       // .setAction("Action", null).show();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_notification()).commit();
-                //fragmentManager.beginTransaction().replace(R.id.lottoWallet, new Fragment_notification()).commit();
-            }
-        });*/
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         setSupportActionBar(toolbar);
@@ -48,7 +42,7 @@ public class MainActivity extends AppCompatActivity
 
         if(savedInstanceState==null){
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_my_lotteries()).commit();
+            fragmentManager.beginTransaction().replace(R.id.container, new Fragment_pending_lottery()).commit();
             getSupportActionBar().setTitle("Mis sorteos pendientes");
         }else{
             String p = savedInstanceState.getString("TITLE");
@@ -60,7 +54,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-
         savedInstanceState.putString("TITLE", (String) getSupportActionBar().getTitle());
     }
 
@@ -84,17 +77,46 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // Handle action bar item clicks here.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.option_search) {
+            Intent search = new Intent(this, SearchLottery.class);
+            this.startActivity(search);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void itemSelected(int id, FragmentManager fragmentManager, DrawerLayout drawer){
+        switch(id){
+            case R.id.my_lotteries:
+                actionItemSelected("Mis sorteos pendientes", new Fragment_pending_lottery(), fragmentManager);
+                break;
+            case R.id.my_lotteries_filed:
+                actionItemSelected("Sorteos archivados", new Fragment_archived_lottery(), fragmentManager);
+                break;
+            case R.id.future_lottery:
+                actionItemSelected("Próximos sorteos", new Fragment_next_lottery(), fragmentManager);
+               break;
+            case R.id.history_lottery:
+                actionItemSelected("Sorteos celebrados", new Fragment_celebrated_lottery(), fragmentManager);
+                break;
+            case R.id.my_wallet:
+                actionItemSelected("Mi Wallet", new Fragment_my_wallet(), fragmentManager);
+                break;
+            case R.id.my_notifications:
+                actionItemSelected("Notificaciones", new Fragment_notification(), fragmentManager);
+                break;
+        }
+        drawer.closeDrawer(GravityCompat.START);
+    }
+
+
+    public void actionItemSelected(String tittle, Fragment fragment, FragmentManager fragmentManager){
+        getSupportActionBar().setTitle(tittle);
+        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -114,57 +136,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        itemSelected(id, fragmentManager, drawer);
 
-        if (id == R.id.my_lotteries) {
-            getSupportActionBar().setTitle("Mis sorteos pendientes");
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_my_lotteries()).commit();
-
-        } else if (id == R.id.my_lotteries_filed) {
-            getSupportActionBar().setTitle("Sorteos archivados");
-
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_archived_lottery()).commit();
-
-        } else if (id == R.id.future_lottery) {
-            getSupportActionBar().setTitle("Próximos sorteos");
-
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_next_lotteries()).commit();
-
-        } else if (id == R.id.history_lottery) {
-            getSupportActionBar().setTitle("Sorteos celebrados");
-
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_history_lotteries()).commit();
-
-        } else if (id == R.id.my_wallet) {
-            getSupportActionBar().setTitle("Mi Wallet");
-            /*View sorteos = findViewById(R.id.lotteries);
-            sorteos.setVisibility(View.INVISIBLE);
-            View lotto= findViewById(R.id.lottoWallet);
-            lotto.setVisibility(View.VISIBLE);*/
-
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_my_wallet()).commit();
-
-        } else if (id == R.id.my_notifications) {
-            getSupportActionBar().setTitle("Notificaciones");
-
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_notification()).commit();
-        }
-
-        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

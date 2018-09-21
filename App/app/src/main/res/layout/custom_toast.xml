@@ -7,22 +7,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#eff7d483"
-        android:background="@drawable/ic_circle_buton"
+        android:background="@drawable/shape_circle_buton"
         android:orientation="horizontal"
         android:padding="8dp"
         android:gravity="center">
 
         <ImageView
+            android:id="@+id/iconCustomToast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
             android:src="@drawable/ic_check_black_24dp" />
 
         <TextView
-            android:id="@+id/text"
+            android:id="@+id/textToast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFF"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginRight="15dp"
+            android:textColor="#FFF" />
     </LinearLayout>
 </RelativeLayout>
