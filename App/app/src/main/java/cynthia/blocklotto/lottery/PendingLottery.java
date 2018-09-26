@@ -9,21 +9,26 @@ public class PendingLottery {
     private int photo;
     private String name;
     private String date;
-    private String button;
+    private int amountTicket;
+    private String accumulated;
 
     public PendingLottery() { }
 
-    public PendingLottery(int photo, String name, String date, String button) {
+    public PendingLottery(int photo, String name, String date, int amountTicket, String accumulated) {
         this.photo = photo;
         this.name = name;
         this.date = date;
-        this.button=button;
+        this.amountTicket=amountTicket;
+        this.accumulated=accumulated;
     }
 
-    public String getButton(){ return button; }
+    public void setAmountTicket(int amountTicket){ this.amountTicket=amountTicket; }
 
-    public void setButton(String button){
-        this.button=button;
+    public int getAmountTicket(){
+        return amountTicket;
+    }
+    public String getAccumulated(){
+        return accumulated;
     }
 
     public int getPhoto() {

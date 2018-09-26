@@ -35,10 +35,11 @@ public class Fragment_pending_lottery extends Fragment {
     public List<PendingLottery> getSorteos(){
         List<PendingLottery> pendingLotteries = new ArrayList<>();
 
-        pendingLotteries.add( new PendingLottery( R.drawable.flor, "El Gordo Digital", "22/05/2020", "Archivar"));
-        pendingLotteries.add( new PendingLottery( R.drawable.flor, "FatBitoin", "9/8/2025","Archivar"));
-        pendingLotteries.add( new PendingLottery( R.drawable.flor, "CryptoLucky", "05/05/2080", "Archivar"));
-        pendingLotteries.add( new PendingLottery( R.drawable.flor, "Extracoin", "14/7/2060", "Archivar"));
+        pendingLotteries.add( new PendingLottery( R.drawable.flor, "El Gordo Digital", "22/05/2020", 1, "5 b"));
+        pendingLotteries.add( new PendingLottery( R.drawable.flor, "FatBitoin", "9/8/2025",8, "7 b"));
+        pendingLotteries.add( new PendingLottery( R.drawable.flor, "CryptoLucky", "25/04/2050", 2, null));
+        pendingLotteries.add( new PendingLottery( R.drawable.flor, "Extracoin", "14/7/2060", 1, "11 b"));
+        pendingLotteries.add( new PendingLottery( R.drawable.flor, "El Gordo Digital", "18/7/2050", 5, "3 b"));
         return pendingLotteries;
     }
 

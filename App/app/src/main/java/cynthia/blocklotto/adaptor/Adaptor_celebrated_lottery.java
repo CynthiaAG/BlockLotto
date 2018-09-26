@@ -19,6 +19,8 @@ import cynthia.blocklotto.R;
 public class Adaptor_celebrated_lottery extends RecyclerView.Adapter<Adaptor_celebrated_lottery.ViewHolder>{
 
     private List<CelebratedLottery> listCelebratedLottery;
+    private TextView numTicketText;
+    private TextView numTicket;
 
     public Adaptor_celebrated_lottery(List<CelebratedLottery> listCelebratedLottery){
         this.listCelebratedLottery = listCelebratedLottery;
@@ -30,6 +32,8 @@ public class Adaptor_celebrated_lottery extends RecyclerView.Adapter<Adaptor_cel
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_celebrated_lottery, parent, false);
         ViewHolder viewHolder= new ViewHolder(view);
+        numTicketText = (TextView) view.findViewById(R.id.numTicketCelebratedText);
+        numTicket = (TextView) view.findViewById(R.id.numTicketCelebrated);
 
         return viewHolder;
     }
@@ -39,7 +43,19 @@ public class Adaptor_celebrated_lottery extends RecyclerView.Adapter<Adaptor_cel
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.name.setText(listCelebratedLottery.get(position).getName());
         holder.date.setText(listCelebratedLottery.get(position).getDate());
+        controlTicketsArchived(holder, position);
         holder.photo.setImageResource(listCelebratedLottery.get(position).getPhoto());
+    }
+
+    public void controlTicketsArchived(ViewHolder holder, int position){
+        if(listCelebratedLottery.get(position).getUser()==null){
+            numTicketText.setVisibility(View.INVISIBLE);
+            numTicket.setVisibility(View.INVISIBLE);
+        }else{
+            numTicketText.setVisibility(View.VISIBLE);
+            numTicket.setVisibility(View.VISIBLE);
+            holder.numTicketCelebrated.setText(listCelebratedLottery.get(position).getAmount()+"");
+        }
     }
 
     @Override
@@ -48,14 +64,15 @@ public class Adaptor_celebrated_lottery extends RecyclerView.Adapter<Adaptor_cel
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView name, date;
+        private TextView name, date, numTicketCelebrated;
         private ImageView photo;
 
         public ViewHolder(View iterView){
             super(iterView);
             name=iterView.findViewById(R.id.nameCelebratedLottery);
             date=iterView.findViewById(R.id.dateCelebratedLottery);
-            photo= iterView.findViewById(R.id.imgCelebratedLottery);;
+            photo= iterView.findViewById(R.id.imgCelebratedLottery);
+            numTicketCelebrated= iterView.findViewById((R.id.numTicketCelebrated));
         }
     }
 }

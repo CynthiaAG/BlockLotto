@@ -48,18 +48,18 @@ public class Fragment_archived_lottery  extends Fragment{
     public List<ArchivedLottery> getSorteos(){
         List<ArchivedLottery> archivedLotteries = new ArrayList<>();
 
-        archivedLotteries.add( new ArchivedLottery( R.drawable.start2, "El Gordo Digital", "22/05/2020"));
-        archivedLotteries.add( new ArchivedLottery( R.drawable.buddha_moneda, "FatBitoin", "9/8/2025"));
-        archivedLotteries.add( new ArchivedLottery( R.drawable.flor, "CryptoLucky", "05/05/2080"));
-        archivedLotteries.add( new ArchivedLottery( R.drawable.gato, "Extracoin", "14/7/2060"));
-        archivedLotteries.add( new ArchivedLottery( R.drawable.start2, "El Gordo Digital", "22/05/2020"));
-        archivedLotteries.add( new ArchivedLottery( R.drawable.buddha_moneda, "FatBitoin", "9/8/2025"));
-        archivedLotteries.add( new ArchivedLottery( R.drawable.flor, "CryptoLucky", "05/05/2080"));
-        archivedLotteries.add( new ArchivedLottery( R.drawable.gato, "Extracoin", "14/7/2060"));
-        archivedLotteries.add( new ArchivedLottery( R.drawable.start2, "El Gordo Digital", "22/05/2020"));
-        archivedLotteries.add( new ArchivedLottery( R.drawable.buddha_moneda, "FatBitoin", "9/8/2025"));
-        archivedLotteries.add( new ArchivedLottery( R.drawable.flor, "CryptoLucky", "05/05/2080"));
-        archivedLotteries.add( new ArchivedLottery( R.drawable.gato, "Extracoin", "14/7/2060"));
+        archivedLotteries.add( new ArchivedLottery( R.drawable.start2, "El Gordo Digital", "22/05/2020", 8));
+        archivedLotteries.add( new ArchivedLottery( R.drawable.buddha_moneda, "FatBitoin", "9/8/2025", 5));
+        archivedLotteries.add( new ArchivedLottery( R.drawable.flor, "CryptoLucky", "05/05/2080", 1));
+        archivedLotteries.add( new ArchivedLottery( R.drawable.gato, "Extracoin", "14/7/2060", 5));
+        archivedLotteries.add( new ArchivedLottery( R.drawable.start2, "El Gordo Digital", "22/05/2020", 1));
+        archivedLotteries.add( new ArchivedLottery( R.drawable.buddha_moneda, "FatBitoin", "9/8/2025", 1));
+        archivedLotteries.add( new ArchivedLottery( R.drawable.flor, "CryptoLucky", "05/05/2080", 1));
+        archivedLotteries.add( new ArchivedLottery( R.drawable.gato, "Extracoin", "14/7/2060", 1));
+        archivedLotteries.add( new ArchivedLottery( R.drawable.start2, "El Gordo Digital", "22/05/2020", 1));
+        archivedLotteries.add( new ArchivedLottery( R.drawable.buddha_moneda, "FatBitoin", "9/8/2025", 1));
+        archivedLotteries.add( new ArchivedLottery( R.drawable.flor, "CryptoLucky", "05/05/2080", 1));
+        archivedLotteries.add( new ArchivedLottery( R.drawable.gato, "Extracoin", "14/7/2060", 1));
         return archivedLotteries;
     }
 

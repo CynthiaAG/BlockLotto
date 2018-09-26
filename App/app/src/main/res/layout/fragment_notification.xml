@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frame_Notification"
     android:layout_width="match_parent"
@@ -13,6 +14,56 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    </LinearLayout>
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgNotification1"
+                    android:layout_width="76dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_notification" />
+
+                <TextView
+                    android:id="@+id/notification1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ha ganado el sorteo CryptoLucky con fecha: 18/02/2018"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imagNotification2"
+                    android:layout_width="76dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_open_black_24dp" />
+
+                <TextView
+                    android:id="@+id/notification2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="Ha ganado el sorteo FatCoin con fecha: 22/05/2017" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
 </FrameLayout>

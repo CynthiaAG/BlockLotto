@@ -9,14 +9,22 @@ public class CelebratedLottery {
     private int photo;
     private String name;
     private String date;
+    private String user;
+    private int amount;
 
     public CelebratedLottery() { }
 
-    public CelebratedLottery(int photo, String name, String date) {
+    public CelebratedLottery(int photo, String name, String date, String user, int amount) {
         this.photo = photo;
         this.name = name;
         this.date = date;
+        this.user = user;
+        this.amount = amount;
     }
+
+    public int getAmount(){ return amount; }
+
+    public String getUser(){ return user; }
 
     public int getPhoto() {
         return photo;

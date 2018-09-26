@@ -44,18 +44,18 @@ public class Fragment_celebrated_lottery extends Fragment{
     public List<CelebratedLottery> getSorteos(){
         List<CelebratedLottery> celebratedLotteries = new ArrayList<>();
 
-        celebratedLotteries.add( new CelebratedLottery( R.drawable.start2, "El Gordo Digital", "22/05/2020"));
-        celebratedLotteries.add( new CelebratedLottery( R.drawable.buddha_moneda, "FatBitoin", "9/8/2025"));
-        celebratedLotteries.add( new CelebratedLottery( R.drawable.flor, "CryptoLucky", "05/05/2080"));
-        celebratedLotteries.add( new CelebratedLottery( R.drawable.gato, "Extracoin", "14/7/2060"));
-        celebratedLotteries.add( new CelebratedLottery( R.drawable.start2, "El Gordo Digital", "22/05/2020"));
-        celebratedLotteries.add( new CelebratedLottery( R.drawable.buddha_moneda, "FatBitoin", "9/8/2025"));
-        celebratedLotteries.add( new CelebratedLottery( R.drawable.flor, "CryptoLucky", "05/05/2080"));
-        celebratedLotteries.add( new CelebratedLottery( R.drawable.gato, "Extracoin", "14/7/2060"));
-        celebratedLotteries.add( new CelebratedLottery( R.drawable.start2, "El Gordo Digital", "22/05/2020"));
-        celebratedLotteries.add( new CelebratedLottery( R.drawable.buddha_moneda, "FatBitoin", "9/8/2025"));
-        celebratedLotteries.add( new CelebratedLottery( R.drawable.flor, "CryptoLucky", "05/05/2080"));
-        celebratedLotteries.add( new CelebratedLottery( R.drawable.gato, "Extracoin", "14/7/2060"));
+        celebratedLotteries.add( new CelebratedLottery( R.drawable.start2, "El Gordo Digital", "22/05/2020", "Juan" , 1 ));
+        celebratedLotteries.add( new CelebratedLottery( R.drawable.buddha_moneda, "FatBitoin", "9/8/2025", null, 0));
+        celebratedLotteries.add( new CelebratedLottery( R.drawable.flor, "CryptoLucky", "05/05/2080", null, 0));
+        celebratedLotteries.add( new CelebratedLottery( R.drawable.gato, "Extracoin", "14/7/2060", "Juan", 5));
+        celebratedLotteries.add( new CelebratedLottery( R.drawable.start2, "El Gordo Digital", "22/05/2020", null, 0));
+        celebratedLotteries.add( new CelebratedLottery( R.drawable.buddha_moneda, "FatBitoin", "9/8/2025",null, 0));
+        celebratedLotteries.add( new CelebratedLottery( R.drawable.flor, "CryptoLucky", "05/05/2080", null, 0));
+        celebratedLotteries.add( new CelebratedLottery( R.drawable.gato, "Extracoin", "14/7/2060", null, 0));
+        celebratedLotteries.add( new CelebratedLottery( R.drawable.start2, "El Gordo Digital", "22/05/2020", null, 0));
+        celebratedLotteries.add( new CelebratedLottery( R.drawable.buddha_moneda, "FatBitoin", "9/8/2025", null, 0));
+        celebratedLotteries.add( new CelebratedLottery( R.drawable.flor, "CryptoLucky", "05/05/2080", null, 0));
+        celebratedLotteries.add( new CelebratedLottery( R.drawable.gato, "Extracoin", "14/7/2060", null, 0));
 
         return celebratedLotteries;
     }

@@ -10,17 +10,21 @@ public class NextLottery {
     private String name;
     private String price;
     private String date;
-    private String button;
+   // private String button;
+    private String accumulated;
 
     public NextLottery() { }
 
-    public NextLottery(int photo, String name, String date, String price, String button) {
+    public NextLottery(int photo, String name, String date, String price, String button, String accumulated) {
         this.photo = photo;
         this.name = name;
         this.date = date;
         this.price=price;
-        this.button=button;
+     //   this.button=button;
+        this.accumulated=accumulated;
     }
+
+    public String getAccumulated(){ return accumulated; }
 
     public String getPrice(){ return price; }
 
@@ -28,11 +32,11 @@ public class NextLottery {
         this.price=price;
     }
 
-    public String getButton(){ return button; }
+   // public String getButton(){ return button; }
 
-    public void setButton(String button){
+  /*  public void setButton(String button){
         this.button=button;
-    }
+    }*/
 
     public int getPhoto() {
         return photo;

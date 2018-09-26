@@ -9,15 +9,18 @@ public class ArchivedLottery {
     private int photo;
     private String name;
     private String date;
+    private int numTicketArchived;
 
     public ArchivedLottery() { }
 
-    public ArchivedLottery(int photo, String name, String date) {
+    public ArchivedLottery(int photo, String name, String date, int numTicketArchived) {
         this.photo = photo;
         this.name = name;
         this.date = date;
+        this.numTicketArchived=numTicketArchived;
     }
 
+    public int getNumTicketArchived(){ return numTicketArchived;}
     public int getPhoto() {
         return photo;
     }

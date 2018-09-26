@@ -23,6 +23,9 @@ import cynthia.blocklotto.R;
 public class Adaptor_next_lottery extends RecyclerView.Adapter<Adaptor_next_lottery.ViewHolder>{
 
     private List<NextLottery> listNextLottery;
+    private TextView accumulatedTextAux;
+    private TextView accumulatedAux;
+    private Button buy;
 
     public Adaptor_next_lottery(List<NextLottery> listNextLottery){
         this.listNextLottery = listNextLottery;
@@ -34,8 +37,11 @@ public class Adaptor_next_lottery extends RecyclerView.Adapter<Adaptor_next_lott
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_next_lottery, parent, false);
         final ViewHolder viewHolder= new ViewHolder(view);
+        accumulatedTextAux = (TextView) view.findViewById(R.id.accumulatedNextText);
+        accumulatedAux = (TextView) view.findViewById(R.id.accumulatedNext);
+        buy= (Button) view.findViewById(R.id.buyButton);
 
-        Button buy = viewHolder.getButton();
+        //Button buy = viewHolder.getButton();
 
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,8 +59,21 @@ public class Adaptor_next_lottery extends RecyclerView.Adapter<Adaptor_next_lott
         holder.name.setText(listNextLottery.get(position).getName());
         holder.date.setText(listNextLottery.get(position).getDate());
         holder.price.setText(listNextLottery.get(position).getPrice());
-        holder.buyButton.setText(listNextLottery.get(position).getButton());
-        holder.foto.setImageResource(listNextLottery.get(position).getPhoto());
+      //  holder.buyButton.setText(listNextLottery.get(position).getButton());
+        holder.photo.setImageResource(listNextLottery.get(position).getPhoto());
+        controlAccumulated(holder, position);
+
+    }
+
+    private void controlAccumulated(ViewHolder holder, int position){
+        if(listNextLottery.get(position).getAccumulated() == null){
+            accumulatedAux.setVisibility(View.INVISIBLE);
+            accumulatedTextAux.setVisibility(View.INVISIBLE);
+        }else{
+            accumulatedAux.setVisibility(View.VISIBLE);
+            accumulatedTextAux.setVisibility(View.VISIBLE);
+            holder.accumulated.setText(listNextLottery.get(position).getAccumulated());
+        }
     }
 
     @Override
@@ -63,19 +82,20 @@ public class Adaptor_next_lottery extends RecyclerView.Adapter<Adaptor_next_lott
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView name, date, price;
-        private ImageView foto;
-        private Button buyButton;
+        private TextView name, date, price, accumulated;
+        private ImageView photo;
+       // private Button buyButton;
 
         public ViewHolder(View iterView){
             super(iterView);
             name=iterView.findViewById(R.id.nameNextLottery);
             date=iterView.findViewById(R.id.dateNextLottery);
             price=iterView.findViewById(R.id.priceNextLottery);
-            foto= iterView.findViewById(R.id.imgNextLottery);
-            buyButton= iterView.findViewById(R.id.buyButton);
+            photo = iterView.findViewById(R.id.imgNextLottery);
+           // buyButton= iterView.findViewById(R.id.buyButton);
+            accumulated=iterView.findViewById(R.id.accumulatedNext);
         }
 
-        public Button getButton(){ return buyButton; }
+      //  public Button getButton(){ return buyButton; }
     }
 }

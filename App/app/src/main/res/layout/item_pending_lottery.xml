@@ -9,7 +9,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/pending_cardView"
         android:layout_width="match_parent"
-        android:layout_height="179dp"
+        android:layout_height="120dp"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp">
@@ -42,33 +42,77 @@
                 <TextView
                     android:id="@+id/namePendingLottery"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="10dp"
+                    android:layout_height="84dp"
                     android:layout_marginRight="2dp"
                     android:layout_marginTop="5dp"
-                    android:layout_weight="0.9"
+                    android:layout_weight="0.25"
                     android:text="El Gordo Digital"
-                    android:textSize="22sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/datePendingLottery"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="3dp"
                     android:layout_marginRight="2dp"
-                    android:layout_weight="1"
+                    android:layout_weight="0.35"
                     android:text="22/06/2020"
-                    android:textSize="20sp" />
+                    android:textSize="12sp" />
 
-                <Button
-                    android:id="@+id/archivedButton"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="95dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.33"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/TicketPending"
+                        android:layout_width="103dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:text="Boletos:"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/numTicketPending"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:text="2"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1.2"
-                    android:text="Archivar"
-                    android:textStyle="bold" />
+                    android:layout_weight="0.33"
+                    android:layout_marginTop="0dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/accumulatedPendingText"
+                        android:layout_width="69dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:text="Bote: "
+                        android:textAlignment="viewStart"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/accumulatedPending"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_weight="0.2"
+                        android:text="1 b"
+                        android:textAlignment="viewStart"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>

@@ -20,7 +20,6 @@ public class Fragment_next_lottery extends Fragment {
 
     private RecyclerView recyclerViewLottery;
     private Adaptor_next_lottery adapterLottery;
-    private Button button;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,10 +37,10 @@ public class Fragment_next_lottery extends Fragment {
     public List<NextLottery> getSorteos(){
         List<NextLottery> nextLotteries = new ArrayList<>();
 
-        nextLotteries.add( new NextLottery( R.drawable.start2, "El Gordo Digital", "22/05/2020", "0,000001 b", "Comprar"));
-        nextLotteries.add( new NextLottery( R.drawable.buddha_moneda, "FatBitoin", "9/8/2025", "0,0012 b", "Comprar"));
-        nextLotteries.add( new NextLottery( R.drawable.flor, "CryptoLucky", "05/05/2080", "0,00051 b", "Comprar"));
-        nextLotteries.add( new NextLottery( R.drawable.gato, "Extracoin", "14/7/2060", "0,00015 b", "Comprar"));
+        nextLotteries.add( new NextLottery( R.drawable.start2, "El Gordo Digital", "22/05/2020", "0,000001 b", "Comprar", "5 b"));
+        nextLotteries.add( new NextLottery( R.drawable.buddha_moneda, "FatBitoin", "9/8/2025", "0,0012 b", "Comprar", null));
+        nextLotteries.add( new NextLottery( R.drawable.flor, "CryptoLucky", "05/05/2080", "0,00051 b", "Comprar", "8 b"));
+        nextLotteries.add( new NextLottery( R.drawable.gato, "Extracoin", "14/7/2060", "0,00015 b", "Comprar", null));
         return nextLotteries;
     }
 
