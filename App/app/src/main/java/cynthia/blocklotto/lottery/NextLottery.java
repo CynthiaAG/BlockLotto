@@ -1,64 +1,66 @@
 package cynthia.blocklotto.lottery;
 
+import android.widget.Button;
+
+import java.text.DecimalFormat;
+import java.util.Locale;
+
 /**
  * Created by Cynthia on 31/05/2018.
  */
 
 public class NextLottery {
 
+    private int id;
     private int photo;
     private String name;
-    private String price;
+    private double price;
     private String date;
-   // private String button;
-    private String accumulated;
+    private float accumulated;
+    private String information;
 
     public NextLottery() { }
 
-    public NextLottery(int photo, String name, String date, String price, String button, String accumulated) {
+    public NextLottery(int id, int photo, String name, String date, double price, float accumulated, String information) {
+        this.id = id;
         this.photo = photo;
         this.name = name;
         this.date = date;
-        this.price=price;
-     //   this.button=button;
-        this.accumulated=accumulated;
+        this.price = price;
+        this.accumulated = accumulated;
+        this.information = information;
+
     }
 
-    public String getAccumulated(){ return accumulated; }
-
-    public String getPrice(){ return price; }
-
-    public void setPrice(String price){
-        this.price=price;
+    public int getId() {
+        return id;
     }
 
-   // public String getButton(){ return button; }
+    public double getPrice(){ return price; }
 
-  /*  public void setButton(String button){
-        this.button=button;
-    }*/
+    public String getInformation() {
+        return information;
+    }
+
+    public String getPriceBadge(){
+        Locale.setDefault(Locale.US);
+        DecimalFormat num = new DecimalFormat("#,##0.0####");
+        return num.format(price) + " BTC";
+    }
+
+    public String getAccumulated(){
+        return accumulated + " BTC";
+    }
 
     public int getPhoto() {
         return photo;
-    }
-
-    public void setPhoto(int photo) {
-        this.photo = photo;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDate() {
         return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 }

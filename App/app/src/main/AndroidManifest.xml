@@ -49,12 +49,14 @@
             android:theme="@style/AppTheme.CustomTheme" >
         </activity>
 
+        <activity android:name=".InfoLottery"
+            android:theme="@style/AppTheme.CustomTheme" >
+        </activity>
+
         <activity android:name=".action.OperationWallet"
             android:theme="@style/AppTheme.CustomTheme" >
         </activity>
 
-        <activity android:name=".action.SearchLottery">
-        </activity>
     </application>
 
 </manifest>

@@ -9,30 +9,28 @@
             android:id="@+id/my_lotteries"
             android:checkable="true"
             android:checked="true"
-            android:icon="@drawable/ic_pending_lottery"
-            android:title="Mis sorteos pendientes" />
-
-        <item
-            android:id="@+id/my_lotteries_filed"
-            android:icon="@drawable/ic_archived_lottery"
-            android:title="Sorteos archivados" />
-
-        <item
-            android:id="@+id/future_lottery"
-            android:icon="@drawable/ic_next_lottery"
-            android:title="Próximos sorteos" />
-        <item
-            android:id="@+id/history_lottery"
-            android:icon="@drawable/ic_celebrated_lottery"
-            android:title="Sorteos celebrados" />
-
+            android:icon="@drawable/ic_lottery"
+            android:title="Sorteos" />
     </group>
+
     <group android:checkableBehavior="single"
-        android:id="@+id/wallet">
-                    <item
-                        android:id="@+id/my_wallet"
-                        android:icon="@drawable/ic_my_wallet"
-                        android:title="Mi Wallet" />
+        android:id="@+id/walletGroup">
+        <item
+            android:id="@+id/my_wallet"
+            android:icon="@drawable/ic_my_wallet"
+            android:title="Wallet" />
+        <item
+            android:id="@+id/operation_option"
+            android:icon="@drawable/ic_operation"
+            android:title="Operaciones" />
+        <item
+            android:id="@+id/backup_wallet"
+            android:icon="@drawable/ic_backup"
+            android:title="Backup" />
+    </group>
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/notificationGroup">
                     <item
                         android:id="@+id/my_notifications"
                         android:icon="@drawable/ic_notification"

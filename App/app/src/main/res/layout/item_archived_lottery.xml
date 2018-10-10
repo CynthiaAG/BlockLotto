@@ -5,11 +5,12 @@
     android:layout_width="110dp"
     android:layout_height="190dp"
     android:layout_margin="5dp"
-    android:layout_marginRight="2.5dp"
+    android:layout_marginEnd="2.5dp"
     android:layout_weight="0.4"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardCornerRadius="4dp">
+    app:cardCornerRadius="4dp"
+    android:focusable="true">
 
 
     <LinearLayout
@@ -28,14 +29,15 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="0.5"
-            app:srcCompat="@drawable/start2" />
+            app:srcCompat="@drawable/start2"
+            android:contentDescription="photoLottery" />
 
         <TextView
             android:id="@+id/nameArchivedLottery"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="5dp"
-            android:layout_marginRight="2dp"
+            android:layout_marginEnd="2dp"
             android:layout_marginTop="5dp"
             android:layout_weight="0.8"
             android:text="El Gordo Digital"
@@ -48,8 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="1dp"
-            android:layout_marginRight="2dp"
-            android:layout_marginLeft="3dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginStart="3dp"
             android:layout_weight="0.9"
             android:text="22/06/2020"
             android:textSize="12sp" />
@@ -65,8 +67,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginRight="2dp"
-                android:layout_marginLeft="3dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="3dp"
                 android:layout_weight="0.8"
                 android:text="Boletos: "
                 android:textSize="12sp" />
@@ -76,7 +78,7 @@
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginRight="2dp"
+                android:layout_marginEnd="2dp"
                 android:layout_weight="0.8"
                 android:text="5"
                 android:textSize="12sp" />

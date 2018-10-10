@@ -1,8 +1,12 @@
 package cynthia.blocklotto.action;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +31,13 @@ public class BuyLottery extends Activity {
     private Button buy;
     private Button cancel;
     private NumberPicker numberPicker;
+    private View customToast;
+    private int amountTicket;
+    private String priceFinal;
+    private TextView priceTextView;
+    //Lottery
+    private int id;
+    private double price;
 
     private void initialize(){
         size = new DisplayMetrics();
@@ -34,6 +45,15 @@ public class BuyLottery extends Activity {
         buy = findViewById(R.id.buyFinishButton);
         cancel = findViewById(R.id.cancelBuyButton);
         numberPicker = (NumberPicker) findViewById(R.id.numberPickerBuy);
+        priceTextView = findViewById(R.id.totalPrice);
+
+        id = (int) getIntent().getExtras().getSerializable("id");
+        String priceAux = (String) getIntent().getExtras().getSerializable("price");
+        price = Double.parseDouble(priceAux.substring(0, priceAux.length() - 4));
+        priceFinal = price + " BTC";
+
+        amountTicket = 1;
+        priceTextView.setText(priceFinal);
     }
 
     @Override
@@ -69,27 +89,42 @@ public class BuyLottery extends Activity {
     }
 
     private void buyTicket(){
-        //Show confirmation buy toast
         LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.custom_toast,
+        customToast = inflater.inflate(R.layout.custom_toast,
                 (ViewGroup) findViewById(R.id.custom_toast_container));
+        TextView text = (TextView) customToast.findViewById(R.id.textToast);
+        text.setText("Se ha realizado la compra éxitosamente.");
 
-        TextView text = (TextView) layout.findViewById(R.id.textToast);
-        text.setText("Se ha realizado la compra éxitosamente");
-
-        Toast toast = new Toast(getApplicationContext());
-        toast.setView(layout);
-        toast.show();
-        finish();
+        AlertDialog.Builder builder;
+        builder = new AlertDialog.Builder(this);
+        builder.setTitle("Comprar boleto")
+                .setMessage("Estas seguro que quieres comprar " + amountTicket + " boleto(s)?, serán " + priceFinal)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Purchase operation and success message
+                        Toast toast = new Toast(getApplicationContext());
+                        toast.setView(customToast);
+                        toast.show();
+                        finish();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                })
+                .setIcon(R.drawable.ic_warning)
+                .show();
     }
 
     public void numPickerControl(){
-        final TextView price = findViewById(R.id.totalPrice);
-        String amount = price.getText().toString().trim();
+       // String amount = price.getText().toString().trim();
 
         //Remove the badge
-        amount = amount.substring(0, amount.length() - 2);
-        final Double priceTotal= Double.parseDouble(amount);
+       // amount = amount.substring(0, amount.length() - 4);
+       // priceFinal = amount;
+      //  final Double priceTotal= Double.parseDouble(amount);
+
 
         numberPicker.setMaxValue(500);
         numberPicker.setMinValue(1);
@@ -99,10 +134,10 @@ public class BuyLottery extends Activity {
             @Override
              public void onValueChange(NumberPicker picker, int oldVal, int newVal){
                 //Price calculation
-                double finalPrice= picker.getValue() * priceTotal;
-                price.setText(convertString(finalPrice)+ " B");
-
-
+                amountTicket = picker.getValue();
+                double finalPrice= amountTicket * price;
+                priceFinal = convertString(finalPrice) + " BTC";
+                priceTextView.setText(priceFinal);
             }
         });
     }
@@ -110,7 +145,7 @@ public class BuyLottery extends Activity {
     //Transform the double to String without scientific notation
     public static String convertString(double value){
         Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("#,##0.00000");
+        DecimalFormat num = new DecimalFormat("#,##0.0####");
         return num.format(value);
     }
-    }
+}

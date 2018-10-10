@@ -1,5 +1,6 @@
-package cynthia.blocklotto.adaptor;
+package cynthia.blocklotto.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +17,11 @@ import cynthia.blocklotto.R;
  * Created by Cynthia on 31/05/2018.
  */
 
-public class Adaptor_archived_lottery extends RecyclerView.Adapter<Adaptor_archived_lottery.ViewHolder>{
+public class Adapter_archived_lottery extends RecyclerView.Adapter<Adapter_archived_lottery.ViewHolder>{
 
     private List<ArchivedLottery> listArchivedLottery;
 
-    public Adaptor_archived_lottery(List<ArchivedLottery> listArchivedLottery){
+    public Adapter_archived_lottery(List<ArchivedLottery> listArchivedLottery){
         this.listArchivedLottery = listArchivedLottery;
     }
 
@@ -39,7 +40,7 @@ public class Adaptor_archived_lottery extends RecyclerView.Adapter<Adaptor_archi
         holder.name.setText(listArchivedLottery.get(position).getName());
         holder.date.setText(listArchivedLottery.get(position).getDate());
         holder.photo.setImageResource(listArchivedLottery.get(position).getPhoto());
-        holder.numTicketArchived.setText(listArchivedLottery.get(position).getNumTicketArchived()+ "");
+        holder.numTicketArchived.setText(listArchivedLottery.get(position).getNumTicketArchived()+"");
     }
 
     @Override

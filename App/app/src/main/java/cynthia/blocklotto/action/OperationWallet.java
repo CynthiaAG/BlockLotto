@@ -13,7 +13,7 @@ import cynthia.blocklotto.R;
 
 public class OperationWallet extends Activity {
 
-    private DisplayMetrics size;
+   /* private DisplayMetrics size;
     private Button send;
     private Button received;
 
@@ -54,6 +54,6 @@ public class OperationWallet extends Activity {
         else{
             getWindow().setLayout( (int) ((size.widthPixels) * .6), (int) ((size.heightPixels) * .6) );
         }
-    }
+    }*/
 
 }

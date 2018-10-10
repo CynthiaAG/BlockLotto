@@ -1,6 +1,5 @@
 package cynthia.blocklotto;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,10 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import cynthia.blocklotto.action.SearchLottery;
-import cynthia.blocklotto.fragment.Fragment_archived_lottery;
-import cynthia.blocklotto.fragment.Fragment_celebrated_lottery;
-import cynthia.blocklotto.fragment.Fragment_pending_lottery;
+import cynthia.blocklotto.fragment.Fragment_lottery;
 import cynthia.blocklotto.fragment.Fragment_my_wallet;
 import cynthia.blocklotto.fragment.Fragment_next_lottery;
 import cynthia.blocklotto.fragment.Fragment_notification;
@@ -42,8 +38,8 @@ public class MainActivity extends AppCompatActivity
 
         if(savedInstanceState==null){
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.container, new Fragment_pending_lottery()).commit();
-            getSupportActionBar().setTitle("Mis sorteos pendientes");
+            fragmentManager.beginTransaction().replace(R.id.container, new Fragment_lottery()).commit();
+            getSupportActionBar().setTitle("Sorteos");
         }else{
             String p = savedInstanceState.getString("TITLE");
             getSupportActionBar().setTitle(p);
@@ -68,11 +64,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        return false;
     }
 
     @Override
@@ -80,31 +77,29 @@ public class MainActivity extends AppCompatActivity
         // Handle action bar item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.option_search) {
+       /* if (id == R.id.option_search) {
             Intent search = new Intent(this, SearchLottery.class);
             this.startActivity(search);
             return true;
         }
-
+        */
         return super.onOptionsItemSelected(item);
     }
+
 
     public void itemSelected(int id, FragmentManager fragmentManager, DrawerLayout drawer){
         switch(id){
             case R.id.my_lotteries:
-                actionItemSelected("Mis sorteos pendientes", new Fragment_pending_lottery(), fragmentManager);
-                break;
-            case R.id.my_lotteries_filed:
-                actionItemSelected("Sorteos archivados", new Fragment_archived_lottery(), fragmentManager);
-                break;
-            case R.id.future_lottery:
-                actionItemSelected("Próximos sorteos", new Fragment_next_lottery(), fragmentManager);
-               break;
-            case R.id.history_lottery:
-                actionItemSelected("Sorteos celebrados", new Fragment_celebrated_lottery(), fragmentManager);
+                actionItemSelected("Sorteos", new Fragment_lottery(), fragmentManager);
                 break;
             case R.id.my_wallet:
-                actionItemSelected("Mi Wallet", new Fragment_my_wallet(), fragmentManager);
+                actionItemSelected("Wallet", new Fragment_my_wallet(), fragmentManager);
+                break;
+            case R.id.operation_option:
+                actionItemSelected("Operaciones", new Fragment_next_lottery(), fragmentManager);
+               break;
+            case R.id.backup_wallet:
+                actionItemSelected("Backup", new Fragment_my_wallet(), fragmentManager);
                 break;
             case R.id.my_notifications:
                 actionItemSelected("Notificaciones", new Fragment_notification(), fragmentManager);

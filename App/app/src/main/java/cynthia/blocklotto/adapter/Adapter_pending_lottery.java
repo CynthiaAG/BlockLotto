@@ -1,6 +1,7 @@
-package cynthia.blocklotto.adaptor;
+package cynthia.blocklotto.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +9,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
+import cynthia.blocklotto.InfoLottery;
 import cynthia.blocklotto.lottery.PendingLottery;
 import cynthia.blocklotto.R;
 
@@ -19,13 +20,14 @@ import cynthia.blocklotto.R;
  * Created by Cynthia on 31/05/2018.
  */
 
-public class Adaptor_pending_lottery extends RecyclerView.Adapter<Adaptor_pending_lottery.ViewHolder>{
+public class Adapter_pending_lottery extends RecyclerView.Adapter<Adapter_pending_lottery.ViewHolder>{
 
     private List<PendingLottery> listPendingLottery;
     private TextView accumulatedTextAux;
     private TextView accumulatedAux;
+    private Button info;
 
-    public Adaptor_pending_lottery(List<PendingLottery> listPendingLottery){
+    public Adapter_pending_lottery(List<PendingLottery> listPendingLottery){
         this.listPendingLottery = listPendingLottery;
     }
 
@@ -34,10 +36,33 @@ public class Adaptor_pending_lottery extends RecyclerView.Adapter<Adaptor_pendin
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pending_lottery, parent, false);
-        ViewHolder viewHolder= new ViewHolder(view);
-        accumulatedTextAux = (TextView) view.findViewById(R.id.accumulatedPendingText);
-        accumulatedAux = (TextView) view.findViewById(R.id.accumulatedPending);
+        final ViewHolder viewHolder= new ViewHolder(view);
+
+        info= (Button) view.findViewById(R.id.infoPendingButton);
+
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context c = view.getContext();
+                Intent intent = new Intent(c , InfoLottery.class);
+                final int position = viewHolder.getAdapterPosition();
+                sendElements(intent, position, "Pending");
+                c.startActivity(intent);
+            }
+        });
         return viewHolder;
+    }
+
+    private void sendElements(Intent intent, int position, String type){
+        intent.putExtra("type", type);
+        intent.putExtra("id", listPendingLottery.get(position).getId());
+        intent.putExtra("date", listPendingLottery.get(position).getDate());
+        intent.putExtra("name", listPendingLottery.get(position).getName());
+        intent.putExtra("info", listPendingLottery.get(position).getInformation());
+        intent.putExtra("bot", listPendingLottery.get(position).getAccumulated());
+        intent.putExtra("price", listPendingLottery.get(position).getPriceBadge());
+        intent.putExtra("amount",listPendingLottery.get(position).getAmountTicket());
+        intent.putExtra("priceFinal", listPendingLottery.get(position).getPriceTotal());
     }
 
     @Override
@@ -46,10 +71,11 @@ public class Adaptor_pending_lottery extends RecyclerView.Adapter<Adaptor_pendin
         holder.date.setText(listPendingLottery.get(position).getDate());
         holder.photo.setImageResource(listPendingLottery.get(position).getPhoto());
         holder.numTickets.setText(listPendingLottery.get(position).getAmountTicket()+"");
-        controlAccumulated(holder, position);
+        holder.accumulated.setText(listPendingLottery.get(position).getAccumulated());
+        //controlAccumulated(holder, position);
     }
 
-    private void controlAccumulated(ViewHolder holder, int position){
+    /*private void controlAccumulated(ViewHolder holder, int position){
         if(listPendingLottery.get(position).getAccumulated() == null){
             accumulatedAux.setVisibility(View.INVISIBLE);
             accumulatedTextAux.setVisibility(View.INVISIBLE);
@@ -58,7 +84,7 @@ public class Adaptor_pending_lottery extends RecyclerView.Adapter<Adaptor_pendin
             accumulatedTextAux.setVisibility(View.VISIBLE);
             holder.accumulated.setText(listPendingLottery.get(position).getAccumulated()+"");
         }
-    }
+    }*/
     @Override
     public int getItemCount() {
         return listPendingLottery.size();
