@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cynthia.blocklotto.action.wallet.recuperation.TwentyFourWords"
+    android:focusedByDefault="true">
+
+    <TextView
+        android:id="@+id/title24WordsRecuperation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
+        android:text="Introduzca las veinticuatro palabras de seguridad correspondiente a su wallet:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/info24WordsRecuperation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/title24WordsRecuperation"
+        android:text="Asegúrese de escribirlas en el orden correcto con un espacio de separación entre cada palabra."
+        android:textSize="16sp"/>
+
+    <EditText
+        android:id="@+id/twentyFourWordsIntroduced"
+        android:layout_width="match_parent"
+        android:layout_height="109dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/info24WordsRecuperation"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/buttonOkRecuperation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/shape_circle_buton"
+        android:backgroundTint="@color/colorAccent"
+        android:drawableRight="@drawable/ic_continue"
+        android:layout_gravity="bottom|center"
+        android:text="Continuar"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

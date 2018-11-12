@@ -1,5 +1,6 @@
 package cynthia.blocklotto;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,11 +12,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-import cynthia.blocklotto.fragment.Fragment_lottery;
-import cynthia.blocklotto.fragment.Fragment_my_wallet;
-import cynthia.blocklotto.fragment.Fragment_next_lottery;
-import cynthia.blocklotto.fragment.Fragment_notification;
+import com.google.android.gms.ads.MobileAds;
+
+import cynthia.blocklotto.conection.ServiceConection;
+import cynthia.blocklotto.fragment.about.Fragment_about;
+import cynthia.blocklotto.fragment.lottery.Fragment_lottery;
+import cynthia.blocklotto.fragment.operation.Fragment_operation;
+import cynthia.blocklotto.fragment.wallet.Fragment_my_wallet;
+import cynthia.blocklotto.fragment.notification.Fragment_notification;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -24,6 +30,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -53,15 +60,15 @@ public class MainActivity extends AppCompatActivity
         savedInstanceState.putString("TITLE", (String) getSupportActionBar().getTitle());
     }
 
-
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-        }
+        }*/
+        moveTaskToBack(true);
     }
 
 
@@ -71,7 +78,7 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         return false;
     }
-
+/*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here.
@@ -83,9 +90,9 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
         */
-        return super.onOptionsItemSelected(item);
+      /*  return super.onOptionsItemSelected(item);
     }
-
+*/
 
     public void itemSelected(int id, FragmentManager fragmentManager, DrawerLayout drawer){
         switch(id){
@@ -96,13 +103,16 @@ public class MainActivity extends AppCompatActivity
                 actionItemSelected("Wallet", new Fragment_my_wallet(), fragmentManager);
                 break;
             case R.id.operation_option:
-                actionItemSelected("Operaciones", new Fragment_next_lottery(), fragmentManager);
+                actionItemSelected("Operaciones", new Fragment_operation(), fragmentManager);
                break;
-            case R.id.backup_wallet:
-                actionItemSelected("Backup", new Fragment_my_wallet(), fragmentManager);
-                break;
+           /* case R.id.backup_wallet:
+                actionItemSelected("Copia de seguridad", new Fragment_backup(), fragmentManager);
+                break;*/
             case R.id.my_notifications:
                 actionItemSelected("Notificaciones", new Fragment_notification(), fragmentManager);
+                break;
+            case R.id.about_aplication:
+                actionItemSelected("Acerca de", new Fragment_about(), fragmentManager);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
@@ -135,4 +145,5 @@ public class MainActivity extends AppCompatActivity
 
         return true;
     }
+
 }

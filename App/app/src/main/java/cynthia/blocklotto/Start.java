@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import cynthia.blocklotto.action.CreateWallet;
-import cynthia.blocklotto.action.RecuperateWallet;
+import cynthia.blocklotto.action.wallet.creation.CreationWallet;
+import cynthia.blocklotto.action.wallet.recuperation.TwentyFourWords;
 
 public class Start extends AppCompatActivity{
     Button createWallet;
@@ -16,7 +16,9 @@ public class Start extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_start);
+
 
         createWallet = findViewById(R.id.crear_wallet);
         recuperarWallet= findViewById(R.id.recuperar_wallet);
@@ -24,21 +26,19 @@ public class Start extends AppCompatActivity{
         createWallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), CreateWallet.class);
+                Intent intent = new Intent(v.getContext(), CreationWallet.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
             }
         });
 
         recuperarWallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),RecuperateWallet.class);
+                Intent intent = new Intent(v.getContext(),TwentyFourWords.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
             }
         });
-
-
-
-
     }
 }

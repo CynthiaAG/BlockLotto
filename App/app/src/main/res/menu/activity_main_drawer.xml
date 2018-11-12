@@ -23,10 +23,10 @@
             android:id="@+id/operation_option"
             android:icon="@drawable/ic_operation"
             android:title="Operaciones" />
-        <item
+   <!--     <item
             android:id="@+id/backup_wallet"
             android:icon="@drawable/ic_backup"
-            android:title="Backup" />
+            android:title="Copia de seguridad" /> !-->
     </group>
 
     <group android:checkableBehavior="single"
@@ -35,6 +35,15 @@
                         android:id="@+id/my_notifications"
                         android:icon="@drawable/ic_notification"
                         android:title="Notificaciones" />
+
+    </group>
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/helpGroup">
+        <item
+            android:id="@+id/about_aplication"
+            android:icon="@drawable/ic_info_drawer"
+            android:title="Acerca de" />
 
     </group>
 

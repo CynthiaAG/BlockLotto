@@ -3,6 +3,8 @@ package cynthia.blocklotto.lottery;
 import java.text.DecimalFormat;
 import java.util.Locale;
 
+import cynthia.blocklotto.R;
+
 /**
  * Created by Cynthia on 31/05/2018.
  */
@@ -14,22 +16,22 @@ public class PendingLottery {
     private String name;
     private String date;
     private int amountTicket;
-    private float accumulated;
+    private float award;
     private String information;
     private double price;
     private String priceTotal;
 
     public PendingLottery() { }
 
-    public PendingLottery(int id, int photo, String name, String date, int amountTicket, float accumulated, String information, double price) {
+    public PendingLottery(int id, String name, String date, int amountTicket, float award, String information, double price) {
         this.id = id;
-        this.photo = photo;
         this.name = name;
         this.date = date;
         this.amountTicket = amountTicket;
-        this.accumulated = accumulated;
+        this.award = award;
         this.information = information;
         this.price = price;
+        setPhoto();
     }
 
     public void setPriceTotal(String priceTotal) {
@@ -65,8 +67,28 @@ public class PendingLottery {
         return amountTicket;
     }
 
-    public String getAccumulated(){
-        return accumulated + " BTC";
+    public String getAward(){
+        return award + " BTC";
+    }
+
+    private void setPhoto(){
+        switch (name){
+            case "CryptoLucky":
+                photo = R.drawable.cryptolucky;
+                break;
+
+            case "ExtraCoin":
+                photo = R.drawable.extracoin;
+                break;
+
+            case "Lotto Boom":
+                photo = R.drawable.lottoboom;
+                break;
+
+            case "RaffleCoin":
+                photo = R.drawable.rafflecoin;
+                break;
+        }
     }
 
     public int getPhoto() {

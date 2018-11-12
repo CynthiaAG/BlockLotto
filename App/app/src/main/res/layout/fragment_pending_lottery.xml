@@ -4,14 +4,21 @@
     android:id="@+id/frame_PendingLottery"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cynthia.blocklotto.fragment.Fragment_pending_lottery"
+    tools:context="cynthia.blocklotto.fragment.lottery.Fragment_pending_lottery"
     android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/container_PendingLottery"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipePendingLottery"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/container_PendingLottery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

@@ -94,7 +94,7 @@
                     android:layout_gravity="left"
                     android:layout_marginLeft="20dp"
                     android:focusedByDefault="true"
-                    android:text="Bote: "
+                    android:text="Premio: "
                     android:textColor="@color/colorSecondary"
                     android:textSize="14sp"
                     android:textStyle="bold" />

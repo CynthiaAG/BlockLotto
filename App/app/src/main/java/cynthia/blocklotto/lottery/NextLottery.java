@@ -1,9 +1,9 @@
 package cynthia.blocklotto.lottery;
 
-import android.widget.Button;
-
 import java.text.DecimalFormat;
 import java.util.Locale;
+
+import cynthia.blocklotto.R;
 
 /**
  * Created by Cynthia on 31/05/2018.
@@ -16,24 +16,44 @@ public class NextLottery {
     private String name;
     private double price;
     private String date;
-    private float accumulated;
+    private float award;
     private String information;
 
     public NextLottery() { }
 
-    public NextLottery(int id, int photo, String name, String date, double price, float accumulated, String information) {
+    public NextLottery(int id, String name, String date, double price, float award, String information) {
         this.id = id;
-        this.photo = photo;
         this.name = name;
         this.date = date;
         this.price = price;
-        this.accumulated = accumulated;
+        this.award = award;
         this.information = information;
+        setPhoto();
 
     }
 
     public int getId() {
         return id;
+    }
+
+    private void setPhoto(){
+        switch (name){
+            case "CryptoLucky":
+                photo = R.drawable.cryptolucky;
+                break;
+
+            case "ExtraCoin":
+                photo = R.drawable.extracoin;
+                break;
+
+            case "Lotto Boom":
+                photo = R.drawable.lottoboom;
+                break;
+
+            case "RaffleCoin":
+                photo = R.drawable.rafflecoin;
+                break;
+        }
     }
 
     public double getPrice(){ return price; }
@@ -48,8 +68,8 @@ public class NextLottery {
         return num.format(price) + " BTC";
     }
 
-    public String getAccumulated(){
-        return accumulated + " BTC";
+    public String getAward(){
+        return award + " BTC";
     }
 
     public int getPhoto() {
