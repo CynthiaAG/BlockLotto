@@ -8,22 +8,30 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import cynthia.blocklotto.MainActivity;
 import cynthia.blocklotto.R;
+import cynthia.blocklotto.ResultFromJson;
 import cynthia.blocklotto.action.wallet.creation.TwentyFourWords;
+import cynthia.blocklotto.conection.Conection;
+import cynthia.blocklotto.conection.ConectionResponse;
 
 public class RecuperationWallet extends AppCompatActivity {
 
     private Button recuperate;
     private TextView message;
     private EditText pin;
-    private String twentyFourString;
+    private String pass;
+    private View view;
 
 
     @Override
@@ -42,27 +50,63 @@ public class RecuperationWallet extends AppCompatActivity {
         recuperate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                twentyFourString = pin.getText().toString().trim();
-                if(TextUtils.isEmpty(twentyFourString) || twentyFourString.length()<8) {
+                pass = pin.getText().toString().trim();
+                if(TextUtils.isEmpty(pass) || pass.length()<8) {
                     message.setTextColor(Color.parseColor("#FFE7150A"));
                     message.setError("El PIN debe tener mínimo 8 caracteres.");
                 }else {
                     //Process Recuperate Wallet and passing to the createDataFile() the address, pub and id.
-                    createDataFile();
-                    Intent intent = new Intent(v.getContext(), MainActivity.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
+                    recuperate.setEnabled(false);
+                    String twentyFourWordsString = (String) getIntent().getExtras().getSerializable("24-wordsRecuperate");
+                    view = v;
+                    controlRecuperationWallet(pass, convertTwentyFourWordsToJSON(twentyFourWordsString));
+
                 }
             }
         });
     }
 
-    private void createDataFile(){
+    private String convertTwentyFourWordsToJSON(String twentyWords){
+        String[] res= twentyWords.split(" ");
+        String result="";
+        for (int i = 0; i < res.length; i++) {
+            result = result + "\"" + res[i] + "\"" + "," + " ";
+        }
+        result= "[" + result.substring(0, result.length()-2) + "]";
+        return result;
+    }
+
+    private void controlRecuperationWallet(String pass, String twentyFourWords){
+        Conection con = new Conection();
+        con.recuperateWallet(pass, twentyFourWords, getBaseContext());
+
+        //0 id, 1 pub, 2 address
+        String [] data = con.getResultRecuperateWallet();
+        if(data != null){
+            createDataFile(data[0], data[1], data[2]);
+            Intent intent = new Intent(view.getContext(), MainActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
+        }else{
+            LayoutInflater inflater = getLayoutInflater();
+            View customToast= inflater.inflate(R.layout.custom_toast,
+                    (ViewGroup) findViewById(R.id.custom_toast_container));
+            TextView text = (TextView) customToast.findViewById(R.id.textToast);
+            text.setText("Las 24 palabras de seguridad no coinciden con ningún wallet. Inténtelo de nuevo.");
+            Toast toast = new Toast(getApplicationContext());
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setView(customToast);
+            toast.show();
+
+            Intent intent = new Intent(view.getContext(), cynthia.blocklotto.action.wallet.recuperation.TwentyFourWords.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
+        }
+    }
+
+    private void createDataFile(String id, String pub, String address){
         SharedPreferences preference = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
-        //Obtaining the address, pub and id for wallet
-        String address = "dirección de prueba";
-        String pub = "pub de prueba";
-        String id = "id de prueba";
 
         SharedPreferences.Editor editor = preference.edit();
         editor.putString("address", address);
@@ -77,4 +121,6 @@ public class RecuperationWallet extends AppCompatActivity {
         super.onBackPressed();
         return false;
     }
+
+
 }

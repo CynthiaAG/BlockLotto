@@ -1,6 +1,11 @@
 package cynthia.blocklotto.notification;
 
+import android.annotation.SuppressLint;
+
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import cynthia.blocklotto.R;
@@ -8,56 +13,111 @@ import cynthia.blocklotto.R;
 public class Notification {
 
     private int id;
-    private int icon;
-    private String concept;
+    private String codWallet;
     private String date;
-    private double amount;
-    private String type;
+    private String winningNumber;
+    private String name;
+    private double award;
+    private int readed;
 
-    public Notification(int id, String concept, String date, double amount, String type){
+    private int icon;
+
+    private final double satoshi = 0.00000001;
+
+    public Notification(int id, String codWallet, String date, String winningNumber, String name, double award, int readed) {
         this.id = id;
-        this.concept = concept;
+        this.codWallet = codWallet;
         this.date = date;
-        this.amount = amount;
-        setType(type);
+        this.winningNumber = winningNumber;
+        this.name = name;
+        this.award = award;
+        this.readed = readed;
     }
 
     public int getId(){ return id; }
 
-    public int getIcon() {
-        return icon;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCodWallet() {
+        return codWallet;
+    }
+
+    public void setCodWallet(String codWallet) {
+        this.codWallet = codWallet;
     }
 
     public String getDate() {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date fechaDate = null;
+
+        try {
+            fechaDate = formato.parse(date);
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            String dateObj = format.format(fechaDate);
+            return dateObj;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return date;
     }
 
-    public String getConcept() {
-        return concept;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public double getAmount() {
-        return amount;
+    public String getWinningNumber() {
+        return winningNumber;
     }
 
-    public String getType() {
-        return type;
+    public void setWinningNumber(String winningNumber) {
+        this.winningNumber = winningNumber;
     }
 
-    public void setType(String type) {
-        this.type = type;
-        //temporary
-        if(type.equals("read")){
+    public String getName() {
+        return "Ha ganado el premio " + name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getAward() {
+        Locale.setDefault(Locale.US);
+        DecimalFormat num = new DecimalFormat("#,##0.0#####");
+        return Double.parseDouble(num.format((award*satoshi)));
+    }
+
+    public void setAward(double award) {
+        this.award = award;
+    }
+
+    public String getAwardBadge(){
+        Locale.setDefault(Locale.US);
+        DecimalFormat num = new DecimalFormat("#,##0.0####");
+        String result = num.format(award*satoshi);
+        return result + " BTC";
+    }
+
+    public int getReaded() {
+        return readed;
+    }
+
+    public void setReaded(int readed) {
+        this.readed = readed;
+    }
+
+    public void setIcon() {
+        if(readed == 1){
             icon= R.drawable.ic_notification_open;
         }else{
             icon = R.drawable.ic_notification_close;
         }
     }
 
-    public String getAmountBadge(){
-        Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("#,##0.0####");
-        String result = num.format(amount);
-        return result + " BTC";
+    public int getIcon() {
+        setIcon();
+        return icon;
     }
 }

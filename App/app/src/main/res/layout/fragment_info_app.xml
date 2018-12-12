@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/versionAp"
         android:gravity="center"
-        android:text="2017    BlockLottoTeam"
+        android:text="2018    BlockLottoTeam"
         android:textColor="@color/accentLight"
         android:textSize="18sp"
         android:layout_marginTop="15dp"/>

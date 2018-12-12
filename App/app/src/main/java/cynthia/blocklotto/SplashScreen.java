@@ -40,27 +40,11 @@ public class SplashScreen extends AppCompatActivity {
         if((!address.equals("-1")) && (!pub.equals("-1")) && (!id.equals("-1"))){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
-
             overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
         }else{
             Intent intent = new Intent(getApplicationContext(), Start.class);
             startActivity(intent);
             overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
         }
-    }
-
-     @Override
-     public void onResume(){
-        super.onResume();
-     }
-    @Override
-    public void onStart() {
-        super.onStart();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                checkDataFile();
-            }
-        }, 4007);
     }
 }

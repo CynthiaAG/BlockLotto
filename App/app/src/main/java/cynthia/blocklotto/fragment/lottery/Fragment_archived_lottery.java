@@ -9,29 +9,37 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import cynthia.blocklotto.ResultFromJson;
 import cynthia.blocklotto.action.lottery.InfoLottery;
+import cynthia.blocklotto.conection.Conection;
+import cynthia.blocklotto.conection.ConectionResponse;
 import cynthia.blocklotto.lottery.ArchivedLottery;
 import cynthia.blocklotto.R;
 import cynthia.blocklotto.adapter.lottery.Adapter_archived_lottery;
+import cynthia.blocklotto.lottery.PendingLottery;
 
 /**
  * Created by Cynthia on 11/06/2018.
  */
 
-public class Fragment_archived_lottery  extends Fragment{
+public class Fragment_archived_lottery  extends Fragment implements ConectionResponse {
 
     private RecyclerView recyclerViewLottery;
     private Adapter_archived_lottery adapterLottery;
@@ -39,7 +47,10 @@ public class Fragment_archived_lottery  extends Fragment{
     private SwipeRefreshLayout swipeRefresh;
     private boolean priceDesc;
     private boolean priceAsc;
-    private boolean dateRecent;
+    private boolean sortDate;
+    private boolean creation;
+    private TextView notFound;
+    private ProgressBar progressBar;
     private View view;
 
     private Bundle savedInstanceState;
@@ -48,11 +59,20 @@ public class Fragment_archived_lottery  extends Fragment{
         recyclerViewLottery = view.findViewById(R.id.container_archivedLottery);
         swipeRefresh = view.findViewById(R.id.swipeArchivedLottery);
         swipeRefresh.setColorSchemeResources(R.color.colorSecondary, R.color.colorButton, R.color.colorAccent);
-        adapterLottery = new Adapter_archived_lottery((getLotteries()));
-        dateRecent=false;
+        archivedLotteries = new ArrayList<>();
+        notFound = view.findViewById(R.id.archivedEmpty);
+        progressBar = view.findViewById(R.id.progress_archivedLottery);
+        progressBar.setVisibility(View.VISIBLE);
+
+        getLotteries();
+        adapterLottery = new Adapter_archived_lottery(archivedLotteries);
+        sortDate=true;
+        creation = true;
         priceAsc=false;
         priceDesc=false;
+
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,17 +87,18 @@ public class Fragment_archived_lottery  extends Fragment{
         return view;
     }
 
+    private void getLotteries(){
+        Conection con = new Conection();
+        con.conectionResponse=this;
+        con.getCelebratedLotteries(getContext());
+
+    }
+
     private void controlSwipe(){
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(priceAsc){
-                    sortPriceAsc();
-                }else if(priceDesc){
-                    sortPriceDesc();
-                }else{
-                    sortDate();
-                }
+                getLotteries();
                 swipeRefresh.setRefreshing(false);
             }
         });
@@ -87,41 +108,48 @@ public class Fragment_archived_lottery  extends Fragment{
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && (savedInstanceState!=null)) {
-            // Refresh your fragment here
             directionControl();
             getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+        }else if(creation && isVisibleToUser){
+            priceAsc = false;
+            priceDesc = false;
+            sortDate = true;
+            getLotteries();
         }
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig)
-    {
+    public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         directionControl();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here.
+        item.setChecked(!item.isChecked());
+
         int id = item.getItemId();
 
         if (id == R.id.sort_price_asc) {
+            progressBar.setVisibility(View.VISIBLE);
             priceAsc=true;
             priceDesc=false;
-            dateRecent=false;
-            sortPriceAsc();
+            sortDate=false;
+            getLotteries();
             return true;
         }else if(id== R.id.sort_price_desc){
+            progressBar.setVisibility(View.VISIBLE);
             priceAsc=false;
             priceDesc=true;
-            dateRecent=false;
-            sortPriceDesc();
+            sortDate=false;
+            getLotteries();
             return true;
         }else if(id == R.id.sort_date){
+            progressBar.setVisibility(View.VISIBLE);
             priceAsc=false;
             priceDesc=false;
-            dateRecent=true;
-            sortDate();
+            sortDate=true;
+            getLotteries();
             return true;
         }
 
@@ -177,8 +205,11 @@ public class Fragment_archived_lottery  extends Fragment{
         intent.putExtra("info", adapterLottery.getListArchivedLottery().get(position).getInformation());
         intent.putExtra("award", adapterLottery.getListArchivedLottery().get(position).getAward());
         intent.putExtra("priceBadge", adapterLottery.getListArchivedLottery().get(position).getPriceBadge());
-        intent.putExtra("amount", adapterLottery.getListArchivedLottery().get(position).getNumTicketArchived());
+        intent.putExtra("amount", adapterLottery.getListArchivedLottery().get(position).getAmountTicket());
         intent.putExtra("priceFinal", adapterLottery.getListArchivedLottery().get(position).getPriceTotal());
+
+        intent.putExtra("totalParticipations", adapterLottery.getListArchivedLottery().get(position).getTotalParticipations());
+        intent.putExtra("currentParticipations", adapterLottery.getListArchivedLottery().get(position).getCurrentParticipations());
     }
 
     private void directionControl(){
@@ -190,85 +221,52 @@ public class Fragment_archived_lottery  extends Fragment{
         }
     }
 
-    private void sortPriceDesc(){
+    @Override
+    public void processFinish(String output) {
+        ResultFromJson resultFromJson = new ResultFromJson();
         archivedLotteries.clear();
-
-        archivedLotteries.add( new ArchivedLottery(1, "RaffleCoin", "22/05/2020", 8, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(2,  "Lotto Boom", "9/8/2025", 5, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(3, "CryptoLucky", "05/05/2080", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery( 4,"ExtraCoin", "14/7/2060", 5, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(5, "RaffleCoin", "22/05/2020", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(6, "RaffleCoin", "9/8/2025", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(7, "CryptoLucky", "05/05/2080", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(8, "ExtraCoin", "14/7/2060", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(9,  "CryptoLucky", "22/05/2020", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(10,  "Lotto Boom", "9/8/2025", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(11, "CryptoLucky", "05/05/2080", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(12,  "ExtraCoin", "14/7/2060", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
         adapterLottery.notifyDataSetChanged();
+        if(output == null){
+            progressBar.setVisibility(View.INVISIBLE);
+            notFound.setText("No se pueden mostrar los sorteos celebrados. Revise su conexión a internet.");
+            notFound.setVisibility(View.VISIBLE);
+        }else {
+            ArrayList<ArchivedLottery> aux = resultFromJson.getCelebratedLotteryResult(output);
+            progressBar.setVisibility(View.INVISIBLE);
+            if ((!aux.isEmpty()) && (aux != null)) {
+                if (sortDate) {
+                    archivedLotteries.addAll(aux);
+                } else if (priceAsc) {
+                    sortPriceAsc(aux);
+                } else if (priceDesc) {
+                    sortPriceDesc(aux);
+                }
+                adapterLottery.notifyDataSetChanged();
+                notFound.setVisibility(View.INVISIBLE);
+            } else {
+                notFound.setText("No hay sorteos celebrados.");
+                notFound.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
-    private void sortPriceAsc(){
-
-        archivedLotteries.clear();
-
-        archivedLotteries.add( new ArchivedLottery(5, "RaffleCoin", "22/05/2020", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(6, "RaffleCoin", "9/8/2025", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(7, "CryptoLucky", "05/05/2080", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(8, "ExtraCoin", "14/7/2060", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(9,  "CryptoLucky", "22/05/2020", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(1, "RaffleCoin", "22/05/2020", 8, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(2,  "Lotto Boom", "9/8/2025", 5, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(3, "CryptoLucky", "05/05/2080", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery( 4,"ExtraCoin", "14/7/2060", 5, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(10,  "Lotto Boom", "9/8/2025", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(11, "CryptoLucky", "05/05/2080", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(12,  "ExtraCoin", "14/7/2060", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        adapterLottery.notifyDataSetChanged();
+    private void sortPriceAsc(ArrayList<ArchivedLottery> aux){
+        Collections.sort(aux, new Comparator<ArchivedLottery>() {
+            @Override
+            public int compare(ArchivedLottery archivedLottery, ArchivedLottery t1) {
+                return Double.compare(archivedLottery.getPrice(), t1.getPrice());
+            }
+        });
+        archivedLotteries.addAll(aux);
     }
 
-    private void sortDate(){
-        archivedLotteries.clear();
-
-        archivedLotteries.add( new ArchivedLottery(5, "RaffleCoin", "22/05/2020", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(9,  "CryptoLucky", "22/05/2020", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(1, "RaffleCoin", "22/05/2020", 8, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(2,  "Lotto Boom", "9/8/2025", 5, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(10,  "Lotto Boom", "9/8/2025", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(6, "RaffleCoin", "9/8/2025", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(8, "ExtraCoin", "14/7/2060", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery( 4,"ExtraCoin", "14/7/2060", 5, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(12,  "ExtraCoin", "14/7/2060", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(7, "CryptoLucky", "05/05/2080", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(3, "ExtraCoin", "05/05/2080", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(11, "CryptoLucky", "05/05/2080", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        adapterLottery.notifyDataSetChanged();
+    private void sortPriceDesc(ArrayList<ArchivedLottery> aux){
+        Collections.sort(aux, new Comparator<ArchivedLottery>() {
+            @Override
+            public int compare(ArchivedLottery archivedLottery, ArchivedLottery t1) {
+                return Double.compare(t1.getPrice(), archivedLottery.getPrice());
+            }
+        });
+        archivedLotteries.addAll(aux);
     }
-
-    private List<ArchivedLottery> getLotteries(){
-        archivedLotteries = new ArrayList<>();
-
-        archivedLotteries.add( new ArchivedLottery(5, "RaffleCoin", "22/05/2020", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(9,  "CryptoLucky", "22/05/2020", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(1, "RaffleCoin", "22/05/2020", 8, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(2,  "Lotto Boom", "9/8/2025", 5, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(10,  "Lotto Boom", "19/8/2025", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(6, "RaffleCoin", "9/8/2025", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(8, "ExtraCoin", "14/7/2060", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery( 4,"ExtraCoin", "14/7/2060", 5, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(12,  "ExtraCoin", "14/7/2060", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(7, "CryptoLucky", "05/05/2080", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(3, "ExtraCoin", "05/05/2080", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-        archivedLotteries.add( new ArchivedLottery(11, "CryptoLucky", "05/05/2080", 1, 8, "Este sorteo se celebra cada miércoles.", 0.00005));
-
-        return archivedLotteries;
-    }
-
-    private String datetoString(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");//formating according to my need
-        String dateObj = formatter.format(date);
-        return dateObj;
-    }
-
-
 }

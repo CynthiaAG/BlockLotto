@@ -6,7 +6,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/linearExpandable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,23 +15,28 @@
         android:layout_marginTop="30dp">
 
         <LinearLayout
+            android:id="@+id/linearPub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center">
+
             <TextView
                 android:id="@+id/addressCurrentTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tu direción actual: "
+                android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:layout_centerHorizontal="true"/>
+                android:text="Tu clave pública: "
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/addressCurrent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="izugfccacwl-iudhq.lwaddqo6"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="50dp"
+                android:text="xrnrdfbxzsvweeeeeeeedbrerehxrhhrhrhrrhwliuhnllliuliuzczssdvzzsvsvdhq.lwaddqo6"
                 android:gravity="center"
                 android:layout_centerHorizontal="true"/>
         </LinearLayout>
@@ -41,10 +46,14 @@
             android:id="@+id/copyAddress"
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
+            android:layout_marginEnd="19dp"
             android:background="@drawable/ic_content_copy"
-            android:textAllCaps="false"/>
-    </LinearLayout>
+            android:gravity="right"
+            android:textAllCaps="false" />
+    </RelativeLayout>
 
 
     <ImageView

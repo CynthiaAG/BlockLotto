@@ -32,7 +32,8 @@ public class TwentyFourWords extends AppCompatActivity {
         help = findViewById(R.id.help24wordsButton);
         helpText = findViewById(R.id.help24words);
         twentyFourWords = findViewById(R.id.twentyFourWords);
-        //Establish 24 words in twentyFourWords
+        String twentyFourWordsString = (String) getIntent().getExtras().getSerializable("24-words");
+        twentyFourWords.setText(twentyFourWordsString);
 
         help.setOnClickListener(new View.OnClickListener() {
             @Override

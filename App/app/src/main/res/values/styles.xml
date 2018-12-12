@@ -19,6 +19,17 @@
         <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
     </style>
 
+    <style name="AppTheme.ProgressBar" parent="Widget.AppCompat.ProgressBar">
+        <item name="colorAccent">@color/text_color_quaternary</item>
+    </style>
+
+    <style name="AppTheme.TextError" parent="TextAppearance.Design.Error">
+        <item name="android:textColor">#FFE7150A</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
     <style name="AppTheme.CustomTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@null</item>
@@ -34,6 +45,10 @@
 
     <style name="ToolbarTitle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <item name="colorPrimary">@color/colorButton</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

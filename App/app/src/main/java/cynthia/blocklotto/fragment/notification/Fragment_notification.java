@@ -9,15 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import cynthia.blocklotto.R;
+import cynthia.blocklotto.ResultFromJson;
 import cynthia.blocklotto.adapter.notification.Adapter_item_notification;
+import cynthia.blocklotto.conection.Conection;
+import cynthia.blocklotto.conection.ConectionResponse;
 import cynthia.blocklotto.notification.Notification;
 
-public class Fragment_notification extends Fragment {
+public class Fragment_notification extends Fragment implements ConectionResponse {
 
 
     private ListView notificationList;
@@ -28,9 +32,19 @@ public class Fragment_notification extends Fragment {
     private View customToast;
     private TextView text;
     private SwipeRefreshLayout swipeRefresh;
+    private ProgressBar progressBar;
+    private TextView notFound;
 
+    private boolean read;
+    private boolean notificationsB;
 
     private void initialize(){
+        read = false;
+        notificationsB = false;
+        notFound = view.findViewById(R.id.notFound_notifications);
+        progressBar = view.findViewById(R.id.progress_notifications);
+        progressBar.setVisibility(View.VISIBLE);
+
         inflater = getLayoutInflater();
         customToast = inflater.inflate(R.layout.custom_toast, (ViewGroup) view.findViewById(R.id.custom_toast_container));
         text = (TextView) customToast.findViewById(R.id.textToast);
@@ -48,71 +62,82 @@ public class Fragment_notification extends Fragment {
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         initialize();
         controlSwipe();
-        adapter = new Adapter_item_notification(getContext(), getNotifications());
+        notifications = new ArrayList<Notification>();
+        getNotifications();
+        adapter = new Adapter_item_notification(getContext(), notifications);
         notificationList.setAdapter(adapter);
 
         notificationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if(notifications.get(i).getType().equals("notRead")){
-                    notifications.get(i).setType("read");
-                    adapter.notifyDataSetChanged();
+                if(notifications.get(i).getReaded() == 0){
+                    setReaded(notifications.get(i).getId());
 
-                    Toast toast = new Toast(getContext());
-                    toast.setView(customToast);
-                    toast.show();
                 }
             }
         });
         return view;
     }
 
+    private void setReaded(int id){
+        read = true;
+        Conection con = new Conection();
+        con.conectionResponse=this;
+        con.setNotificationsRead(id, getContext());
+
+    }
+    private void getNotifications(){
+        notificationsB = true;
+        Conection con = new Conection();
+        con.conectionResponse=this;
+        con.getNotifications(getContext());
+    }
+
     private void controlSwipe(){
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                notifications.clear();
-
-                notifications.add(new Notification(1,"Ha ganado el premio ExtraCoin", "25/03/2018", 10, "notRead"));
-                notifications.add(new Notification(1,"Ha ganado el premio CryptoLucky", "25/03/2018", 10, "notRead"));
-                notifications.add(new Notification(2,"Ha ganado el premio CryptoLucky", "25/03/2018", 20, "notRead"));
-                notifications.add(new Notification(3,"Ha ganado el premio Extracoin", "25/02/2018", 5, "read"));
-                notifications.add(new Notification(4,"Ha ganado el premio CryptoLucky", "25/11/2017", 35, "notRead"));
-                notifications.add(new Notification(5,"Ha ganado el premio CryptoLucky", "25/03/2018", 10, "notRead"));
-                notifications.add(new Notification(6,"Ha ganado el premio CryptoLucky", "25/03/2018", 10, "read"));
-                notifications.add(new Notification(7, "Ha ganado el premio Lotto Boom", "29/11/2017", 10, "notRead"));
-                notifications.add(new Notification(8, "Ha ganado el premio CryptoLucky", "25/03/2018", 10, "notRead"));
-                notifications.add(new Notification(9,"Ha ganado el premio CryptoLucky", "25/03/2018", 10, "notRead"));
-                notifications.add(new Notification(10,"Ha ganado el premio CryptoLucky", "25/03/2018", 10, "notRead"));
-                notifications.add(new Notification(11,"Ha ganado el premio CryptoLucky", "25/03/2018", 10, "notRead"));
-                notifications.add(new Notification(12,"Ha ganado el premio CryptoLucky", "25/03/2018", 10, "notRead"));
-                notifications.add(new Notification(13, "Ha ganado el premio CryptoLucky", "25/03/2018", 10, "notRead"));
-
-                adapter.notifyDataSetChanged();
+                getNotifications();
                 swipeRefresh.setRefreshing(false);
             }
         });
     }
 
-    private ArrayList<Notification> getNotifications(){
-        notifications = new ArrayList<Notification>();
-
-        notifications.add(new Notification(1,"Ha ganado el premio CryptoLucky", "25/03/2018", 10, "notRead"));
-        notifications.add(new Notification(2,"Ha ganado el premio CryptoLucky", "25/03/2018", 20, "notRead"));
-        notifications.add(new Notification(3,"Ha ganado el premio Extracoin", "25/02/2018", 5, "read"));
-        notifications.add(new Notification(4,"Ha ganado el premio CryptoLucky", "25/11/2017", 35, "notRead"));
-        notifications.add(new Notification(5,"Ha ganado el premio CryptoLucky", "25/03/2018", 10, "notRead"));
-        notifications.add(new Notification(6,"Ha ganado el premio CryptoLucky", "25/03/2018", 10, "read"));
-        notifications.add(new Notification(7, "Ha ganado el premio Lotto Boom", "29/11/2017", 10, "notRead"));
-        notifications.add(new Notification(8, "Ha ganado el premio CryptoLucky", "25/03/2018", 10, "notRead"));
-        notifications.add(new Notification(9,"Ha ganado el premio CryptoLucky", "25/03/2018", 10, "notRead"));
-        notifications.add(new Notification(10,"Ha ganado el premio CryptoLucky", "25/03/2018", 10, "notRead"));
-        notifications.add(new Notification(11,"Ha ganado el premio CryptoLucky", "25/03/2018", 10, "notRead"));
-        notifications.add(new Notification(12,"Ha ganado el premio CryptoLucky", "25/03/2018", 10, "notRead"));
-        notifications.add(new Notification(13, "Ha ganado el premio CryptoLucky", "25/03/2018", 10, "notRead"));
-
-        return notifications;
+    @Override
+    public void processFinish(String output) {
+        ResultFromJson resultFromJson = new ResultFromJson();
+        if(output==null){
+            notifications.clear();
+            adapter.notifyDataSetChanged();
+            progressBar.setVisibility(View.INVISIBLE);
+            notFound.setText("No se pueden mostrar sus notificaciones. Revise su conexión a internet.");
+            notFound.setVisibility(View.VISIBLE);
+        } else if (notificationsB){
+            notificationsB = false;
+            notifications.clear();
+            ArrayList<Notification> aux = resultFromJson.getNotificationsResult(output);
+            progressBar.setVisibility(View.INVISIBLE);
+            if ((!aux.isEmpty()) && (aux != null)) {
+                for (Notification next : aux) {
+                    notifications.add(next);
+                }
+                adapter.notifyDataSetChanged();
+                notFound.setVisibility(View.INVISIBLE);
+            } else {
+                notFound.setText("No tienes ninguna notificación");
+                notFound.setVisibility(View.VISIBLE);
+            }
+        }else if(read){
+            read = false;
+            String message = resultFromJson.setNotificationsReadResult(output);
+            if(message != null && (!message.equals("")) && (!message.isEmpty())){
+                Toast toast = new Toast(getContext());
+                toast.setView(customToast);
+                toast.show();
+                getNotifications();
+            }
+        }
     }
 
 }

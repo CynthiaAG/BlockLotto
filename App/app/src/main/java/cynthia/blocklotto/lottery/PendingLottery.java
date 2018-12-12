@@ -1,6 +1,11 @@
 package cynthia.blocklotto.lottery;
 
+import android.annotation.SuppressLint;
+
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import cynthia.blocklotto.R;
@@ -12,76 +17,108 @@ import cynthia.blocklotto.R;
 public class PendingLottery {
 
     private int id;
-    private int photo;
+    private double price;
+    private float award;
+    private int amountTicket;
+    private int totalParticipations;
+    private int currentParticipations;
+    private double priceTotal;
     private String name;
     private String date;
-    private int amountTicket;
-    private float award;
     private String information;
-    private double price;
-    private String priceTotal;
+    private String state;
+    private String winningNumber;
+    private int photo;
+    private final double satoshi = 0.00000001;
 
     public PendingLottery() { }
 
-    public PendingLottery(int id, String name, String date, int amountTicket, float award, String information, double price) {
+    public PendingLottery(int id, double price, float award, int amountTicket, int totalParticipations, int currentParticipations, double priceTotal, String name, String date, String information, String state, String winningNumber) {
         this.id = id;
+        this.price = price;
+        this.award = award;
+        this.amountTicket = amountTicket;
+        this.totalParticipations = totalParticipations;
+        this.currentParticipations = currentParticipations;
+        this.priceTotal = priceTotal;
         this.name = name;
         this.date = date;
-        this.amountTicket = amountTicket;
-        this.award = award;
         this.information = information;
-        this.price = price;
-        setPhoto();
+        this.state = state;
+        this.winningNumber = winningNumber;
     }
 
-    public void setPriceTotal(String priceTotal) {
+    public void setPriceTotal(double priceTotal) {
         this.priceTotal = priceTotal;
     }
 
     public String getPriceTotal() {
         Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("#,##0.0####");
-        priceTotal= num.format(price*amountTicket) + " BTC";
-        return priceTotal;
+        DecimalFormat num = new DecimalFormat("#,##0.0#####");
+        return num.format(priceTotal*satoshi) + " BTC";
     }
 
     public int getId() {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getInformation() {
         return information;
     }
 
+    public void setInformation(String information) {
+        this.information = information;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public double getPrice() {
-        return price;
+        Locale.setDefault(Locale.US);
+        DecimalFormat num = new DecimalFormat("#,##0.0#####");
+        return Double.parseDouble(num.format(price*satoshi));
     }
 
     public String getPriceBadge(){
         Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("#,##0.0####");
-        return num.format(price) + " BTC";
+        DecimalFormat num = new DecimalFormat("#,##0.0#####");
+        return num.format(price*satoshi) + " BTC";
     }
 
     public int getAmountTicket(){
         return amountTicket;
     }
 
-    public String getAward(){
-        return award + " BTC";
+    public void setAmountTicket(int amountTicket) {
+        this.amountTicket = amountTicket;
+    }
+
+    public String getAward() {
+        Locale.setDefault(Locale.US);
+        DecimalFormat num = new DecimalFormat("#,##0.0#####");
+        return num.format(award*satoshi) + " BTC";
+    }
+
+    public void setAward(float award) {
+        this.award = award;
     }
 
     private void setPhoto(){
         switch (name){
-            case "CryptoLucky":
+            case "Crypto Lucky":
                 photo = R.drawable.cryptolucky;
                 break;
 
-            case "ExtraCoin":
+            case "Extracoin":
                 photo = R.drawable.extracoin;
                 break;
 
-            case "Lotto Boom":
+            case "LottoBoom":
                 photo = R.drawable.lottoboom;
                 break;
 
@@ -92,6 +129,7 @@ public class PendingLottery {
     }
 
     public int getPhoto() {
+        setPhoto();
         return photo;
     }
 
@@ -99,7 +137,58 @@ public class PendingLottery {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getDate() {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date fechaDate = null;
+
+        try {
+            fechaDate = formato.parse(date);
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            String dateObj = format.format(fechaDate);
+            return dateObj;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getTotalParticipations() {
+        return totalParticipations;
+    }
+
+    public void setTotalParticipations(int totalParticipations) {
+        this.totalParticipations = totalParticipations;
+    }
+
+    public int getCurrentParticipations() {
+        return currentParticipations;
+    }
+
+    public void setCurrentParticipations(int currentParticipations) {
+        this.currentParticipations = currentParticipations;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getWinningNumber() {
+        return winningNumber;
+    }
+
+    public void setWinningNumber(String winningNumber) {
+        this.winningNumber = winningNumber;
     }
 }

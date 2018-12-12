@@ -4,23 +4,29 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import cynthia.blocklotto.R;
+import cynthia.blocklotto.Start;
 
+import static android.view.KeyEvent.KEYCODE_BACK;
 import static java.security.AccessController.getContext;
 
 public class TwentyFourWords extends AppCompatActivity {
 
-    private EditText twentyFourWords;
+    private TextInputEditText twentyFourWords;
     private Button continueRestore;
     private String stringTwentyFourWords;
+    private TextInputLayout textInputLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,45 +37,52 @@ public class TwentyFourWords extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         twentyFourWords = findViewById(R.id.twentyFourWordsIntroduced);
+        textInputLayout = findViewById(R.id.twentyFourWordsTextInput);
         continueRestore = findViewById(R.id.buttonOkRecuperation);
 
         continueRestore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                stringTwentyFourWords = twentyFourWords.getText().toString();
-                if (TextUtils.isEmpty(stringTwentyFourWords)) {
-                    twentyFourWords.setError("Debe introducir las veinticuatro palabras de seguridad.");
+                stringTwentyFourWords = twentyFourWords.getText().toString().trim();
+                if ((TextUtils.isEmpty(stringTwentyFourWords)) || (! stringTwentyFourWords.contains(" ")) || (! controlSpacesWords())) {
+                    textInputLayout.setError("Debe introducir las veinticuatro palabras de seguridad.");
                 }else{
-                    //Check that 24 words exist for one wallet.
-                    checkTwentyFourWords(view);
+                    Intent intent = new Intent(view.getContext(),RecuperationWallet.class);
+                    intent.putExtra("24-wordsRecuperate",  stringTwentyFourWords.replaceAll("\\s+", " "));
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 }
 
             }
         });
     }
 
-    private void checkTwentyFourWords(View view){
-        if(stringTwentyFourWords.length()< 8 && (! stringTwentyFourWords.contains(" "))) {
-            AlertDialog.Builder builder;
-            builder = new AlertDialog.Builder(this);
-            builder.setTitle("Error").setIcon(R.drawable.ic_error)
-                    .setMessage("Las veinticuatro palabras introducidas no coinciden con ningún wallet. Compruebe que las ha escrito en el orden correcto y con un espacio entre cada palabra.")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    }).show();
+    private boolean controlSpacesWords(){
+        if(stringTwentyFourWords != null){
+            String res = stringTwentyFourWords.replaceAll("\\s+", " ");
+            String [] result= res.split(" ");
+            if(result.length == 24){
+                return true;
+            }else{
+                return false;
+            }
         }else{
-            Intent intent = new Intent(view.getContext(),RecuperationWallet.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+            return false;
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here.
-        super.onBackPressed();
+        onBackPressed();
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getBaseContext(), Start.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
     }
 }

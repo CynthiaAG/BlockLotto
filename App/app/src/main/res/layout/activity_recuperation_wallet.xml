@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_marginRight="3dp"
-                    android:text="Recuerde este PIN. Si lo olvidas, no podrás acceder a tu wallet."
+                    android:text="Recuerde este PIN. Podría serle requerido posteriormente."
                     android:textAlignment="center"
                     android:textSize="18sp"
                     android:textStyle="bold" />

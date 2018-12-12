@@ -2,6 +2,8 @@ package cynthia.blocklotto.fragment.operation;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -45,14 +47,20 @@ public class Fragment_receipt extends Fragment {
         this.container = container;
 
         addressCurrent = view.findViewById(R.id.addressCurrent);
+        addressCurrent.setText(getPreferences());
         receivedQR = view.findViewById(R.id.receivedQR);
         copyAddress = view.findViewById(R.id.copyAddress);
-        //temporary
-        addressCurrentText = addressCurrent.getText().toString();
 
         generateQR();
         controlButton();
         return view;
+    }
+
+    private String getPreferences(){
+        SharedPreferences preference = getContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        String pub = preference.getString("pub","-1");
+        addressCurrentText = pub;
+        return pub;
     }
 
     private void controlButton(){

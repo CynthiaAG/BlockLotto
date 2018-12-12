@@ -16,9 +16,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import cynthia.blocklotto.R;
+import java.text.DecimalFormat;
+import java.util.Locale;
 
-public class Fragment_sending extends Fragment {
+import cynthia.blocklotto.R;
+import cynthia.blocklotto.ResultFromJson;
+import cynthia.blocklotto.conection.Conection;
+import cynthia.blocklotto.conection.ConectionResponse;
+
+public class Fragment_sending extends Fragment implements ConectionResponse {
 
     private View view;
 
@@ -29,26 +35,41 @@ public class Fragment_sending extends Fragment {
     private String amount;
 
     private View customToast;
+    private View customToastError;
     private LayoutInflater inflater;
+    private LayoutInflater inflaterError;
     private TextView text;
+    private TextView textError;
+
+
+    private View customToastInternet;
+    private LayoutInflater inflaterInternet;
+    private TextView textInternet;
 
     private String stringScan;
+    private final double satoshi = 0.00000001;
 
     public void initialize(){
         sendButtonFinal = view.findViewById(R.id.sendButtonFinal);
         addressReception = view.findViewById(R.id.addressReception);
         amountSend = view.findViewById(R.id.amountSend);
 
+        inflaterInternet = getLayoutInflater();
+        customToastInternet = inflaterInternet.inflate(R.layout.custom_toast, (ViewGroup) view.findViewById(R.id.custom_toast_container));
+        textInternet = (TextView) customToastInternet.findViewById(R.id.textToast);
+        textInternet.setText("Revise su conexión a internet.");
+
         inflater = getLayoutInflater();
         customToast = inflater.inflate(R.layout.custom_toast, (ViewGroup) view.findViewById(R.id.custom_toast_container));
         text = (TextView) customToast.findViewById(R.id.textToast);
         text.setText("BTC enviados");
 
-      /*  try{
-            stringScan = getArguments().getString("QR_SCAN");
-        }catch (NullPointerException e){
-           */ stringScan = "";
-      //  }
+        inflaterError = getLayoutInflater();
+        customToastError = inflater.inflate(R.layout.custom_toast, (ViewGroup) view.findViewById(R.id.custom_toast_container));
+        TextView textError = (TextView) customToastError.findViewById(R.id.textToast);
+        textError.setText("No se han podido enviar BTC");
+
+        stringScan = "";
 
     }
 
@@ -57,7 +78,6 @@ public class Fragment_sending extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_sending, container, false);
         initialize();
-       // controlScan();
         controlButton();
         return view;
     }
@@ -66,12 +86,12 @@ public class Fragment_sending extends Fragment {
         try {
             stringScan = getArguments().getString("QR_SCAN");
             if(stringScan!=null && (!stringScan.equals("")) && (!stringScan.isEmpty())) {
-                stringScan = getArguments().getString("QR_SCAN");
+              //  stringScan = getArguments().getString("QR_SCAN");
                 for (int i = 0; i < stringScan.length(); i++) {
                     if(i != stringScan.length()-1) {
-                        if (stringScan.charAt(i) == '.' && stringScan.charAt(i + 1) == '.') {
+                        if (stringScan.charAt(i) == ',') {
                             addressScan = stringScan.substring(0, i);
-                            amount = stringScan.substring(i + 2);
+                            amount = stringScan.substring(i + 1);
                             break;
                         }
                     }
@@ -90,19 +110,15 @@ public class Fragment_sending extends Fragment {
     }
 
     private void showAlertScanElement(){
-        if(! amount.isEmpty()){
+        if((!amount.isEmpty())){
+            formatAmount();
             AlertDialog.Builder builder;
-            builder = new AlertDialog.Builder(getContext());
+            builder = new AlertDialog.Builder(getContext(), R.style.MyDialogTheme);
             builder.setTitle("Enviar BTC")
-                    .setMessage("Estas seguro que quieres enviar " + amount + " BTC a la dirección: " + addressScan)
+                    .setMessage("¿Estas seguro que quieres enviar " + amount + " BTC a la dirección: " + addressScan + "?")
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            //Proccess to send BTC (convert amount in double and send de address)
-                            addressReception.getText().clear();
-                            amountSend.getText().clear();
-                            Toast toast = new Toast(getContext());
-                            toast.setView(customToast);
-                            toast.show();
+                           sendBTC();
                         }
                     })
                     .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -140,7 +156,7 @@ public class Fragment_sending extends Fragment {
         if(TextUtils.isEmpty(amount) && TextUtils.isEmpty(addressScan)){
             addressReception.setError("Introduzca la dirección\n de recepción");
             amountSend.setError("Introduzca la cantidad\n que desea enviar");
-        } else if(TextUtils.isEmpty(amount)) {
+        } else if((TextUtils.isEmpty(amount)) || (amount.equals("0")) || (amount.equals("0.0"))) {
             amountSend.setError("Introduzca la cantidad\n que desea enviar");
         } else if( TextUtils.isEmpty(addressScan)){
             addressReception.setError("Introduzca la dirección\n de recepción");
@@ -150,19 +166,14 @@ public class Fragment_sending extends Fragment {
     }
 
     private void showAlertManualSend(){
-
+        formatAmount();
         AlertDialog.Builder builder;
-        builder = new AlertDialog.Builder(getContext());
+        builder = new AlertDialog.Builder(getContext(), R.style.MyDialogTheme);
         builder.setTitle("Enviar BTC")
                 .setMessage("Estas seguro que quieres enviar " + amount + " BTC a la dirección: " + addressScan)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        //Proccess to send BTC (convert amount in double and send de address)
-                        addressReception.getText().clear();
-                        amountSend.getText().clear();
-                        Toast toast = new Toast(getContext());
-                        toast.setView(customToast);
-                        toast.show();
+                        sendBTC();
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -172,5 +183,50 @@ public class Fragment_sending extends Fragment {
                 })
                 .setIcon(R.drawable.ic_warning)
                 .show();
+    }
+
+    private void formatAmount(){
+        Double amountD = Double.parseDouble(amount);
+        if( (amountD != null) && (!amountD.equals("0")) && (!amountD.equals("0.0"))) {
+            Locale.setDefault(Locale.US);
+            DecimalFormat num = new DecimalFormat("###0.0#####");
+            amount = num.format(amountD);
+            amountSend.setText(amount);
+        }
+    }
+
+    private void sendBTC(){
+        Conection con = new Conection();
+        con.conectionResponse=this;
+
+        Locale.setDefault(Locale.US);
+        DecimalFormat num = new DecimalFormat("###0.0#####");
+        double amountD = Double.parseDouble(amount);
+        String aux = num.format(amountD / satoshi);
+        amountD = Double.parseDouble(aux);
+        con.sendBTC(getContext(), addressScan, amountD);
+    }
+
+    @Override
+    public void processFinish(String output) {
+        ResultFromJson resultFromJson = new ResultFromJson();
+        if(output == null){
+            Toast toast = new Toast(getContext());
+            toast.setView(customToastInternet);
+            toast.show();
+        }else {
+            String aux = resultFromJson.sendBTCResult(output);
+            if (aux == null || aux.equals("") || aux.equals("\"Error\"")) {
+                Toast toast = new Toast(getContext());
+                toast.setView(customToastError);
+                toast.show();
+            } else {
+                addressReception.getText().clear();
+                amountSend.getText().clear();
+                Toast toast = new Toast(getContext());
+                toast.setView(customToast);
+                toast.show();
+            }
+        }
     }
 }

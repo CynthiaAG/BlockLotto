@@ -63,6 +63,8 @@ public class Adapter_pending_lottery extends RecyclerView.Adapter<Adapter_pendin
         intent.putExtra("priceBadge", listPendingLottery.get(position).getPriceBadge());
         intent.putExtra("amount",listPendingLottery.get(position).getAmountTicket());
         intent.putExtra("priceFinal", listPendingLottery.get(position).getPriceTotal());
+        intent.putExtra("totalParticipations", listPendingLottery.get(position).getTotalParticipations());
+        intent.putExtra("currentParticipations", listPendingLottery.get(position).getCurrentParticipations());
     }
 
     @Override

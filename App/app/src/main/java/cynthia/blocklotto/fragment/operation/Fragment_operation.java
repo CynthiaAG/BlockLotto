@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,9 +24,12 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import cynthia.blocklotto.R;
+import cynthia.blocklotto.ResultFromJson;
 import cynthia.blocklotto.adapter.operation.Adapter_operation;
+import cynthia.blocklotto.conection.Conection;
+import cynthia.blocklotto.conection.ConectionResponse;
 
-public class Fragment_operation extends Fragment {
+public class Fragment_operation extends Fragment implements ConectionResponse {
 
     private View view;
     private TabLayout tabOperation;
@@ -41,17 +45,36 @@ public class Fragment_operation extends Fragment {
     private TextView balance;
     private Button refreshBalance;
 
+    private ProgressBar progressBarOperation;
+
+    private View customToastInternet;
+    private LayoutInflater inflaterInternet;
+    private TextView textInternet;
+
+    private boolean balanceB;
+
     private void initialize(){
+        balanceB=false;
+
+
         inflater = getLayoutInflater();
         customToast = inflater.inflate(R.layout.custom_toast, (ViewGroup) view.findViewById(R.id.custom_toast_container));
         text = (TextView) customToast.findViewById(R.id.textToast);
         text.setText("Error durante el escaneo");
 
-        balance = view.findViewById(R.id.balanceOperation);
-        refreshBalance = view.findViewById(R.id.refresh_balance);
+        inflaterInternet = getLayoutInflater();
+        customToastInternet = inflaterInternet.inflate(R.layout.custom_toast, (ViewGroup) view.findViewById(R.id.custom_toast_container));
+        textInternet = (TextView) customToastInternet.findViewById(R.id.textToast);
+        textInternet.setText("Revise su conexión a internet.");
 
+        balance = view.findViewById(R.id.balanceOperation);
+        progressBarOperation= view.findViewById(R.id.progress_operation);
+        refreshBalance = view.findViewById(R.id.refresh_balance);
         tabOperation = view.findViewById(R.id.tabOperation);
         viewPagerOperation = view.findViewById(R.id.viewPagerOperation);
+        balance.setText("--");
+        getBalance();
+
         adapter = new Adapter_operation(getChildFragmentManager());
     }
 
@@ -74,9 +97,19 @@ public class Fragment_operation extends Fragment {
         refreshBalance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                balance.setText("6 BTC");
+                getBalance();
             }
         });
+    }
+
+    private void getBalance(){
+        balanceB=true;
+        progressBarOperation.setVisibility(View.VISIBLE);
+        refreshBalance.setVisibility(View.INVISIBLE);
+        Conection con = new Conection();
+        con.conectionResponse=this;
+        con.getBalance(getContext());
+
     }
 
     private void addFragment(){
@@ -135,6 +168,23 @@ public class Fragment_operation extends Fragment {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
 
+        }
+    }
+
+    @Override
+    public void processFinish(String output) {
+        ResultFromJson resultFromJson = new ResultFromJson();
+        if(output ==null){
+            progressBarOperation.setVisibility(View.INVISIBLE);
+            refreshBalance.setVisibility(View.VISIBLE);
+            Toast toast = new Toast(getContext());
+            toast.setView(customToastInternet);
+            toast.show();
+        }else if(balanceB) {
+            balance.setText(resultFromJson.getBalanceResult(output));
+            progressBarOperation.setVisibility(View.INVISIBLE);
+            refreshBalance.setVisibility(View.VISIBLE);
+            balanceB=false;
         }
     }
 }

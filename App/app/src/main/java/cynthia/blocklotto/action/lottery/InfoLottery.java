@@ -3,8 +3,10 @@ package cynthia.blocklotto.action.lottery;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +30,8 @@ public class InfoLottery  extends Activity {
     private LinearLayout priceTotalGroup;
     private TextView amountTicketInfo;
     private TextView priceTotalInfo;
+    private LinearLayout participationsGroup;
+    private TextView participations;
     private String type;
     private String name;
     private String date;
@@ -38,6 +42,8 @@ public class InfoLottery  extends Activity {
     private String text;
     private int amount;
     private String priceFinal;
+    private int totalParticipations;
+    private int currentParticipations;
 
 
     private void initialize(){
@@ -54,6 +60,9 @@ public class InfoLottery  extends Activity {
         priceTotalGroup = findViewById(R.id.priceTotalGroup);
         amountTicketInfo = findViewById(R.id.amountTicketInfo);
         priceTotalInfo = findViewById(R.id.priceTotalInfo);
+        participations = findViewById(R.id.totalParticipations);
+        participationsGroup = findViewById(R.id.participationsGroup);
+
 
     }
 
@@ -76,12 +85,18 @@ public class InfoLottery  extends Activity {
         award = (String) getIntent().getExtras().getSerializable("award");
         date = (String) getIntent().getExtras().getSerializable("date");
         price = (String) getIntent().getExtras().getSerializable("priceBadge");
+        totalParticipations = (int) getIntent().getExtras().getSerializable("totalParticipations");
+        currentParticipations = (int) getIntent().getExtras().getSerializable("currentParticipations");
 
         if(!type.equals("Next")){
             priceFinal = (String) getIntent().getExtras().getSerializable("priceFinal");
             amount = (int) getIntent().getExtras().getSerializable("amount");
         }else{
             priceDouble = (double) getIntent().getExtras().getSerializable("price");
+            if(totalParticipations == currentParticipations){
+                buy.setEnabled(false);
+                buy.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), R.color.text_color_quinary)));
+            }
         }
 
     }
@@ -94,6 +109,10 @@ public class InfoLottery  extends Activity {
         dateInfo.setText(date);
 
         if(!type.equals("Next")){
+            if(type.equals("Archived")){
+                participations.setText(currentParticipations+"");
+
+            }
             priceTotalInfo.setText(priceFinal);
             amountTicketInfo.setText(amount+"");
         }
@@ -101,26 +120,42 @@ public class InfoLottery  extends Activity {
     }
 
     private void setWindowSize(String type) {
-        if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT && (type.equals("Pending") || type.equals("Archived"))){
+        if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT && (type.equals("Pending"))){
             getWindow().setLayout( (int) ((size.widthPixels) * .8), (int) ((size.heightPixels) * .45) );
+            amountTicketGroup.setVisibility(View.VISIBLE);
+            priceTotalGroup.setVisibility(View.VISIBLE);
+            buy.setVisibility(View.INVISIBLE);
+        }else if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT && (type.equals("Archived"))){
+            getWindow().setLayout( (int) ((size.widthPixels) * .8), (int) ((size.heightPixels) * .5) );
+            participationsGroup.setVisibility(View.VISIBLE);
             amountTicketGroup.setVisibility(View.VISIBLE);
             priceTotalGroup.setVisibility(View.VISIBLE);
             buy.setVisibility(View.INVISIBLE);
         }
         else if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT && type.equals("Next")){
             getWindow().setLayout( (int) ((size.widthPixels) * .8), (int) ((size.heightPixels) * .45) );
+            participationsGroup.setVisibility(View.INVISIBLE);
             amountTicketGroup.setVisibility(View.INVISIBLE);
             priceTotalGroup.setVisibility(View.INVISIBLE);
             buy.setVisibility(View.VISIBLE);
         }
         else if (type.equals("Next")){
             getWindow().setLayout( (int) ((size.widthPixels) * .6), (int) ((size.heightPixels) * .8) );
+            participationsGroup.setVisibility(View.INVISIBLE);
             amountTicketGroup.setVisibility(View.INVISIBLE);
             priceTotalGroup.setVisibility(View.INVISIBLE);
             buy.setVisibility(View.VISIBLE);
         }
+        else if (type.equals("Archived")){
+            getWindow().setLayout( (int) ((size.widthPixels) * .6), (int) ((size.heightPixels) * .88) );
+            participationsGroup.setVisibility(View.VISIBLE);
+            amountTicketGroup.setVisibility(View.VISIBLE);
+            priceTotalGroup.setVisibility(View.VISIBLE);
+            buy.setVisibility(View.INVISIBLE);
+        }
         else{
             getWindow().setLayout( (int) ((size.widthPixels) * .6), (int) ((size.heightPixels) * .83) );
+            participationsGroup.setVisibility(View.INVISIBLE);
             amountTicketGroup.setVisibility(View.VISIBLE);
             priceTotalGroup.setVisibility(View.VISIBLE);
             buy.setVisibility(View.INVISIBLE);

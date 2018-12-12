@@ -1,7 +1,10 @@
 package cynthia.blocklotto.adapter.lottery;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +33,7 @@ public class Adapter_next_lottery extends RecyclerView.Adapter<Adapter_next_lott
     private TextView accumulatedAux;
     private Button buy;
     private Button info;
+    private View view;
 
     public Adapter_next_lottery(List<NextLottery> listNextLottery){
         this.listNextLottery = listNextLottery;
@@ -39,10 +43,10 @@ public class Adapter_next_lottery extends RecyclerView.Adapter<Adapter_next_lott
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, final int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_next_lottery, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_next_lottery, parent, false);
         final ViewHolder viewHolder= new ViewHolder(view);
-
         buy= (Button) view.findViewById(R.id.buyButton);
+
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,6 +81,8 @@ public class Adapter_next_lottery extends RecyclerView.Adapter<Adapter_next_lott
         intent.putExtra("award", listNextLottery.get(position).getAward());
         intent.putExtra("price", (double) listNextLottery.get(position).getPrice());
         intent.putExtra("priceBadge", listNextLottery.get(position).getPriceBadge());
+        intent.putExtra("totalParticipations", listNextLottery.get(position).getTotalParticipations());
+        intent.putExtra("currentParticipations", listNextLottery.get(position).getCurrentParticipations());
     }
 
     @Override
@@ -86,20 +92,14 @@ public class Adapter_next_lottery extends RecyclerView.Adapter<Adapter_next_lott
         holder.price.setText(listNextLottery.get(position).getPriceBadge());
         holder.photo.setImageResource(listNextLottery.get(position).getPhoto());
         holder.award.setText(listNextLottery.get(position).getAward());
-        //controlAccumulated(holder, position);
-    }
-/*
-    private void controlAccumulated(ViewHolder holder, int position){
-        if(listNextLottery.get(position).getAccumulated() == null){
-            accumulatedAux.setVisibility(View.INVISIBLE);
-            accumulatedTextAux.setVisibility(View.INVISIBLE);
-        }else{
-            accumulatedAux.setVisibility(View.VISIBLE);
-            accumulatedTextAux.setVisibility(View.VISIBLE);
-            holder.accumulated.setText(listNextLottery.get(position).getAccumulated());
+        holder.buy.setEnabled(true);
+        holder.buy.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(view.getContext(), R.color.colorButton)));
+        if( ((listNextLottery.get(position).getCurrentParticipations()) == (listNextLottery.get(position).getTotalParticipations())) || (listNextLottery.get(position).getBlocked() == 1)){
+            holder.buy.setEnabled(false);
+            holder.buy.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(view.getContext(), R.color.text_color_quinary)));
         }
-    }*/
 
+    }
     @Override
     public int getItemCount() {
         return listNextLottery.size();
@@ -108,6 +108,7 @@ public class Adapter_next_lottery extends RecyclerView.Adapter<Adapter_next_lott
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private TextView name, date, price, award;
         private ImageView photo;
+        private Button buy;
 
         public ViewHolder(View iterView){
             super(iterView);
@@ -116,6 +117,7 @@ public class Adapter_next_lottery extends RecyclerView.Adapter<Adapter_next_lott
             price=iterView.findViewById(R.id.priceNextLottery);
             photo = iterView.findViewById(R.id.imgNextLottery);
             award=iterView.findViewById(R.id.awardNext);
+            buy = iterView.findViewById(R.id.buyButton);
         }
     }
 }

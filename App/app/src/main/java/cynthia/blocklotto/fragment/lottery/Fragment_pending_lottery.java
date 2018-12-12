@@ -1,6 +1,8 @@
 package cynthia.blocklotto.fragment.lottery;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,38 +14,57 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 import cynthia.blocklotto.MainActivity;
+import cynthia.blocklotto.ResultFromJson;
+import cynthia.blocklotto.conection.Conection;
+import cynthia.blocklotto.conection.ConectionResponse;
+import cynthia.blocklotto.lottery.NextLottery;
 import cynthia.blocklotto.lottery.PendingLottery;
 import cynthia.blocklotto.R;
 import cynthia.blocklotto.adapter.lottery.Adapter_pending_lottery;
 
-public class Fragment_pending_lottery extends Fragment {
+public class Fragment_pending_lottery extends Fragment implements ConectionResponse {
 
     private RecyclerView recyclerViewLottery;
     private Adapter_pending_lottery adapterLottery;
     private List<PendingLottery> pendingLotteries;
     private SwipeRefreshLayout swipeRefresh;
+    private ProgressBar progressBar;
+    private TextView lotteryEmpty;
     private View view;
     private boolean priceAsc;
     private boolean priceDesc;
     private boolean sortDate;
+    private boolean creation;
 
     private void initialize(){
+        progressBar = view.findViewById(R.id.progress_pendingLottery);
+        progressBar.setVisibility(View.VISIBLE);
+        lotteryEmpty = view.findViewById(R.id.pendingEmpty);
+
         recyclerViewLottery = view.findViewById(R.id.container_PendingLottery);
         recyclerViewLottery.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapterLottery = new Adapter_pending_lottery((getLotteries()));
+        pendingLotteries = new ArrayList<>();
+        adapterLottery = new Adapter_pending_lottery(pendingLotteries);
+        getLotteries();
+
         swipeRefresh = view.findViewById(R.id.swipePendingLottery);
         swipeRefresh.setColorSchemeResources(R.color.colorSecondary, R.color.colorButton, R.color.colorAccent);
         priceAsc = false;
         priceDesc = false;
-        sortDate = false;
+        sortDate = true;
+        creation = true;
     }
 
     @Override
@@ -57,118 +78,113 @@ public class Fragment_pending_lottery extends Fragment {
         return view;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(creation && isVisibleToUser){
+            priceAsc = false;
+            priceDesc = false;
+            sortDate = true;
+            getLotteries();
+        }
+    }
+
     private void controlSwipe(){
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(priceAsc){
-                    sortPriceAsc();
-                }else if(priceDesc){
-                    sortPriceDesc();
-                }else {
-                    sortDate();
-                }
+                getLotteries();
                 swipeRefresh.setRefreshing(false);
             }
         });
     }
 
-    /*
+    private void getLotteries(){
+        Conection con = new Conection();
+        con.conectionResponse=this;
+        con.getPendingLotteries(getContext());
+    }
+
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            // Refresh your fragment here
+    public void processFinish(String output) {
+        ResultFromJson resultFromJson = new ResultFromJson();
+        pendingLotteries.clear();
+        adapterLottery.notifyDataSetChanged();
+        if(output == null){
+            progressBar.setVisibility(View.INVISIBLE);
+            lotteryEmpty.setText("No se pueden mostrar los sorteos pendientes. Revise su conexión a internet.");
+            lotteryEmpty.setVisibility(View.VISIBLE);
+        }else {
+            ArrayList<PendingLottery> aux = resultFromJson.getPendingLotteryResult(output);
+            progressBar.setVisibility(View.INVISIBLE);
+            if ((!aux.isEmpty()) && (aux != null)) {
+                if (sortDate) {
+                    pendingLotteries.addAll(aux);
+                } else if (priceAsc) {
+                    sortPriceAsc(aux);
+                } else if (priceDesc) {
+                    sortPriceDesc(aux);
+                }
+                adapterLottery.notifyDataSetChanged();
+                lotteryEmpty.setVisibility(View.INVISIBLE);
+            } else {
+                lotteryEmpty.setText("No hay sorteos pendientes.");
+                lotteryEmpty.setVisibility(View.VISIBLE);
+            }
         }
-    }*/
+
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here.
+        item.setChecked(!item.isChecked());
         int id = item.getItemId();
 
         if (id == R.id.sort_price_asc) {
+            progressBar.setVisibility(View.VISIBLE);
             priceAsc=true;
             priceDesc=false;
             sortDate=false;
-            sortPriceAsc();
+            getLotteries();
             return true;
         }else if(id== R.id.sort_price_desc){
+            progressBar.setVisibility(View.VISIBLE);
             priceAsc=false;
             priceDesc=true;
             sortDate=false;
-            sortPriceDesc();
+            getLotteries();
             return true;
-        }else {
-            sortDate();
+        }else if(id == R.id.sort_date){
+            progressBar.setVisibility(View.VISIBLE);
             priceAsc=false;
             priceDesc=false;
             sortDate=true;
+            getLotteries();
             return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
-    private void sortPriceDesc(){
-        pendingLotteries.clear();
 
-        pendingLotteries.add( new PendingLottery( 1, "ExtraCoin", "14/7/2060", 1, 11,"Este sorteo se celebra los jueves.", 0.0002));
-        pendingLotteries.add( new PendingLottery( 2, "CryptoLucky", "25/04/2050", 2, 8, "Este sorteo se celebra los jueves.", 0.0002));
-        pendingLotteries.add( new PendingLottery(3, "Lotto Boom","9/8/2025",8, 7, "Este sorteo se celebra los jueves.", 0.0002));
-        pendingLotteries.add( new PendingLottery(4, "RaffleCoin", "18/7/2050", 5, 3,"Este sorteo se celebra los jueves.", 0.0002));
-        pendingLotteries.add( new PendingLottery(5, "CryptoLucky", "22/05/2020", 1, 5, "Este sorteo se celebra los jueves.", 0.0002));
-
-        adapterLottery.notifyDataSetChanged();
+    private void sortPriceAsc(ArrayList<PendingLottery> aux){
+        Collections.sort(aux, new Comparator<PendingLottery>() {
+            @Override
+            public int compare(PendingLottery pendingLottery, PendingLottery t1) {
+                return Double.compare(pendingLottery.getPrice(), t1.getPrice());
+            }
+        });
+        pendingLotteries.addAll(aux);
     }
 
-    private void sortPriceAsc(){
-        pendingLotteries.clear();
-
-        pendingLotteries.add( new PendingLottery(6, "RaffleCoin", "18/7/2050", 5, 3,"Este sorteo se celebra los jueves.", 0.0002));
-        pendingLotteries.add( new PendingLottery( 7, "CryptoLucky", "22/05/2020", 1, 5, "Este sorteo se celebra los jueves.", 0.0002));
-        pendingLotteries.add( new PendingLottery( 8, "Lotto Boom", "9/8/2025",8, 7, "Este sorteo se celebra los jueves.", 0.0002));
-        pendingLotteries.add( new PendingLottery(9, "CryptoLucky", "25/04/2050", 2, 8, "Este sorteo se celebra los jueves.", 0.0002));
-        pendingLotteries.add( new PendingLottery( 10, "ExtraCoin", "14/7/2060", 1, 11,"Este sorteo se celebra los jueves.", 0.0002));
-
-        adapterLottery.notifyDataSetChanged();
+    private void sortPriceDesc(ArrayList<PendingLottery> aux){
+        Collections.sort(aux, new Comparator<PendingLottery>() {
+            @Override
+            public int compare(PendingLottery pendingLottery, PendingLottery t1) {
+                return Double.compare(t1.getPrice(), pendingLottery.getPrice());
+            }
+        });
+        pendingLotteries.addAll(aux);
     }
-
-    private void sortDate(){
-        pendingLotteries.clear();
-
-        pendingLotteries.add( new PendingLottery(1, "CryptoLucky","22/05/2020", 1, 5, "Este sorteo se celebra los jueves.", 0.0002));
-        pendingLotteries.add( new PendingLottery( 2, "Lotto Boom", "9/8/2025",8, 7, "Este sorteo se celebra los jueves.", 0.0002));
-        pendingLotteries.add( new PendingLottery( 3 ,"CryptoLucky", "25/04/2050", 2, 8, "Este sorteo se celebra los jueves.", 0.0002));
-        pendingLotteries.add( new PendingLottery( 4, "ExtraCoin","14/7/2060", 1, 11,"Este sorteo se celebra los jueves.", 0.0002));
-        pendingLotteries.add( new PendingLottery( 5, "RaffleCoin", "18/7/2050", 5, 3,"Este sorteo se celebra los jueves.", 0.0002));
-
-        adapterLottery.notifyDataSetChanged();
-    }
-
-    private List<PendingLottery> getLotteries(){
-        pendingLotteries = new ArrayList<>();
-
-        /*String strThatDay = "22/05/2018";
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
-        Date d = null;
-        try {
-            d = formatter.parse(strThatDay);//catch exception
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }*/
-
-        pendingLotteries.add( new PendingLottery( 1, "CryptoLucky", "22/05/2020", 1, 5, "Este sorteo se celebra los jueves.", 0.0002));
-        pendingLotteries.add( new PendingLottery( 2, "ExtraCoin", "28/05/2025",8, 7, "Este sorteo se celebra los jueves.", 0.0002));
-        pendingLotteries.add( new PendingLottery( 3, "CryptoLucky", "10/05/2060", 2, 8, "Este sorteo se celebra los jueves.", 0.0002));
-        pendingLotteries.add( new PendingLottery(4, "ExtraCoin", "15/07/2019", 1, 11,"Este sorteo se celebra los jueves.", 0.0002));
-        pendingLotteries.add( new PendingLottery( 5, "Lotto Boom", "05/04/2030", 5, 3,"Este sorteo se celebra los jueves.", 0.0002));
-        return pendingLotteries;
-    }
-
-    private String datetoString(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");//formating according to my need
-        String dateObj = formatter.format(date);
-        return dateObj;
-    }
-
 
 }

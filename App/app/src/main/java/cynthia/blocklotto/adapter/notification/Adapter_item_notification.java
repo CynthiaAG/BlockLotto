@@ -13,9 +13,6 @@ import java.util.ArrayList;
 
 import cynthia.blocklotto.R;
 import cynthia.blocklotto.notification.Notification;
-import cynthia.blocklotto.wallet.Transaction;
-
-import static cynthia.blocklotto.R.color.accentLight;
 
 public class Adapter_item_notification extends BaseAdapter {
 
@@ -59,13 +56,13 @@ public class Adapter_item_notification extends BaseAdapter {
         Notification notification = items.get(position);
 
         TextView concept = (TextView) convertView.findViewById(R.id.notification_concept);
-        concept.setText(notification.getConcept());
+        concept.setText(notification.getName());
 
         TextView date = (TextView) convertView.findViewById(R.id.dateNotification);
         date.setText(notification.getDate());
 
         TextView amount = convertView.findViewById(R.id.amountReceived);
-        amount.setText(notification.getAmountBadge());
+        amount.setText(notification.getAwardBadge());
 
         ImageView icon = convertView.findViewById(R.id.iconNotification);
         icon.setImageResource(notification.getIcon());
@@ -75,7 +72,7 @@ public class Adapter_item_notification extends BaseAdapter {
     }
 
     private void setBackgroundColor(Notification notification, View convertView){
-        if(notification.getType().equals("notRead")){
+        if(notification.getReaded() == 0){
             convertView.setBackgroundColor(ContextCompat.getColor(context, R.color.accentLight2));
         }
     }

@@ -39,7 +39,7 @@ public class Adapter_archived_lottery extends RecyclerView.Adapter<Adapter_archi
         holder.name.setText(listArchivedLottery.get(position).getName());
         holder.date.setText(listArchivedLottery.get(position).getDate());
         holder.photo.setImageResource(listArchivedLottery.get(position).getPhoto());
-        holder.numTicketArchived.setText(listArchivedLottery.get(position).getNumTicketArchived()+"");
+        holder.numTicketArchived.setText(String.valueOf(listArchivedLottery.get(position).getAmountTicket()));
     }
 
     @Override
@@ -57,7 +57,7 @@ public class Adapter_archived_lottery extends RecyclerView.Adapter<Adapter_archi
             name=iterView.findViewById(R.id.nameArchivedLottery);
             date=iterView.findViewById(R.id.dateArchivedLottery);
             photo= iterView.findViewById(R.id.imgArchivedLottery);
-            numTicketArchived=iterView.findViewById(R.id.numTicketArchived);
+            numTicketArchived=iterView.findViewById(R.id.amountTicketArchived);
         }
     }
 }

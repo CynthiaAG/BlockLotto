@@ -70,7 +70,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_cached_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_input_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -81,7 +81,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="90c0c4" />
-                            <entry key="outputName" value="ic_refresh" />
+                            <entry key="outputName" value="ic_get_balance_channels" />
                             <entry key="sourceFile" value="C:\Users\Cynthia\Documents\Carrera\TFG\Proyecto\Recursos\Iconos android\eye-hidden-design-black-interface-symbol.svg" />
                           </map>
                         </option>

@@ -2,10 +2,10 @@ package cynthia.blocklotto.action.lottery;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -20,24 +20,33 @@ import java.text.DecimalFormat;
 import java.util.Locale;
 
 import cynthia.blocklotto.R;
+import cynthia.blocklotto.ResultFromJson;
+import cynthia.blocklotto.conection.Conection;
+import cynthia.blocklotto.conection.ConectionResponse;
 
 /**
  * Created by Cynthia on 13/06/2018.
  */
 
-public class BuyLottery extends Activity {
+public class BuyLottery extends Activity implements ConectionResponse {
 
     private DisplayMetrics size;
     private Button buy;
     private Button cancel;
     private NumberPicker numberPicker;
     private View customToast;
+    private View customToastError;
     private int amountTicket;
     private String priceFinal;
     private TextView priceTextView;
     //Lottery
     private int id;
     private double price;
+
+    private View customToastInternet;
+    private LayoutInflater inflaterInternet;
+    private TextView textInternet;
+
 
     private void initialize(){
         size = new DisplayMetrics();
@@ -53,6 +62,11 @@ public class BuyLottery extends Activity {
 
         amountTicket = 1;
         priceTextView.setText(priceFinal);
+
+        inflaterInternet = getLayoutInflater();
+        customToastInternet = inflaterInternet.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_container));
+        textInternet = (TextView) customToastInternet.findViewById(R.id.textToast);
+        textInternet.setText("Revise su conexión a internet.");
     }
 
     @Override
@@ -65,7 +79,6 @@ public class BuyLottery extends Activity {
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Buy process
                 buyTicket();
             }
         });
@@ -94,17 +107,22 @@ public class BuyLottery extends Activity {
         TextView text = (TextView) customToast.findViewById(R.id.textToast);
         text.setText("Se ha realizado la compra éxitosamente.");
 
+        LayoutInflater inflaterError = getLayoutInflater();
+        customToastError = inflater.inflate(R.layout.custom_toast,
+                (ViewGroup) findViewById(R.id.custom_toast_container));
+        TextView textError = (TextView) customToastError.findViewById(R.id.textToast);
+        textError.setText("No se ha podido realizar la compra.");
+
         AlertDialog.Builder builder;
-        builder = new AlertDialog.Builder(this);
+        builder = new AlertDialog.Builder(this , R.style.MyDialogTheme);
         builder.setTitle("Comprar boleto")
-                .setMessage("Estas seguro que quieres comprar " + amountTicket + " boleto(s)?, serán " + priceFinal)
+                .setMessage("¿Estas seguro que quieres comprar " + amountTicket + " boleto(s)?, serán " + priceFinal)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         //Purchase operation and success message
-                        Toast toast = new Toast(getApplicationContext());
-                        toast.setView(customToast);
-                        toast.show();
+                        buyRaffle(id, amountTicket);
                         finish();
+
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -116,8 +134,14 @@ public class BuyLottery extends Activity {
                 .show();
     }
 
+    private void buyRaffle(int id, int amountTicket){
+        Conection con = new Conection();
+        con.conectionResponse=this;
+        con.buyLottery(id, amountTicket, getBaseContext());
+    }
+
     public void numPickerControl(){
-        numberPicker.setMaxValue(500);
+        numberPicker.setMaxValue(100);
         numberPicker.setMinValue(1);
         numberPicker.setWrapSelectorWheel(true);
 
@@ -136,7 +160,31 @@ public class BuyLottery extends Activity {
     //Transform the double to String without scientific notation
     public static String convertString(double value){
         Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("#,##0.0####");
+        DecimalFormat num = new DecimalFormat("#,##0.0#####");
         return num.format(value);
+    }
+
+    @Override
+    public void processFinish(String output) {
+        ResultFromJson resultFromJson = new ResultFromJson();
+
+        if(output ==null){
+            Toast toast = new Toast(getBaseContext());
+            toast.setView(customToastInternet);
+            toast.show();
+        }else {
+            String result = resultFromJson.getBuyRaffleResult(output);
+            if (result != null && result.equals("Transaction completed")) {
+                Toast toast = new Toast(getApplicationContext());
+                toast.setView(customToast);
+                toast.show();
+
+            } else {
+                Toast toast = new Toast(getApplicationContext());
+                toast.setView(customToastError);
+                toast.show();
+            }
+        }
+
     }
 }

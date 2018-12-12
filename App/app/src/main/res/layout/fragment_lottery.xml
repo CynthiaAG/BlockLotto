@@ -67,22 +67,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_marginStart="20dp"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="3dp"
                 android:layout_weight="0"
                 android:gravity="left"
-                android:text="5 BTC"
-                android:textSize="24sp"
+                android:text="0.000000000005 BTC"
+                android:textSize="20sp"
                 android:background="@drawable/shape_circle_buton"
                 android:backgroundTint="@android:color/transparent"/>
 
-            <Button
-                android:id="@+id/refresh_balance"
+            <RelativeLayout
                 android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:backgroundTint="@color/text_color_quaternary"
-                android:background="@drawable/ic_refresh"/>
+                android:layout_height="25dp">
+                <Button
+                    android:id="@+id/refresh_balance"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:backgroundTint="@color/text_color_quaternary"
+                    android:background="@drawable/ic_refresh"/>
+                <ProgressBar
+                    android:id="@+id/progress_lottery"
+                    android:visibility="invisible"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:theme="@style/AppTheme.ProgressBar"/>
+            </RelativeLayout>
+
         </LinearLayout>
 
     </LinearLayout>

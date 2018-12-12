@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/allPay"
-        android:orderInCategory="100"
-        android:title="Todos los pagos"/>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/allPay"
+            android:orderInCategory="1"
+            android:checked="true"
+            android:title="Todos los pagos"/>
 
-    <item
-        android:id="@+id/receivedPay"
-        android:orderInCategory="100"
-        android:title="Pagos recibidos" />
-    <item
-        android:id="@+id/sendPay"
-        android:orderInCategory="100"
-        android:title="Pagos enviados"/>
+        <item
+            android:id="@+id/receivedPay"
+            android:orderInCategory="2"
+            android:title="Pagos recibidos" />
+        <item
+            android:id="@+id/sendPay"
+            android:orderInCategory="3"
+            android:title="Pagos enviados"/>
+    </group>
 </menu>

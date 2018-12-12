@@ -61,7 +61,7 @@ public class Adapter_item_transaction extends BaseAdapter {
         date.setText(transaction.getDate());
 
         TextView balanceCurrent = convertView.findViewById(R.id.balanceCurrent);
-        balanceCurrent.setText(transaction.getBalanceCurrentBadge());
+        balanceCurrent.setText(transaction.getHistoricalAmount());
 
         controlColor(transaction, convertView);
 
@@ -71,11 +71,11 @@ public class Adapter_item_transaction extends BaseAdapter {
     private void controlColor(Transaction transaction, View convertView){
         TextView amount = (TextView) convertView.findViewById(R.id.amountTransaction);
 
-        if(transaction.getType().equals("income")){
-            amount.setText(transaction.getAmountType());
-        }else{
+        if(transaction.getAction().equals("send")){
             amount.setTextColor(ContextCompat.getColor(context, R.color.colorTertiary));
-            amount.setText(transaction.getAmountType());
+            amount.setText(transaction.getAmount());
+        }else{
+            amount.setText(transaction.getAmount());
         }
     }
 }

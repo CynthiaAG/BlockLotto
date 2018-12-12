@@ -74,6 +74,7 @@ public class Fragment_about extends Fragment {
         adapterAdditional.add("LottoService");
         adapterAdditional.add("Zxing");
         adapterAdditional.add("android-gif-drawable");
+        adapterAdditional.add("Gson");
         listAdditional.setAdapter(adapterAdditional);
 
         controlSecondList();
@@ -111,16 +112,24 @@ public class Fragment_about extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i){
                     case 0:
+                        Uri uri0 = Uri.parse("https://github.com/kovutech/BlockLotto");
+                        Intent intent0 = new Intent(Intent.ACTION_VIEW, uri0);
+                        startActivity(intent0);
                         break;
                     case 1:
-                        Uri uri = Uri.parse("https://github.com/journeyapps/zxing-android-embedded");
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                        startActivity(intent);
+                        Uri uri1 = Uri.parse("https://github.com/journeyapps/zxing-android-embedded");
+                        Intent intent1 = new Intent(Intent.ACTION_VIEW, uri1);
+                        startActivity(intent1);
                         break;
                     case 2:
                         Uri uri2 = Uri.parse("https://github.com/koral--/android-gif-drawable");
                         Intent intent2 = new Intent(Intent.ACTION_VIEW, uri2);
                         startActivity(intent2);
+                        break;
+                    case 3:
+                        Uri uri3 = Uri.parse("https://github.com/google/gson");
+                        Intent intent3 = new Intent(Intent.ACTION_VIEW, uri3);
+                        startActivity(intent3);
                         break;
                 }
             }

@@ -45,6 +45,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
+        android:textIsSelectable="true"
         android:text="Car House Lightning Medium Cloudless Canister Pianist Scope Insecticide Sailor Shoe Bones Morning Star Lock Table Baseball Dread Basketball Dry Skin Free Sheep Character"
         android:textAlignment="center"
         android:textSize="18sp"

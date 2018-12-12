@@ -12,11 +12,13 @@
     <color name="accentLight">#a663c7b9</color>
     <color name="accentLight2">#3d63c7b9</color>
     <color name="accentLight4">#8736b792</color>
+    <color name="yellow">#fcfac6</color>
     <color name="white">#ffffff</color>
     <color name="black_overlay">#a8000000</color>
     <color name="text_color_secondary">#d2000000</color>
     <color name="text_color_tertiary">#bb000000</color>
     <color name="text_color_quaternary">#84000000</color>
+    <color name="text_color_quinary">#6c000000</color>
     <color name="text_color_primary">#d2000000</color>
     <color name="primary_text_default_material_light">#deffffff</color>
     <color name="primary_dark_material_dark">#001627</color>
