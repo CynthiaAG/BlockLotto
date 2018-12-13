@@ -1,14 +1,9 @@
 package cynthia.blocklotto.fragment.lottery;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.sql.SQLOutput;
 
 import cynthia.blocklotto.R;
-import cynthia.blocklotto.ResultFromJson;
+import cynthia.blocklotto.conection.ResultFromJson;
 import cynthia.blocklotto.adapter.lottery.Adapter_view_page;
 import cynthia.blocklotto.conection.Conection;
 import cynthia.blocklotto.conection.ConectionResponse;

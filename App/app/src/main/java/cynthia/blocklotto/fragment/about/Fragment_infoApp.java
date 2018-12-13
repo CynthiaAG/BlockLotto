@@ -14,7 +14,6 @@ public class Fragment_infoApp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         this.getWindow().setFlags(WindowManager.LayoutParams.FIRST_APPLICATION_WINDOW, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(R.layout.fragment_info_app);
     }
 }

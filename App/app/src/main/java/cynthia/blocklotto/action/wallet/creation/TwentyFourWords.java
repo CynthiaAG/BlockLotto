@@ -10,7 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
-import cynthia.blocklotto.MainActivity;
+import cynthia.blocklotto.start.MainActivity;
 import cynthia.blocklotto.R;
 
 public class TwentyFourWords extends AppCompatActivity {

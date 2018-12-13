@@ -101,16 +101,4 @@ public class Transaction {
     public void setConcept(String concept) {
         this.concept = concept;
     }
-    /*
-    public String getAmountType(){
-        Locale.setDefault(Locale.US);
-        DecimalFormat num = new DecimalFormat("#,##0.0####");
-        String result = num.format(amount);
-
-        if(type.equals("income")){
-            return "+ " + result+ " BTC";
-        }else{
-            return "- " + result+ " BTC";
-        }
-    }*/
 }

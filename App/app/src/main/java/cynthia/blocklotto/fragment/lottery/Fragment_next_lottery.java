@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import cynthia.blocklotto.ResultFromJson;
+import cynthia.blocklotto.conection.ResultFromJson;
 import cynthia.blocklotto.conection.Conection;
 import cynthia.blocklotto.conection.ConectionResponse;
 import cynthia.blocklotto.lottery.NextLottery;

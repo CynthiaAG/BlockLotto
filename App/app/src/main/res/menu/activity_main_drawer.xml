@@ -23,10 +23,6 @@
             android:id="@+id/operation_option"
             android:icon="@drawable/ic_operation"
             android:title="Operaciones" />
-   <!--     <item
-            android:id="@+id/backup_wallet"
-            android:icon="@drawable/ic_backup"
-            android:title="Copia de seguridad" /> !-->
     </group>
 
     <group android:checkableBehavior="single"

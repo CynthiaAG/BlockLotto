@@ -62,8 +62,6 @@ public class InfoLottery  extends Activity {
         priceTotalInfo = findViewById(R.id.priceTotalInfo);
         participations = findViewById(R.id.totalParticipations);
         participationsGroup = findViewById(R.id.participationsGroup);
-
-
     }
 
     @Override
@@ -111,7 +109,6 @@ public class InfoLottery  extends Activity {
         if(!type.equals("Next")){
             if(type.equals("Archived")){
                 participations.setText(currentParticipations+"");
-
             }
             priceTotalInfo.setText(priceFinal);
             amountTicketInfo.setText(amount+"");
@@ -122,44 +119,34 @@ public class InfoLottery  extends Activity {
     private void setWindowSize(String type) {
         if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT && (type.equals("Pending"))){
             getWindow().setLayout( (int) ((size.widthPixels) * .8), (int) ((size.heightPixels) * .45) );
-            amountTicketGroup.setVisibility(View.VISIBLE);
-            priceTotalGroup.setVisibility(View.VISIBLE);
-            buy.setVisibility(View.INVISIBLE);
+            establishViews(View.INVISIBLE, View.VISIBLE, View.VISIBLE, View.INVISIBLE);
         }else if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT && (type.equals("Archived"))){
             getWindow().setLayout( (int) ((size.widthPixels) * .8), (int) ((size.heightPixels) * .5) );
-            participationsGroup.setVisibility(View.VISIBLE);
-            amountTicketGroup.setVisibility(View.VISIBLE);
-            priceTotalGroup.setVisibility(View.VISIBLE);
-            buy.setVisibility(View.INVISIBLE);
+            establishViews(View.VISIBLE, View.VISIBLE, View.VISIBLE, View.INVISIBLE);
         }
         else if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT && type.equals("Next")){
             getWindow().setLayout( (int) ((size.widthPixels) * .8), (int) ((size.heightPixels) * .45) );
-            participationsGroup.setVisibility(View.INVISIBLE);
-            amountTicketGroup.setVisibility(View.INVISIBLE);
-            priceTotalGroup.setVisibility(View.INVISIBLE);
-            buy.setVisibility(View.VISIBLE);
+            establishViews(View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.VISIBLE);
         }
         else if (type.equals("Next")){
             getWindow().setLayout( (int) ((size.widthPixels) * .6), (int) ((size.heightPixels) * .8) );
-            participationsGroup.setVisibility(View.INVISIBLE);
-            amountTicketGroup.setVisibility(View.INVISIBLE);
-            priceTotalGroup.setVisibility(View.INVISIBLE);
-            buy.setVisibility(View.VISIBLE);
+            establishViews(View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.VISIBLE);
         }
         else if (type.equals("Archived")){
             getWindow().setLayout( (int) ((size.widthPixels) * .6), (int) ((size.heightPixels) * .88) );
-            participationsGroup.setVisibility(View.VISIBLE);
-            amountTicketGroup.setVisibility(View.VISIBLE);
-            priceTotalGroup.setVisibility(View.VISIBLE);
-            buy.setVisibility(View.INVISIBLE);
+            establishViews(View.VISIBLE, View.VISIBLE, View.VISIBLE, View.INVISIBLE);
         }
         else{
             getWindow().setLayout( (int) ((size.widthPixels) * .6), (int) ((size.heightPixels) * .83) );
-            participationsGroup.setVisibility(View.INVISIBLE);
-            amountTicketGroup.setVisibility(View.VISIBLE);
-            priceTotalGroup.setVisibility(View.VISIBLE);
-            buy.setVisibility(View.INVISIBLE);
+            establishViews(View.INVISIBLE, View.VISIBLE, View.VISIBLE, View.INVISIBLE);
         }
+    }
+
+    private void establishViews(int i1, int i2, int i3, int i4){
+        participationsGroup.setVisibility(i1);
+        amountTicketGroup.setVisibility(i2);
+        priceTotalGroup.setVisibility(i3);
+        buy.setVisibility(i4);
     }
 
     private void controlButton(){

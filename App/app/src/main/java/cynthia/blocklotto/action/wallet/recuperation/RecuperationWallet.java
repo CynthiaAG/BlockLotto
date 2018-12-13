@@ -18,12 +18,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import cynthia.blocklotto.MainActivity;
+import cynthia.blocklotto.start.MainActivity;
 import cynthia.blocklotto.R;
-import cynthia.blocklotto.ResultFromJson;
-import cynthia.blocklotto.action.wallet.creation.TwentyFourWords;
 import cynthia.blocklotto.conection.Conection;
-import cynthia.blocklotto.conection.ConectionResponse;
 
 public class RecuperationWallet extends AppCompatActivity {
 

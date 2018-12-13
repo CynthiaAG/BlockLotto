@@ -19,7 +19,6 @@ public class Fragment_functionApp extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here.
         super.onBackPressed();
         return false;
     }

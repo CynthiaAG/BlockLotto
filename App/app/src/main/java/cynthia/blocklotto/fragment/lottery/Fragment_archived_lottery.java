@@ -17,23 +17,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
-import cynthia.blocklotto.ResultFromJson;
+import cynthia.blocklotto.conection.ResultFromJson;
 import cynthia.blocklotto.action.lottery.InfoLottery;
 import cynthia.blocklotto.conection.Conection;
 import cynthia.blocklotto.conection.ConectionResponse;
 import cynthia.blocklotto.lottery.ArchivedLottery;
 import cynthia.blocklotto.R;
 import cynthia.blocklotto.adapter.lottery.Adapter_archived_lottery;
-import cynthia.blocklotto.lottery.PendingLottery;
 
 /**
  * Created by Cynthia on 11/06/2018.

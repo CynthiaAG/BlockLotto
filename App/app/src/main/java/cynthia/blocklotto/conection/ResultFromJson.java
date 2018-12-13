@@ -1,4 +1,4 @@
-package cynthia.blocklotto;
+package cynthia.blocklotto.conection;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -10,6 +10,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import cynthia.blocklotto.action.lottery.Purchase;
 import cynthia.blocklotto.lottery.ArchivedLottery;
 import cynthia.blocklotto.lottery.NextLottery;
 import cynthia.blocklotto.lottery.PendingLottery;

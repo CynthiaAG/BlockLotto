@@ -1,6 +1,5 @@
 package cynthia.blocklotto.fragment.wallet;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -16,13 +15,11 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import cynthia.blocklotto.R;
-import cynthia.blocklotto.ResultFromJson;
+import cynthia.blocklotto.conection.ResultFromJson;
 import cynthia.blocklotto.conection.Conection;
 import cynthia.blocklotto.conection.ConectionResponse;
 import cynthia.blocklotto.wallet.Transaction;
@@ -140,29 +137,34 @@ public class Fragment_my_wallet extends Fragment implements ConectionResponse {
         con.getTransaction(getContext());
     }
 
+    private void showNotInternet(){
+        transactions.clear();
+        adapter.notifyDataSetChanged();
+        balanceWT = false;
+        balanceCH = false;
+        balanceGet = false;
+        transactionB = false;
+        progressTransaction.setVisibility(View.INVISIBLE);
+        progressBarWallet.setVisibility(View.INVISIBLE);
+        updateBalance.setVisibility(View.VISIBLE);
+        sort.setVisibility(View.INVISIBLE);
+        notTransactions.setText("No se pueden mostrar tus movimientos. Revise su conexión a internet.");
+        notTransactions.setVisibility(View.VISIBLE);
+    }
+
 
     @Override
     public void processFinish(String output) {
         ResultFromJson resultFromJson = new ResultFromJson();
         if(output == null){
-            transactions.clear();
-            adapter.notifyDataSetChanged();
-            balanceWT = false;
-            balanceCH = false;
-            balanceGet = false;
-            transactionB = false;
-            progressTransaction.setVisibility(View.INVISIBLE);
-            progressBarWallet.setVisibility(View.INVISIBLE);
-            updateBalance.setVisibility(View.VISIBLE);
-            sort.setVisibility(View.INVISIBLE);
-            notTransactions.setText("No se pueden mostrar tus movimientos. Revise su conexión a internet.");
-            notTransactions.setVisibility(View.VISIBLE);
+            showNotInternet();
+
         } else if (balanceWT){
             balanceWallet.setText(resultFromJson.getBalanceResult(output));
             balanceWT = false;
             getBalanceChannel();
-        }
-        else if(balanceCH) {
+
+        } else if(balanceCH) {
             balanceCHNL = resultFromJson.getBalanceChannelResult(output);
             if (balanceCHNL == null || balanceCHNL.equals("0.0")) {
                 getBTCFromChannel.setVisibility(View.INVISIBLE);
@@ -178,13 +180,11 @@ public class Fragment_my_wallet extends Fragment implements ConectionResponse {
                 creation = false;
                 getTransactions();
             }
-        }
-        else if(balanceGet) {
+        } else if(balanceGet) {
             balanceGet = false;
             getBalance();
-        }
 
-        else if(transactionB) {
+        } else if(transactionB) {
             transactionB = false;
             progressTransaction.setVisibility(View.INVISIBLE);
             transactions.clear();

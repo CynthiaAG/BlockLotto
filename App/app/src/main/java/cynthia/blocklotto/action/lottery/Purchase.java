@@ -1,4 +1,4 @@
-package cynthia.blocklotto;
+package cynthia.blocklotto.action.lottery;
 
 public class Purchase {
     private String idWallet;

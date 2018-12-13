@@ -1,12 +1,10 @@
 package cynthia.blocklotto.fragment.operation;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +21,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import cynthia.blocklotto.R;
-import cynthia.blocklotto.ResultFromJson;
+import cynthia.blocklotto.conection.ResultFromJson;
 import cynthia.blocklotto.adapter.operation.Adapter_operation;
 import cynthia.blocklotto.conection.Conection;
 import cynthia.blocklotto.conection.ConectionResponse;
@@ -158,7 +155,6 @@ public class Fragment_operation extends Fragment implements ConectionResponse {
                     fragmentSending.setArguments(qr);
                     viewPagerOperation.setCurrentItem(2);
                     fragmentSending.controlScan();
-                    // String codeFormat = scanningResult.getFormatName(); Format to Scan in this case QR_CODE
                 }catch(NullPointerException e){
                     Toast toast = new Toast(getContext());
                     toast.setView(customToast);

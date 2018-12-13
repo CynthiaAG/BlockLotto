@@ -2,10 +2,8 @@ package cynthia.blocklotto.action.lottery;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -20,7 +18,7 @@ import java.text.DecimalFormat;
 import java.util.Locale;
 
 import cynthia.blocklotto.R;
-import cynthia.blocklotto.ResultFromJson;
+import cynthia.blocklotto.conection.ResultFromJson;
 import cynthia.blocklotto.conection.Conection;
 import cynthia.blocklotto.conection.ConectionResponse;
 
@@ -34,8 +32,7 @@ public class BuyLottery extends Activity implements ConectionResponse {
     private Button buy;
     private Button cancel;
     private NumberPicker numberPicker;
-    private View customToast;
-    private View customToastError;
+
     private int amountTicket;
     private String priceFinal;
     private TextView priceTextView;
@@ -46,6 +43,12 @@ public class BuyLottery extends Activity implements ConectionResponse {
     private View customToastInternet;
     private LayoutInflater inflaterInternet;
     private TextView textInternet;
+    private View customToast;
+    private LayoutInflater inflater;
+    private TextView text;
+    private View customToastError;
+    private LayoutInflater inflaterError;
+    private TextView textError;
 
 
     private void initialize(){
@@ -63,10 +66,26 @@ public class BuyLottery extends Activity implements ConectionResponse {
         amountTicket = 1;
         priceTextView.setText(priceFinal);
 
+        initializeToast();
+    }
+
+    private void initializeToast(){
         inflaterInternet = getLayoutInflater();
         customToastInternet = inflaterInternet.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_container));
         textInternet = (TextView) customToastInternet.findViewById(R.id.textToast);
         textInternet.setText("Revise su conexión a internet.");
+
+        inflater = getLayoutInflater();
+        customToast = inflater.inflate(R.layout.custom_toast,
+                (ViewGroup) findViewById(R.id.custom_toast_container));
+        text = (TextView) customToast.findViewById(R.id.textToast);
+        text.setText("Se ha realizado la compra éxitosamente.");
+
+        inflaterError = getLayoutInflater();
+        customToastError = inflater.inflate(R.layout.custom_toast,
+                (ViewGroup) findViewById(R.id.custom_toast_container));
+        textError = (TextView) customToastError.findViewById(R.id.textToast);
+        textError.setText("No se ha podido realizar la compra.");
     }
 
     @Override
@@ -82,7 +101,6 @@ public class BuyLottery extends Activity implements ConectionResponse {
                 buyTicket();
             }
         });
-
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,25 +119,12 @@ public class BuyLottery extends Activity implements ConectionResponse {
     }
 
     private void buyTicket(){
-        LayoutInflater inflater = getLayoutInflater();
-        customToast = inflater.inflate(R.layout.custom_toast,
-                (ViewGroup) findViewById(R.id.custom_toast_container));
-        TextView text = (TextView) customToast.findViewById(R.id.textToast);
-        text.setText("Se ha realizado la compra éxitosamente.");
-
-        LayoutInflater inflaterError = getLayoutInflater();
-        customToastError = inflater.inflate(R.layout.custom_toast,
-                (ViewGroup) findViewById(R.id.custom_toast_container));
-        TextView textError = (TextView) customToastError.findViewById(R.id.textToast);
-        textError.setText("No se ha podido realizar la compra.");
-
         AlertDialog.Builder builder;
         builder = new AlertDialog.Builder(this , R.style.MyDialogTheme);
         builder.setTitle("Comprar boleto")
                 .setMessage("¿Estas seguro que quieres comprar " + amountTicket + " boleto(s)?, serán " + priceFinal)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        //Purchase operation and success message
                         buyRaffle(id, amountTicket);
                         finish();
 

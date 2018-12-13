@@ -1,4 +1,4 @@
-package cynthia.blocklotto;
+package cynthia.blocklotto.start;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-import com.google.android.gms.ads.MobileAds;
+import cynthia.blocklotto.R;
 
 public class SplashScreen extends AppCompatActivity {
 

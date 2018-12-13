@@ -1,4 +1,4 @@
-package cynthia.blocklotto;
+package cynthia.blocklotto.start;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import cynthia.blocklotto.R;
 import cynthia.blocklotto.fragment.about.Fragment_about;
 import cynthia.blocklotto.fragment.lottery.Fragment_lottery;
 import cynthia.blocklotto.fragment.operation.Fragment_operation;
@@ -62,7 +64,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return false;
     }
@@ -78,9 +79,6 @@ public class MainActivity extends AppCompatActivity
             case R.id.operation_option:
                 actionItemSelected("Operaciones", new Fragment_operation(), fragmentManager);
                break;
-           /* case R.id.backup_wallet:
-                actionItemSelected("Copia de seguridad", new Fragment_backup(), fragmentManager);
-                break;*/
             case R.id.my_notifications:
                 actionItemSelected("Notificaciones", new Fragment_notification(), fragmentManager);
                 break;

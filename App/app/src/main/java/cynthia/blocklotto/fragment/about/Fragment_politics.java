@@ -23,7 +23,6 @@ public class Fragment_politics extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here.
         super.onBackPressed();
         return false;
     }

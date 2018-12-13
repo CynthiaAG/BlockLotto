@@ -1,25 +1,18 @@
 package cynthia.blocklotto.action.wallet.recuperation;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import cynthia.blocklotto.R;
-import cynthia.blocklotto.Start;
-
-import static android.view.KeyEvent.KEYCODE_BACK;
-import static java.security.AccessController.getContext;
+import cynthia.blocklotto.start.Start;
 
 public class TwentyFourWords extends AppCompatActivity {
 

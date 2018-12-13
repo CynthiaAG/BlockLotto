@@ -34,9 +34,7 @@ public class Adapter_item_notification extends BaseAdapter {
     }
 
     public void addAll(ArrayList<Notification> notifications) {
-        for (int i = 0 ; i < notifications.size(); i++) {
-            items.add(notifications.get(i));
-        }
+        items.addAll(notifications);
     }
 
     @Override

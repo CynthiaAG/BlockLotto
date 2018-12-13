@@ -89,7 +89,6 @@ public class CreationWallet extends AppCompatActivity{
             toast.show();
             create.setEnabled(true);
         }else {
-            System.out.println("HElloooow");
             createDataFile(data[0], data[1], data[2]);
             Intent intent = new Intent(v.getContext(), TwentyFourWords.class);
             intent.putExtra("24-words", data[3]);
@@ -100,11 +99,8 @@ public class CreationWallet extends AppCompatActivity{
 
     private void createDataFile(String id, String pub, String address){
         SharedPreferences preference = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
-        //Obtaining the address, pub and id for wallet
-
         SharedPreferences.Editor editor = preference.edit();
         editor.putString("address", address);
-        //exist putInt(), etc.
         editor.putString("pub", pub);
         editor.putString("id", id);
         editor.commit();
@@ -112,7 +108,6 @@ public class CreationWallet extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here.
         super.onBackPressed();
         return false;
     }

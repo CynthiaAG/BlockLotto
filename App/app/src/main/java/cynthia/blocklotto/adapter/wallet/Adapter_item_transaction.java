@@ -33,9 +33,7 @@ public class Adapter_item_transaction extends BaseAdapter {
     }
 
     public void addAll(ArrayList<Transaction> transactions) {
-        for (int i = 0 ; i < transactions.size(); i++) {
-            items.add(transactions.get(i));
-        }
+        items.addAll(transactions);
     }
 
     @Override

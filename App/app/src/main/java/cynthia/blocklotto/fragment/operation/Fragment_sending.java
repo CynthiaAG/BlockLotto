@@ -1,11 +1,8 @@
 package cynthia.blocklotto.fragment.operation;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -20,7 +17,7 @@ import java.text.DecimalFormat;
 import java.util.Locale;
 
 import cynthia.blocklotto.R;
-import cynthia.blocklotto.ResultFromJson;
+import cynthia.blocklotto.conection.ResultFromJson;
 import cynthia.blocklotto.conection.Conection;
 import cynthia.blocklotto.conection.ConectionResponse;
 
@@ -53,7 +50,12 @@ public class Fragment_sending extends Fragment implements ConectionResponse {
         sendButtonFinal = view.findViewById(R.id.sendButtonFinal);
         addressReception = view.findViewById(R.id.addressReception);
         amountSend = view.findViewById(R.id.amountSend);
+        initializeToast();
+        stringScan = "";
 
+    }
+
+    private void initializeToast(){
         inflaterInternet = getLayoutInflater();
         customToastInternet = inflaterInternet.inflate(R.layout.custom_toast, (ViewGroup) view.findViewById(R.id.custom_toast_container));
         textInternet = (TextView) customToastInternet.findViewById(R.id.textToast);
@@ -68,8 +70,6 @@ public class Fragment_sending extends Fragment implements ConectionResponse {
         customToastError = inflater.inflate(R.layout.custom_toast, (ViewGroup) view.findViewById(R.id.custom_toast_container));
         TextView textError = (TextView) customToastError.findViewById(R.id.textToast);
         textError.setText("No se han podido enviar BTC");
-
-        stringScan = "";
 
     }
 

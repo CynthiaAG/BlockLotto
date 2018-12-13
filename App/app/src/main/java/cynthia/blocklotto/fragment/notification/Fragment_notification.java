@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import cynthia.blocklotto.R;
-import cynthia.blocklotto.ResultFromJson;
+import cynthia.blocklotto.conection.ResultFromJson;
 import cynthia.blocklotto.adapter.notification.Adapter_item_notification;
 import cynthia.blocklotto.conection.Conection;
 import cynthia.blocklotto.conection.ConectionResponse;
@@ -108,11 +108,7 @@ public class Fragment_notification extends Fragment implements ConectionResponse
     public void processFinish(String output) {
         ResultFromJson resultFromJson = new ResultFromJson();
         if(output==null){
-            notifications.clear();
-            adapter.notifyDataSetChanged();
-            progressBar.setVisibility(View.INVISIBLE);
-            notFound.setText("No se pueden mostrar sus notificaciones. Revise su conexión a internet.");
-            notFound.setVisibility(View.VISIBLE);
+            showNotInternet();
         } else if (notificationsB){
             notificationsB = false;
             notifications.clear();
@@ -138,6 +134,14 @@ public class Fragment_notification extends Fragment implements ConectionResponse
                 getNotifications();
             }
         }
+    }
+
+    private void showNotInternet(){
+        notifications.clear();
+        adapter.notifyDataSetChanged();
+        progressBar.setVisibility(View.INVISIBLE);
+        notFound.setText("No se pueden mostrar sus notificaciones. Revise su conexión a internet.");
+        notFound.setVisibility(View.VISIBLE);
     }
 
 }

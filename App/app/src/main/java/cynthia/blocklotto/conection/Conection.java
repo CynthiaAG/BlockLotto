@@ -6,10 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.StrictMode;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -25,7 +21,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import cynthia.blocklotto.R;
 import cynthia.blocklotto.wallet.Wallet;
 
 public class Conection extends AsyncTask<String, Void, String> {
@@ -258,23 +253,11 @@ public class Conection extends AsyncTask<String, Void, String> {
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
-
             json_aux = response.toString();
             connection.disconnect();
-           // jsonArray = null;
-          //  jsonArray = new JSONObject(json_aux);
-
-          /*  for (int i = 0; i < jsonArray.length(); i++) {
-                //trajo el json del servidor
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                System.out.println(jsonObject);
-                System.out.println("SALIDAA"+ jsonObject.optString("seedWords") );
-            }*/
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException | JSONException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
             e.printStackTrace();
         }
         return json_aux;
@@ -283,7 +266,6 @@ public class Conection extends AsyncTask<String, Void, String> {
     private String checkDataFile(Context context){
         SharedPreferences preference = context.getSharedPreferences("credenciales", Context.MODE_PRIVATE);
         String id = preference.getString("id","-1");
-        System.out.println("AQUIII"+ id);
         return id;
 
     }
