@@ -20,12 +20,12 @@ import java.util.ArrayList;
 
 import cynthia.blocklotto.R;
 import cynthia.blocklotto.conection.ResultFromJson;
-import cynthia.blocklotto.conection.Conection;
-import cynthia.blocklotto.conection.ConectionResponse;
+import cynthia.blocklotto.conection.Accessor;
+import cynthia.blocklotto.conection.AccessorResponse;
 import cynthia.blocklotto.wallet.Transaction;
 import cynthia.blocklotto.adapter.wallet.Adapter_item_transaction;
 
-public class Fragment_my_wallet extends Fragment implements ConectionResponse {
+public class Fragment_my_wallet extends Fragment implements AccessorResponse {
 
     private View view;
     private SwipeRefreshLayout swipeWallet;
@@ -109,31 +109,31 @@ public class Fragment_my_wallet extends Fragment implements ConectionResponse {
         balanceWT = true;
         progressBarWallet.setVisibility(View.VISIBLE);
         updateBalance.setVisibility(View.INVISIBLE);
-        Conection con = new Conection();
-        con.conectionResponse=this;
+        Accessor con = new Accessor();
+        con.accessorResponse =this;
         con.getBalance(getContext());
     }
 
     private void getBalanceChannel(){
         balanceCH = true;
-        Conection con = new Conection();
-        con.conectionResponse=this;
+        Accessor con = new Accessor();
+        con.accessorResponse =this;
         con.getBalanceChannel(getContext());
 
     }
 
     private void getBTCFromChannel(){
         balanceGet = true;
-        Conection con = new Conection();
-        con.conectionResponse=this;
+        Accessor con = new Accessor();
+        con.accessorResponse =this;
         con.getBTCFromChannels(getContext());
 
     }
 
     private void getTransactions(){
         transactionB = true;
-        Conection con = new Conection();
-        con.conectionResponse=this;
+        Accessor con = new Accessor();
+        con.accessorResponse =this;
         con.getTransaction(getContext());
     }
 

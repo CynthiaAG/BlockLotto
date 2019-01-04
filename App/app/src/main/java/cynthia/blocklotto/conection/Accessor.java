@@ -23,8 +23,8 @@ import java.net.URL;
 
 import cynthia.blocklotto.wallet.Wallet;
 
-public class Conection extends AsyncTask<String, Void, String> {
-    public ConectionResponse conectionResponse = null;
+public class Accessor extends AsyncTask<String, Void, String> {
+    public AccessorResponse accessorResponse = null;
     private String json_aux;
     private Context context;
 
@@ -43,7 +43,7 @@ public class Conection extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         try {
-            conectionResponse.processFinish(result);
+            accessorResponse.processFinish(result);
             this.finalize();
         } catch (Throwable throwable) {
             throwable.printStackTrace();
@@ -71,7 +71,7 @@ public class Conection extends AsyncTask<String, Void, String> {
 
     public void createWallet(String pass, Context context){
         this.context = context;
-        String url = "http://178.62.118.25:8080/BlockLotto/service/nw";
+        String url = "http://178.62.118.25:8080/BlockLotto/nw";
         String pin ="{" + "\"pass\""+ ":" + "\"" + pass + "\"" + "}";
         this.doInBackground(url, pin);
     }
@@ -101,7 +101,7 @@ public class Conection extends AsyncTask<String, Void, String> {
 
     public void recuperateWallet(String pass, String twentyFourWords, Context context){
         this.context = context;
-        String url = "http://178.62.118.25:8080/BlockLotto/service/rw";
+        String url = "http://178.62.118.25:8080/BlockLotto/rw";
         String pin ="\"pass\""+ ":" + "\"" + pass + "\"";
         String words = "\"seedWords\"" + ":" + twentyFourWords;
 
@@ -130,7 +130,7 @@ public class Conection extends AsyncTask<String, Void, String> {
 
     public void getBalance(Context context){
         this.context = context;
-        String url = "http://178.62.118.25:8080/BlockLotto/service/wb";
+        String url = "http://178.62.118.25:8080/BlockLotto/wb";
         String request = checkDataFile(context);
         request = "{" + "\"" + "id" + "\"" + ":" + "\""+ request + "\"" + "}";
         this.execute(url, request);
@@ -139,7 +139,7 @@ public class Conection extends AsyncTask<String, Void, String> {
 
     public void getBalanceChannel(Context context){
         this.context = context;
-        String url = "http://178.62.118.25:8080/BlockLotto/service/tbc";
+        String url = "http://178.62.118.25:8080/BlockLotto/tbc";
         String request = checkDataFile(context);
         request = "{" + "\"" + "id" + "\"" + ":" + "\""+ request + "\"" + "}";
         this.execute(url, request);
@@ -147,7 +147,7 @@ public class Conection extends AsyncTask<String, Void, String> {
 
     public void getBTCFromChannels(Context context){
         this.context = context;
-        String url = "http://178.62.118.25:8080/BlockLotto/service/wf";
+        String url = "http://178.62.118.25:8080/BlockLotto/wf";
         String request = checkDataFile(context);
         request = "{" + "\"" + "id" + "\"" + ":" + "\""+ request + "\"" + "}";
         this.execute(url, request);
@@ -155,7 +155,7 @@ public class Conection extends AsyncTask<String, Void, String> {
 
     public void getNextLotteries(Context context){
         this.context = context;
-        String url = "http://178.62.118.25:8080/BlockLotto/service/listud";
+        String url = "http://178.62.118.25:8080/BlockLotto/listud";
         String request = checkDataFile(context);
         request = "{" + "\"" + "id" + "\"" + ":" + "\""+ request + "\"" + "}";
         this.execute(url, request);
@@ -163,7 +163,7 @@ public class Conection extends AsyncTask<String, Void, String> {
 
     public void getPendingLotteries(Context context){
         this.context = context;
-        String url = "http://178.62.118.25:8080/BlockLotto/service/listdp";
+        String url = "http://178.62.118.25:8080/BlockLotto/listdp";
         String request = checkDataFile(context);
         request = "{" + "\"" + "id" + "\"" + ":" + "\""+ request + "\"" + "}";
         this.execute(url, request);
@@ -171,7 +171,7 @@ public class Conection extends AsyncTask<String, Void, String> {
 
     public void getCelebratedLotteries(Context context){
         this.context = context;
-        String url = "http://178.62.118.25:8080/BlockLotto/service/listpast";
+        String url = "http://178.62.118.25:8080/BlockLotto/listpast";
         String request = checkDataFile(context);
         request = "{" + "\"" + "id" + "\"" + ":" + "\""+ request  + "\"" + "}";
         this.execute(url, request);
@@ -179,7 +179,7 @@ public class Conection extends AsyncTask<String, Void, String> {
 
     public void getNotifications(Context context){
         this.context = context;
-        String url = "http://178.62.118.25:8080/BlockLotto/service/notifications";
+        String url = "http://178.62.118.25:8080/BlockLotto/notifications";
         String request = checkDataFile(context);
         request = "{" + "\"" + "id" + "\"" + ":" + "\""+ request + "\"" + "}";
         this.execute(url, request);
@@ -187,14 +187,14 @@ public class Conection extends AsyncTask<String, Void, String> {
 
     public void setNotificationsRead(int id, Context context){
         this.context = context;
-        String url = "http://178.62.118.25:8080/BlockLotto/service/nr";
+        String url = "http://178.62.118.25:8080/BlockLotto/nr";
         String request = "{" + "\"" + "id" + "\"" + ":" + id  + "}";
         this.execute(url, request);
     }
 
     public void buyLottery(int idLottery, int amountTicket, Context context){
         this.context = context;
-        String url = "http://178.62.118.25:8080/BlockLotto/service/br";
+        String url = "http://178.62.118.25:8080/BlockLotto/br";
         String idWallet = checkDataFile(context);
         String request = "{" + "\"" + "id" + "\"" + ":" + "\""+ idWallet + "\"" + ","
                 + "\"" + "codRaffle" + "\"" + ":" + idLottery + ","
@@ -204,7 +204,7 @@ public class Conection extends AsyncTask<String, Void, String> {
 
     public void getTransaction(Context context){
         this.context = context;
-        String url = "http://178.62.118.25:8080/BlockLotto/service/pm";
+        String url = "http://178.62.118.25:8080/BlockLotto/pm";
         String request = checkDataFile(context);
         request = "{" + "\"" + "id" + "\"" + ":" + "\""+ request + "\"" + "}";
         this.execute(url, request);
@@ -212,7 +212,7 @@ public class Conection extends AsyncTask<String, Void, String> {
 
     public void sendBTC(Context context, String pub, Double amount){
         this.context = context;
-        String url = "http://178.62.118.25:8080/BlockLotto/service/tc";
+        String url = "http://178.62.118.25:8080/BlockLotto/tc";
         String id = checkDataFile(context);
         String request = "{" + "\"" + "id" + "\"" + ":" + "\"" + id + "\"" + ","
                 + "\"" + "toWallet" + "\"" + ":" + "\"" + pub + "\""  + ","

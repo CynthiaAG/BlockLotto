@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,8 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cynthia.blocklotto.R;
-import cynthia.blocklotto.conection.Conection;
-import cynthia.blocklotto.conection.ConectionResponse;
+import cynthia.blocklotto.conection.Accessor;
 
 public class CreationWallet extends AppCompatActivity{
 
@@ -76,7 +73,7 @@ public class CreationWallet extends AppCompatActivity{
     }
 
     private void controlCreationWallet(View v){
-        Conection con = new Conection();
+        Accessor con = new Accessor();
         con.createWallet(stringPin, getBaseContext());
 
         //0-id, 1-pub, 2-address, 3-24words

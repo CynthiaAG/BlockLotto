@@ -17,11 +17,11 @@ import java.util.ArrayList;
 import cynthia.blocklotto.R;
 import cynthia.blocklotto.conection.ResultFromJson;
 import cynthia.blocklotto.adapter.notification.Adapter_item_notification;
-import cynthia.blocklotto.conection.Conection;
-import cynthia.blocklotto.conection.ConectionResponse;
+import cynthia.blocklotto.conection.Accessor;
+import cynthia.blocklotto.conection.AccessorResponse;
 import cynthia.blocklotto.notification.Notification;
 
-public class Fragment_notification extends Fragment implements ConectionResponse {
+public class Fragment_notification extends Fragment implements AccessorResponse {
 
 
     private ListView notificationList;
@@ -82,15 +82,15 @@ public class Fragment_notification extends Fragment implements ConectionResponse
 
     private void setReaded(int id){
         read = true;
-        Conection con = new Conection();
-        con.conectionResponse=this;
+        Accessor con = new Accessor();
+        con.accessorResponse =this;
         con.setNotificationsRead(id, getContext());
 
     }
     private void getNotifications(){
         notificationsB = true;
-        Conection con = new Conection();
-        con.conectionResponse=this;
+        Accessor con = new Accessor();
+        con.accessorResponse =this;
         con.getNotifications(getContext());
     }
 

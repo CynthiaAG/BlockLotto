@@ -23,10 +23,10 @@ import com.google.zxing.integration.android.IntentResult;
 import cynthia.blocklotto.R;
 import cynthia.blocklotto.conection.ResultFromJson;
 import cynthia.blocklotto.adapter.operation.Adapter_operation;
-import cynthia.blocklotto.conection.Conection;
-import cynthia.blocklotto.conection.ConectionResponse;
+import cynthia.blocklotto.conection.Accessor;
+import cynthia.blocklotto.conection.AccessorResponse;
 
-public class Fragment_operation extends Fragment implements ConectionResponse {
+public class Fragment_operation extends Fragment implements AccessorResponse {
 
     private View view;
     private TabLayout tabOperation;
@@ -103,8 +103,8 @@ public class Fragment_operation extends Fragment implements ConectionResponse {
         balanceB=true;
         progressBarOperation.setVisibility(View.VISIBLE);
         refreshBalance.setVisibility(View.INVISIBLE);
-        Conection con = new Conection();
-        con.conectionResponse=this;
+        Accessor con = new Accessor();
+        con.accessorResponse =this;
         con.getBalance(getContext());
 
     }

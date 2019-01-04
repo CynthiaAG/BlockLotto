@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import cynthia.blocklotto.start.MainActivity;
 import cynthia.blocklotto.R;
-import cynthia.blocklotto.conection.Conection;
+import cynthia.blocklotto.conection.Accessor;
 
 public class RecuperationWallet extends AppCompatActivity {
 
@@ -74,7 +74,7 @@ public class RecuperationWallet extends AppCompatActivity {
     }
 
     private void controlRecuperationWallet(String pass, String twentyFourWords){
-        Conection con = new Conection();
+        Accessor con = new Accessor();
         con.recuperateWallet(pass, twentyFourWords, getBaseContext());
 
         //0 id, 1 pub, 2 address

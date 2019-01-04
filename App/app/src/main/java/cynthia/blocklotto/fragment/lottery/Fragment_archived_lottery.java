@@ -25,8 +25,8 @@ import java.util.List;
 
 import cynthia.blocklotto.conection.ResultFromJson;
 import cynthia.blocklotto.action.lottery.InfoLottery;
-import cynthia.blocklotto.conection.Conection;
-import cynthia.blocklotto.conection.ConectionResponse;
+import cynthia.blocklotto.conection.Accessor;
+import cynthia.blocklotto.conection.AccessorResponse;
 import cynthia.blocklotto.lottery.ArchivedLottery;
 import cynthia.blocklotto.R;
 import cynthia.blocklotto.adapter.lottery.Adapter_archived_lottery;
@@ -35,7 +35,7 @@ import cynthia.blocklotto.adapter.lottery.Adapter_archived_lottery;
  * Created by Cynthia on 11/06/2018.
  */
 
-public class Fragment_archived_lottery  extends Fragment implements ConectionResponse {
+public class Fragment_archived_lottery  extends Fragment implements AccessorResponse {
 
     private RecyclerView recyclerViewLottery;
     private Adapter_archived_lottery adapterLottery;
@@ -84,8 +84,8 @@ public class Fragment_archived_lottery  extends Fragment implements ConectionRes
     }
 
     private void getLotteries(){
-        Conection con = new Conection();
-        con.conectionResponse=this;
+        Accessor con = new Accessor();
+        con.accessorResponse =this;
         con.getCelebratedLotteries(getContext());
 
     }

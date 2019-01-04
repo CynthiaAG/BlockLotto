@@ -18,10 +18,10 @@ import java.util.Locale;
 
 import cynthia.blocklotto.R;
 import cynthia.blocklotto.conection.ResultFromJson;
-import cynthia.blocklotto.conection.Conection;
-import cynthia.blocklotto.conection.ConectionResponse;
+import cynthia.blocklotto.conection.Accessor;
+import cynthia.blocklotto.conection.AccessorResponse;
 
-public class Fragment_sending extends Fragment implements ConectionResponse {
+public class Fragment_sending extends Fragment implements AccessorResponse {
 
     private View view;
 
@@ -196,8 +196,8 @@ public class Fragment_sending extends Fragment implements ConectionResponse {
     }
 
     private void sendBTC(){
-        Conection con = new Conection();
-        con.conectionResponse=this;
+        Accessor con = new Accessor();
+        con.accessorResponse =this;
 
         Locale.setDefault(Locale.US);
         DecimalFormat num = new DecimalFormat("###0.0#####");

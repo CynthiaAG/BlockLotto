@@ -19,14 +19,14 @@ import java.util.Locale;
 
 import cynthia.blocklotto.R;
 import cynthia.blocklotto.conection.ResultFromJson;
-import cynthia.blocklotto.conection.Conection;
-import cynthia.blocklotto.conection.ConectionResponse;
+import cynthia.blocklotto.conection.Accessor;
+import cynthia.blocklotto.conection.AccessorResponse;
 
 /**
  * Created by Cynthia on 13/06/2018.
  */
 
-public class BuyLottery extends Activity implements ConectionResponse {
+public class BuyLottery extends Activity implements AccessorResponse {
 
     private DisplayMetrics size;
     private Button buy;
@@ -140,8 +140,8 @@ public class BuyLottery extends Activity implements ConectionResponse {
     }
 
     private void buyRaffle(int id, int amountTicket){
-        Conection con = new Conection();
-        con.conectionResponse=this;
+        Accessor con = new Accessor();
+        con.accessorResponse =this;
         con.buyLottery(id, amountTicket, getBaseContext());
     }
 

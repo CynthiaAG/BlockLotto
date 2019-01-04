@@ -1,5 +1,5 @@
 package cynthia.blocklotto.conection;
 
-public interface ConectionResponse  {
+public interface AccessorResponse {
     void processFinish(String output);
 }

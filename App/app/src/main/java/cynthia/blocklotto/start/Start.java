@@ -1,7 +1,6 @@
 package cynthia.blocklotto.start;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.Button;
 import cynthia.blocklotto.R;
 import cynthia.blocklotto.action.wallet.creation.CreationWallet;
 import cynthia.blocklotto.action.wallet.recuperation.TwentyFourWords;
-import cynthia.blocklotto.conection.Conection;
 
 public class Start extends AppCompatActivity{
     private Button createWallet;

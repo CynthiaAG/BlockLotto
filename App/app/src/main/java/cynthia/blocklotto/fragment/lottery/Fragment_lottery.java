@@ -15,10 +15,10 @@ import android.widget.TextView;
 import cynthia.blocklotto.R;
 import cynthia.blocklotto.conection.ResultFromJson;
 import cynthia.blocklotto.adapter.lottery.Adapter_view_page;
-import cynthia.blocklotto.conection.Conection;
-import cynthia.blocklotto.conection.ConectionResponse;
+import cynthia.blocklotto.conection.Accessor;
+import cynthia.blocklotto.conection.AccessorResponse;
 
-public class Fragment_lottery extends Fragment implements ConectionResponse {
+public class Fragment_lottery extends Fragment implements AccessorResponse {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -57,8 +57,8 @@ public class Fragment_lottery extends Fragment implements ConectionResponse {
     private void getBalance(){
         refreshBalance.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
-        Conection con = new Conection();
-        con.conectionResponse=this;
+        Accessor con = new Accessor();
+        con.accessorResponse =this;
         con.getBalance(getContext());
 
     }
