@@ -1,0 +1,99 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/frame_Lottery"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cynthia.blocklotto.fragment.lottery.Fragment_lottery"
+    android:orientation="vertical">
+
+    <android.support.design.widget.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        android:id="@+id/tabLottery"
+        app:tabTextColor="@color/accentLight"
+        app:tabIndicatorColor="@color/colorTertiary"
+        app:tabSelectedTextColor="@color/colorTertiary"
+        android:background="@color/white"
+        app:tabIndicatorHeight="3dp"
+        android:layout_weight="0.00001"
+        android:elevation="3dp"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPagerLottery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.9"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/shape_circle_buton"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_circle_buton"
+            android:backgroundTint="@android:color/transparent">
+
+            <TextView
+                android:id="@+id/balanceLotteryTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="0"
+                android:gravity="top"
+                android:text="  SALDO ACTUAL:"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/balanceLottery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="3dp"
+                android:layout_weight="0"
+                android:gravity="left"
+                android:text="0.000000000005 BTC"
+                android:textSize="20sp"
+                android:background="@drawable/shape_circle_buton"
+                android:backgroundTint="@android:color/transparent"/>
+
+            <RelativeLayout
+                android:layout_width="25dp"
+                android:layout_height="25dp">
+                <Button
+                    android:id="@+id/refresh_balance"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:backgroundTint="@color/text_color_quaternary"
+                    android:background="@drawable/ic_refresh"/>
+                <ProgressBar
+                    android:id="@+id/progress_lottery"
+                    android:visibility="invisible"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:theme="@style/AppTheme.ProgressBar"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

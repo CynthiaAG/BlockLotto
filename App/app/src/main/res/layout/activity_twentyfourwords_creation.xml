@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cynthia.blocklotto.action.wallet.creation.TwentyFourWords"
+    android:focusedByDefault="true">
+
+    <Button
+        android:id="@+id/help24wordsButton"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_alignEnd="@+id/firstLine"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/ic_help" />
+    <TextView
+        android:id="@+id/text24Words"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
+        android:text="Para finalizar el proceso de creación del wallet le mostramos las veinticuatro palabras de seguridad correspondientes a su wallet:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/firstLine"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/text24Words"
+        android:background="@color/colorSecondary"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"/>
+
+    <TextView
+        android:id="@+id/twentyFourWords"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/firstLine"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:textIsSelectable="true"
+        android:text="Car House Lightning Medium Cloudless Canister Pianist Scope Insecticide Sailor Shoe Bones Morning Star Lock Table Baseball Dread Basketball Dry Skin Free Sheep Character"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textColor="@color/colorTertiary"/>
+    <View
+        android:id="@+id/secondLine"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/twentyFourWords"
+        android:background="@color/colorSecondary"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/help24words"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/secondLine"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
+        android:stateListAnimator="@anim/fade_in"
+        android:text="Le recomendamos que guarde en un lugar seguro estas veinticuatro palabras, ya que no podrá volver a verlas. Estas palabras le serán útiles si en algún momento quiere restaurar su wallet. En caso de no recordarlas perderá su wallet con todos sus fondos. "
+        android:textSize="16sp"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/buttonOk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/shape_circle_buton"
+        android:backgroundTint="@color/colorAccent"
+        android:drawableRight="@drawable/ic_continue"
+        android:layout_gravity="bottom|center"
+        android:text="Continuar"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

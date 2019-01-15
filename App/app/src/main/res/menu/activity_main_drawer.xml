@@ -3,36 +3,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single"
+        android:id="@+id/lottery">
         <item
             android:id="@+id/my_lotteries"
-            android:icon="@drawable/ic_sorteos_pendientes"
-            android:title="Mis sorteos pendientes" />
-        <item
-            android:id="@+id/future_lottery"
-            android:icon="@drawable/ic_proximos_sorteos"
-            android:title="Próximos sorteos" />
-        <item
-            android:id="@+id/history_lottery"
-            android:icon="@drawable/ic_sorteos_celebrados"
-            android:title="Sorteos celebrados" />
-
+            android:checkable="true"
+            android:checked="true"
+            android:icon="@drawable/ic_lottery"
+            android:title="Sorteos" />
     </group>
-    <group android:checkableBehavior="single">
-        <item android:title="LottoWallet">
-            <menu>
-                <group android:checkableBehavior="single">
-                    <item
-                        android:id="@+id/my_wallet"
-                        android:icon="@drawable/ic_my_wallet"
-                        android:title="Mi Wallet" />
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/walletGroup">
+        <item
+            android:id="@+id/my_wallet"
+            android:icon="@drawable/ic_my_wallet"
+            android:title="Wallet" />
+        <item
+            android:id="@+id/operation_option"
+            android:icon="@drawable/ic_operation"
+            android:title="Operaciones" />
+    </group>
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/notificationGroup">
                     <item
                         android:id="@+id/my_notifications"
-                        android:icon="@drawable/ic_notificacion"
+                        android:icon="@drawable/ic_notification"
                         android:title="Notificaciones" />
-                </group>
-            </menu>
-        </item>
+
+    </group>
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/helpGroup">
+        <item
+            android:id="@+id/about_aplication"
+            android:icon="@drawable/ic_info_drawer"
+            android:title="Acerca de" />
+
     </group>
 
 </menu>

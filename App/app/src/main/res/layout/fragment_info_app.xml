@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@drawable/gradient"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/logo_infoAp"
+        android:layout_width="320dp"
+        android:layout_height="296dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
+        android:layout_marginBottom="39dp"
+        android:gravity="center"
+        app:srcCompat="@drawable/logobl" />
+
+    <TextView
+        android:id="@+id/versionAp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo_infoAp"
+        android:gravity="center"
+        android:text="Versión 1.0"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/versionAp"
+        android:gravity="center"
+        android:text="2018    BlockLottoTeam"
+        android:textColor="@color/accentLight"
+        android:textSize="18sp"
+        android:layout_marginTop="15dp"/>
+</RelativeLayout>

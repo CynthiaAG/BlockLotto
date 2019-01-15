@@ -1,22 +1,24 @@
 <resources>
     <string name="app_name">BlockLotto</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="politics_text1">Al instalar y utilizar nuestra aplicación aceptas nuestra política de privacidad. BlockLotto sigue unos fuertes principios para proteger tus datos:</string>
+    <string name="politics_beginning1">1. No se requiere registro ni inicio de sesión para utilizar nuestros servicios.</string>
+    <string name="politics_beginning2">2. Los datos de la cámara permanecen en el dispositivo.</string>
+    <string name="politics_beginning2_explanation">Tu cámara sólo se usará para leer códigos QR. La imágen nunca saldrá de tu dispositivo.</string>
+    <string name="politics_beginning3">3. Tu localización física nunca nos será comunicada, sin previo aviso.</string>
+    <string name="politics_beginning4">4. Sus transacciones pueden ser retransmitidas a través de servidores (\'nodos\') y serán visibles públicamente debido a la naturaleza pública de los sistemas contables distribuidos.</string>
+    <string name="politics_info">BlockLotto debe recibir o recopilar información para operar, como cuando instalas o accedes a nuestros servicios.</string>
+    <string name="politics_info2">Tu dirección: Cuando creas un wallet se te asigna una direccion única a tu wallet. Esta nos será necesaria cuando realices compras, requieras ver tus transacciones, envíes bitcoins o recibas premios.</string>
+    <string name="function_text1">Participa rápidamente en sorteos exclusivos con la oportunidad de ganar gran cantidad de bitcoins.</string>
+    <string name="function_text2">Controla tu saldo y comprueba las transacciones realizadas en tu wallet. BlockLotto utiliza Lightning en sus transacciones. Lightning es un protocolo en la cadena de bloques de Bitcoin que permite escalar y acelerar las transacciones en las blockchains.</string>
+    <string name="function_text3">Recibe el premio en tu wallet de manera casi instantánea.</string>
+    <string name="function_text4">Con BlockLotto podrás realizar micropagos instantáneos.</string>
+    <string name="function_text5">Recibirás una notificación cuando hayas ganado un sorteo. Y podrás llevar control de los premios ganados.</string>
+    <string name="content_description">icon_function</string>
+    <string name="function_text7"></string>
+    <string name="function_text8"></string>
 
-    <string name="action_settings">Settings</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <string name="title_activity_inicio">Inicio</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="title_activity_principal">principal</string>
-
-    <string name="interstitial_ad_sample">Interstitial Ad Sample</string>
-    <string name="start_level">Level 1</string>
-    <string name="next_level">Next Level</string>
     <!-- -
         This is an ad unit ID for an interstitial test ad. Replace with your own interstitial ad unit id.
         For more information, see https://support.google.com/admob/answer/3052638
