@@ -5,12 +5,12 @@ public class Wallet {
     private String pass;
     private String pub;
     private String address;
-    private int amount;
+    private double amount;
     private String[] seedWords;
     private boolean unlock;
     private boolean deleted;
 
-    public Wallet(String id, String pass, String pub, String address, int amount, String [] seedWords, boolean unlock, boolean deleted) {
+    public Wallet(String id, String pass, String pub, String address, double amount, String [] seedWords, boolean unlock, boolean deleted) {
         this.id = id;
         this.pass = pass;
         this.pub = pub;
@@ -53,7 +53,7 @@ public class Wallet {
         this.address = address;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
