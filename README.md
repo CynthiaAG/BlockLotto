@@ -40,4 +40,4 @@ Asimismo, la app notificará al usuario si ha ganado en las loterías que ha jug
 
 * **Tutorizado por:** José Juan Hernández Cabrera
 * **Desarrollado por:** Cynthia Judith Afonso García
-* **Desarrollo del servicio LottoService (colaboración):** Jorge Fernández Molines
+* **Desarrollo del servicio LottoService (colaboración):** [Jorge Fernández Molines](https://github.com/kovutech/BlockLotto)
