@@ -27,7 +27,6 @@ LottoWallet.
 
 Asimismo, la app notificará al usuario si ha ganado en las loterías que ha jugado.
 
-#### Descargar APK [aquí](https://github.com/CynthiaAG/BlockLotto/tree/master/APK)
 
 ## Tecnología utilizada
 * Android Studio 
